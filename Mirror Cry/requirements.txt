@@ -1,0 +1,5 @@
+numpy
+scipy
+mido
+# Incluye un SoundFont ligero (TimGM6mb) usado como respaldo si no hay FluidR3_GM instalado
+pretty_midi

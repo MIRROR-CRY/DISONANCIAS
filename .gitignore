@@ -1,0 +1,48 @@
+# OS
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+
+# IDE
+.vscode/
+.idea/
+*.code-workspace
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+*.egg-info/
+dist/
+build/
+
+# Audio/Video (too large - optional to ignore if you want them in repo)
+# Uncomment if storage is a concern:
+# *.wav
+# *.mp3
+# *.flac
+# *.m4a
+# *.ogg
+# *.mp4
+# *.mov
+# *.avi
+
+# Backup
+*.bak
+*.backup
+*~
+
+# Local config
+.env
+config.local.js
+
+# Temp
+.cache/
+tmp/
+node_modules/

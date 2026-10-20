@@ -1,0 +1,7 @@
+Thinking: Medium
+Creative: Medium-High
+Robust: High
+
+Model: 2B Turbo (VRAM < 8GB) o 2B SFT (VRAM 8-16GB)
+Backend: vllm (VRAM >= 8GB) o pt (VRAM < 8GB)
+LM Model: acestep-5Hz-lm-0.6B

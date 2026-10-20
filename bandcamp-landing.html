@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DISONANCIAS by MIRROR CRY | Bandcamp</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background: #0a0a0a;
+            color: #ddd;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+        }
+
+        header {
+            background: linear-gradient(90deg, #0a0a0a 0%, #1a1a1a 50%, #0a0a0a 100%);
+            border-bottom: 1px solid #222;
+            padding: 40px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header-waveform {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.08;
+            pointer-events: none;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 40px;
+            position: relative;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 40px;
+        }
+
+        .header-title {
+            flex: 1;
+        }
+
+        .header-title h1 {
+            font-size: 48px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .header-title .artist {
+            font-size: 13px;
+            letter-spacing: 2px;
+            color: #888;
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .header-title .artist::before {
+            content: '';
+            width: 1px;
+            height: 14px;
+            background: #444;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border: 1px solid #444;
+            background: transparent;
+            color: #ddd;
+            font-size: 13px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+
+        .btn:hover {
+            background: #1a1a1a;
+            border-color: #666;
+        }
+
+        .btn-primary {
+            background: #333;
+            border-color: #555;
+        }
+
+        .btn-primary:hover {
+            background: #444;
+        }
+
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 40px;
+        }
+
+        .album-grid {
+            display: grid;
+            grid-template-columns: 350px 1fr;
+            gap: 60px;
+            margin-bottom: 80px;
+            align-items: start;
+        }
+
+        .album-artwork {
+            width: 100%;
+            aspect-ratio: 1;
+            background: linear-gradient(135deg, #1a1a1a 0%, #222 100%);
+            border: 1px solid #222;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #555;
+            font-size: 14px;
+            text-align: center;
+            padding: 20px;
+            position: sticky;
+            top: 20px;
+        }
+
+        .album-info h2 {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .album-info .subtitle {
+            font-size: 13px;
+            color: #888;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 24px;
+        }
+
+        .price-section {
+            background: #111;
+            border: 1px solid #222;
+            padding: 24px;
+            margin: 32px 0;
+            border-radius: 2px;
+        }
+
+        .price-label {
+            font-size: 11px;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        .price-tag {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .price-note {
+            font-size: 12px;
+            color: #777;
+            line-height: 1.5;
+        }
+
+        .description {
+            margin-bottom: 32px;
+            line-height: 1.8;
+        }
+
+        .description p {
+            margin-bottom: 16px;
+        }
+
+        .description strong {
+            color: #fff;
+        }
+
+        .tracklist {
+            background: #111;
+            border: 1px solid #222;
+            border-radius: 2px;
+            overflow: hidden;
+            margin: 40px 0;
+        }
+
+        .tracklist-title {
+            padding: 16px 24px;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            border-bottom: 1px solid #222;
+            color: #888;
+        }
+
+        .track {
+            padding: 16px 24px;
+            border-bottom: 1px solid #1a1a1a;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background 0.2s;
+        }
+
+        .track:last-child {
+            border-bottom: none;
+        }
+
+        .track:hover {
+            background: #1a1a1a;
+        }
+
+        .track-info {
+            flex: 1;
+        }
+
+        .track-num {
+            font-size: 11px;
+            color: #666;
+            font-weight: 500;
+        }
+
+        .track-title {
+            font-size: 14px;
+            font-weight: 500;
+            color: #fff;
+            margin-top: 4px;
+        }
+
+        .track-meta {
+            font-size: 12px;
+            color: #888;
+            margin-top: 4px;
+        }
+
+        .track-duration {
+            font-size: 13px;
+            color: #777;
+            min-width: 50px;
+            text-align: right;
+        }
+
+        .concept-section {
+            background: #111;
+            border: 1px solid #222;
+            padding: 32px 24px;
+            border-radius: 2px;
+            margin: 40px 0;
+        }
+
+        .concept-section h3 {
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: #888;
+            margin-bottom: 16px;
+        }
+
+        .concept-section p {
+            font-size: 14px;
+            line-height: 1.8;
+            margin-bottom: 12px;
+        }
+
+        .concept-section p:last-child {
+            margin-bottom: 0;
+        }
+
+        blockquote {
+            border-left: 2px solid #444;
+            padding-left: 16px;
+            margin: 24px 0;
+            font-style: italic;
+            color: #aaa;
+        }
+
+        .artist-info {
+            background: #111;
+            border: 1px solid #222;
+            padding: 32px 24px;
+            border-radius: 2px;
+            margin: 40px 0;
+        }
+
+        .artist-info h3 {
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: #888;
+            margin-bottom: 16px;
+        }
+
+        .artist-info p {
+            font-size: 14px;
+            line-height: 1.8;
+            margin-bottom: 12px;
+        }
+
+        .artist-info p:last-child {
+            margin-bottom: 0;
+        }
+
+        .artist-info ul {
+            list-style: none;
+            margin: 12px 0;
+            padding-left: 0;
+        }
+
+        .artist-info li {
+            font-size: 14px;
+            padding: 6px 0;
+            color: #bbb;
+        }
+
+        .artist-info li::before {
+            content: '∘ ';
+            color: #666;
+            margin-right: 8px;
+        }
+
+        .links-section {
+            margin: 40px 0;
+            padding: 32px 0;
+            border-top: 1px solid #222;
+            border-bottom: 1px solid #222;
+        }
+
+        .links-section h3 {
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: #888;
+            margin-bottom: 16px;
+        }
+
+        .links-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 12px;
+        }
+
+        .link-btn {
+            padding: 12px;
+            background: #111;
+            border: 1px solid #222;
+            color: #ddd;
+            text-decoration: none;
+            text-align: center;
+            font-size: 12px;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .link-btn:hover {
+            background: #1a1a1a;
+            border-color: #333;
+        }
+
+        footer {
+            background: #0a0a0a;
+            border-top: 1px solid #222;
+            padding: 32px 0;
+            margin-top: 60px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 40px;
+            font-size: 12px;
+            color: #666;
+            text-align: center;
+        }
+
+        .footer-content p {
+            margin-bottom: 8px;
+        }
+
+        @media (max-width: 768px) {
+            .album-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .album-artwork {
+                position: static;
+            }
+
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .header-title h1 {
+                font-size: 32px;
+            }
+
+            .header-actions {
+                width: 100%;
+            }
+
+            .btn {
+                flex: 1;
+            }
+
+            .track {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .track-duration {
+                text-align: left;
+                width: 100%;
+                margin-top: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <svg class="header-waveform" viewBox="0 0 1200 100" preserveAspectRatio="none">
+            <defs>
+                <pattern id="wave" x="0" y="0" width="50" height="100" patternUnits="userSpaceOnUse">
+                    <path d="M0,50 Q12.5,30 25,50 T50,50" stroke="#444" stroke-width="0.5" fill="none"/>
+                </pattern>
+            </defs>
+            <rect width="1200" height="100" fill="url(#wave)"/>
+        </svg>
+        <div class="header-content">
+            <div class="header-title">
+                <h1>DISONANCIAS</h1>
+                <div class="artist">MIRROR CRY</div>
+            </div>
+            <div class="header-actions">
+                <button class="btn btn-primary">Buy Now</button>
+                <button class="btn">Share</button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="album-grid">
+            <div class="album-artwork">
+                <div style="text-align: center;">
+                    <div style="font-size: 32px; margin-bottom: 12px;">🎵</div>
+                    <div>Album artwork<br/>coming soon</div>
+                </div>
+            </div>
+
+            <div class="album-info">
+                <div class="subtitle">Four-track concept album</div>
+
+                <div class="price-section">
+                    <div class="price-label">Pay What You Want</div>
+                    <div class="price-tag">$1.50 USD</div>
+                    <div class="price-note">
+                        Minimum price. If you value this work more, pay what you think it's worth.
+                        <strong>Fans pay 40% more on average.</strong>
+                    </div>
+                </div>
+
+                <div class="description">
+                    <p><strong>DISONANCIAS</strong> examines four types of lies: political, personal, inherited, and collective.</p>
+
+                    <p>This album reads as a single song with macro-structure: Verse → Bridge → Verse → Chorus. Each track investigates cognitive dissonance at a different scale, unified by methodology (code-generated backing tracks), transparent process, and minimal sonic palette.</p>
+
+                    <blockquote>
+                        "La síntesis es más honesta que fingir tocar guitarra."<br/>
+                        <em>Synthesis is more honest than pretending to play guitar.</em>
+                    </blockquote>
+                </div>
+
+                <div class="tracklist">
+                    <div class="tracklist-title">Tracks</div>
+
+                    <div class="track">
+                        <div class="track-info">
+                            <div class="track-num">01 — VERSE 1</div>
+                            <div class="track-title">Kicking Stones</div>
+                            <div class="track-meta">Political lie: systems fail but we pretend they work</div>
+                        </div>
+                        <div class="track-duration">3:15</div>
+                    </div>
+
+                    <div class="track">
+                        <div class="track-info">
+                            <div class="track-num">02 — BRIDGE</div>
+                            <div class="track-title">Rescue Us</div>
+                            <div class="track-meta">Personal lie: cognitive dissonance we knowingly maintain</div>
+                        </div>
+                        <div class="track-duration">4:12</div>
+                    </div>
+
+                    <div class="track">
+                        <div class="track-info">
+                            <div class="track-num">03 — VERSE 2</div>
+                            <div class="track-title">Medio Limón</div>
+                            <div class="track-meta">Inherited lie: traditions are constructions, not eternal</div>
+                        </div>
+                        <div class="track-duration">3:45</div>
+                    </div>
+
+                    <div class="track">
+                        <div class="track-info">
+                            <div class="track-num">04 — CHORUS</div>
+                            <div class="track-title">Sin Título</div>
+                            <div class="track-meta">Collective admission: we're all living these lies</div>
+                        </div>
+                        <div class="track-duration">2:58</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="concept-section">
+            <h3>About This Album</h3>
+            <p><strong>Why This Is An Album</strong></p>
+            <p>Not by theme alone (each track examines lies at different scales). Coherence through:</p>
+            <ul style="margin-left: 16px; margin-bottom: 16px;">
+                <li style="margin-bottom: 8px;"><strong>Methodology:</strong> Code-generated backing tracks (custom Python generator per track)</li>
+                <li style="margin-bottom: 8px;"><strong>Form:</strong> Album structure as macro-composition (V→B→V→C)</li>
+                <li style="margin-bottom: 8px;"><strong>Sonic palette:</strong> Minimal synthesis, declamatory vocals, intentional silence</li>
+                <li><strong>Transparency:</strong> Visible process, documented, reproducible</li>
+            </ul>
+            <p style="margin-top: 16px;"><strong>Technical Notes</strong></p>
+            <p>Backing tracks generated with librosa, music21, and NumPy. Vocals delivered in declamatory mode (parlato) rather than traditional singing. No VST presets—simple oscillators only. Complete technical documentation available on GitHub.</p>
+        </div>
+
+        <div class="artist-info">
+            <h3>About MIRROR CRY</h3>
+            <p>Composer and artist from San Borja, Santiago. Uses code as a compositional tool.</p>
+            <ul>
+                <li>100% code-generated backing tracks</li>
+                <li>AI-assisted (Claude for refactoring + lyrical development)</li>
+                <li>All creative decisions: human-made</li>
+                <li>Vocals: declamatory (parlato, not sung)</li>
+                <li>Process: transparent and documented</li>
+            </ul>
+            <p style="margin-top: 16px;">Interested in the technical process? Full project documentation, source code, and compositional notes available on GitHub.</p>
+        </div>
+
+        <div class="links-section">
+            <h3>Find It Elsewhere</h3>
+            <div class="links-grid">
+                <a href="https://github.com/eanorambuena/MIRROR-CRY" class="link-btn">
+                    <span>📂</span> GitHub
+                </a>
+                <a href="#" class="link-btn">
+                    <span>🎵</span> Spotify
+                </a>
+                <a href="#" class="link-btn">
+                    <span>🍎</span> Apple Music
+                </a>
+                <a href="#" class="link-btn">
+                    <span>🌐</span> Website
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <p>© 2026 Emmanuel Ángel / MIRROR CRY</p>
+            <p>All material is intellectual property of the artist. Timestamp proof: GitHub commit history.</p>
+        </div>
+    </footer>
+</body>
+</html>
