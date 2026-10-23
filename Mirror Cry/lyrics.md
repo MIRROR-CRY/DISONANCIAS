@@ -18,13 +18,7 @@ Just knowing what to do
 Won't happen any day
 
 ## [Puente / Quiebre] (8 compases)
-I thought I was in front of her
-I thought it was the great chance
-I look through the glass...
-
-(Corte seco de medio compás, silencio. El último compás del puente es el drop silencioso, solo bombo.)
-
-...BUT I'M IN FRONT OF ME AGAIN!
+Sin voz. Corte seco de medio compás, silencio. El último compás del puente es el drop silencioso, solo bombo.
 
 ## [Coro / Hook] (8 compases, chorus1 y chorus2)
 Explosión instrumental completa, apertura estéreo y voz proyectada.
@@ -40,5 +34,11 @@ Faking a perfect day
 No way I won't say hello
 Watching me ruin it again
 
-## [Outro] (8 compases)
-Pendiente.
+## [Outro] (8 compases, ahora con voz)
+I thought I was in front of her
+I thought it was the great chance
+I look through the glass...
+
+(Corte seco de medio compás, silencio.)
+
+...BUT I'M IN FRONT OF ME AGAIN!
