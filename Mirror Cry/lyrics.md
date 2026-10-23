@@ -17,12 +17,6 @@ Sisyphus wasn't like this
 Just knowing what to do
 Won't happen any day
 
-## [Verso 3] (8 compases, sin guitarra)
-I'm in front of the perfect girl
-Pretending it's the perfect day
-No way I won't say hello
-Watching me ruin it again
-
 ## [Puente / Quiebre] (8 compases)
 I thought I was in front of her
 I thought it was the great chance
@@ -39,6 +33,12 @@ It's a mirror cry driving me
 A ghost that won't let me be
 I won't lose the opportunity
 And that's why I'll miss it
+
+## [Verso 3] (8 compases, sin guitarra; ahora va después del coro)
+In front of the perfect girl
+Faking a perfect day
+No way I won't say hello
+Watching me ruin it again
 
 ## [Outro] (8 compases)
 Pendiente.
