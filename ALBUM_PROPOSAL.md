@@ -15,12 +15,12 @@ El álbum literal mente suena disonante, imperfecto, código-generado, no pop-ra
 
 ## Concepto General
 
-Un álbum conceptual de **cuatro canciones** que lee como si fuera la estructura interna de una sola canción: verso (mentira política) → bridge (mentira personal/autocrítica) → verso 2 (mentira tradicional) → chorus (reconocimiento colectivo).
+Un álbum conceptual de **cuatro canciones** que lee como si fuera la estructura interna de una sola canción: verso (mentira política) → verso 2 (autosabotaje) → bridge (mentira personal/autocrítica) → chorus (reconocimiento colectivo).
 
 Cada canción examina una forma distinta de mentira/disonancia cognitiva:
 1. **Kicking Stones**: La mentira política (sistemas que no funcionan pero pretendemos que sí)
-2. **Rescue Us**: La mentira personal (los estándares imposibles que nos imponemos y sabemos que no podemos cumplir)
-3. **Medio Limón**: La mentira tradicional (lo que heredamos como "natural" pero es construcción)
+2. **Mirror Cry**: La mentira en acción (sabes qué hacer, finges un día perfecto y lo arruinas igual)
+3. **Rescue Us**: La mentira personal (los estándares imposibles que nos imponemos y sabemos que no podemos cumplir)
 4. **Sin título**: El reconocimiento (no una solución, pero sí la admisión de que no estamos solos en estas mentiras)
 
 La verdadera cohesión no está en el tema superficial, sino en:
@@ -39,19 +39,19 @@ La verdadera cohesión no está en el tema superficial, sino en:
 - **Backing**: Ritmo sincopado de hip-hop, sintetizadores minimalistas.
 - **Vocal**: Técnica declamatoria con flujo rapeado. Meseta vocal deliberada (32% del tiempo cerca de una altura; no es "fuera de tono", es **declamación**: se está pensando, no cantando).
 
-### 2. **Rescue Us** (4:12)
+### 2. **Mirror Cry** (3:04)
+- **Idioma**: Inglés
+- **Tema**: Mentira personal en acción: el autosabotaje. Frente a la chica "perfecta" finge un día perfecto ("Faking a perfect day"), quiere saludar y lo arruina igual: "BUT I'M IN FRONT OF ME AGAIN!". Saber qué hacer no es hacerlo.
+- **Rol**: **Verso 2 del álbum**. Mantiene el pulso de Kicking Stones (cold wave, 156 BPM, Mi menor), pero gira la mirada hacia adentro: del "es culpa del sistema" al "soy yo quien se interpone".
+- **Backing**: Cold wave generado con código: bajo galopante con sub y doblaje, batería motor, guitarra arpegiada y silbido western. Mezcla estéreo 3D (cada voz se mueve en el espacio).
+- **Vocal**: Declamatoria, con el quiebre del puente gritado tras un silencio.
+
+### 3. **Rescue Us** (4:12)
 - **Idioma**: Inglés
 - **Tema**: Mentira personal/autocrítica. Lo difícil de encontrar conexión cuando todos tenemos estándares imposibles y sabemos que no los podemos cumplir. La disonancia cognitiva: sabemos que es irracional, pero lo sostenemos de todas formas.
 - **Rol**: **Bridge del álbum**. Rompe el ritmo. Apunta hacia adentro (la mentira está aquí, en mí). La generación Alpha Melody (F-B-E-A) es hipnótica pero indefinida: como esta búsqueda del amor, suena bella pero sin resolución.
 - **Backing**: Síntesis ambiental, loops generados algorítmicamente.
 - **Vocal**: Declamatoria. Más sostenida que Kicking Stones. Menos rápida, más contemplativa.
-
-### 3. **Medio Limón** (3:45)
-- **Idioma**: **Español** — único track en español, quiebre deliberado.
-- **Tema**: Mentira tradicional. Vallenato criolla: lo que heredamos como "natural" (media naranja, amor eterno, destino) pero es construcción, tradición, mentira sostenida siglos. El "medio limón" es lo que rompe la expectativa.
-- **Rol**: **Verso 2 del álbum**. Después de "es culpa del sistema" y "es culpa mía", viene "es culpa de lo que heredé". Contexto histórico de la mentira.
-- **Backing**: Ritmo vallenato generado (tambor, caja, guacharaca sintetizados). Respeta la forma tradicional pero es construida algorítmicamente.
-- **Vocal**: Declamatoria. Más carácter de entrega narrativa (vallenato es contar historias, no cantar).
 
 ### 4. **Sin título (indie-folk)** (2:58)
 - **Idioma**: Inglés (o español + inglés, a definir)
@@ -68,16 +68,16 @@ La verdadera cohesión no está en el tema superficial, sino en:
 
 ```
 Verso 1 (Kicking Stones)    → Denuncia la mentira política (el sistema falla pero fingimos)
+Verso 2 (Mirror Cry)        → Se ve a sí mismo fingir y fallar (soy yo quien se interpone)
 Bridge (Rescue Us)          → Reconoce tu propia mentira (yo también fallo y finjo)
-Verso 2 (Medio Limón)       → Entiende de dónde viene (heredamos mentiras de siglos)
 Chorus (Sin título)         → Acepta que todos vivimos esto (nosotros estamos en esto juntos)
 ```
 
 **Si lees el álbum como exploración de mentiras:**
 
 - Kicking Stones: Mentira política (sistemas arquitectónicos que no funcionan, estructuras sociales que no se adaptan)
+- Mirror Cry: Mentira en acción (autosabotaje: quieres decir hola, finges un día perfecto y lo arruinas)
 - Rescue Us: Mentira personal (disonancia cognitiva: sabés que es irracional, pero lo sostenés igual)
-- Medio Limón: Mentira heredada (tradiciones, formas de amar/vivir que parecen eternas pero son construcciones)
 - Sin título: Admisión colectiva (no es solución; es reconocer que no estamos solos en vivir estas mentiras)
 
 ---
@@ -86,7 +86,7 @@ Chorus (Sin título)         → Acepta que todos vivimos esto (nosotros estamos
 
 ### Lo que todos los tracks comparten:
 
-1. **Backing tracks generados con código**: No hay loops de muestra. Cada ritmo, cada acordeón (en Medio Limón), cada pad de sintetizador, fue escrito en Python usando:
+1. **Backing tracks generados con código**: No hay loops de muestra. Cada ritmo, cada pad de sintetizador, fue escrito en Python usando:
    - Librosa (análisis de audio)
    - Music21 (composición algorítmica)
    - NumPy (síntesis)
@@ -143,5 +143,11 @@ La diferencia:
 
 ---
 
+## Fuera del álbum: Medio Limón
+
+**Medio Limón** (3:45, español, vallenato generado) sale del álbum y se publicará como **single aparte**. Razón: es la única canción en español, y así el álbum queda con todas sus canciones en inglés bajo un título en español (DISONANCIAS), lo que refuerza esa disonancia. Su carpeta sigue en el repositorio.
+
+---
+
 **Creado**: 2026-09-23  
-**Estado**: Propuesta en desarrollo — Medio Limón y Sin título todavía requieren letra y mezcla final
+**Estado**: Propuesta en desarrollo — Sin título todavía requiere letra y mezcla final, y Mirror Cry necesita la voz grabada

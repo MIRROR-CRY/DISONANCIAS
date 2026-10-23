@@ -164,9 +164,11 @@ Cosas que se fijan al momento del lanzamiento y conviene no dejar para el
 - [x] **Nombre artístico** → MIRROR CRY
 - [x] **Orden de los tracks** →
   1. Second Floor (Kicking Stones) — Verse 1
-  2. Rescue Us — Bridge
-  3. Medio Limón — Verse 2
+  2. Mirror Cry — Verse 2
+  3. Rescue Us — Bridge
   4. Sin Título — Chorus
+
+  Medio Limón (español) sale del álbum y se publica como single aparte.
 - [ ] **Portada**, 3000×3000 px
 - [x] **Títulos de las canciones**
 - [ ] Créditos de composición por canción (importa para el reparto de la SCD)

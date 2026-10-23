@@ -15,21 +15,23 @@ Composer from San Borja, Santiago. Uses code as a compositional tool.
 
 **DISONANCIAS** — Four tracks that read as a single song.
 
-### Structure: Verse → Bridge → Verse → Chorus
+### Structure: Verse → Verse → Bridge → Chorus
 
 | Track | Duration | Theme | Role |
 |-------|----------|-------|------|
 | **Kicking Stones** | 3:15 | Political lie: systems fail but we pretend they work | Verso 1 |
+| **Mirror Cry** | 3:04 | Lie in action: we know what to do and sabotage it anyway | Verso 2 |
 | **Rescue Us** | 4:12 | Personal lie: cognitive dissonance we knowingly maintain | Bridge |
-| **Medio Limón** | 3:45 | Inherited lie: traditions are constructions, not eternal | Verso 2 |
 | **Sin Título** | 2:58 | Collective admission: we're all living these lies | Chorus |
+
+**Medio Limón** (Spanish, vallenato) is not part of the album: it will be released as a separate single.
 
 ## Why This Is An Album
 
 Not by theme (different contexts per track). Coherence through:
 
 - **Methodology**: Code-generated backing tracks (custom tool per track)
-- **Form**: Album structure as macro-composition (V→B→V→C)
+- **Form**: Album structure as macro-composition (V→V→B→C)
 - **Purpose**: Examining lies at four different scales
 - **Sonic palette**: Minimal synthesis, declamatory vocals, intentional silence
 - **Transparency**: Visible process, documented, reproducible
@@ -43,9 +45,10 @@ Not by theme (different contexts per track). Coherence through:
 
 ```
 ├── Kicking Stones v2/          # Track 1: backing track, vocals, video, analysis
-├── Rescue Us/                  # Track 2: backing track, vocals
-├── Medio Limón/                # Track 3: backing track, vocals
+├── Mirror Cry/                 # Track 2: song builder, stems, mixes, vertical clip
+├── Rescue Us/                  # Track 3: backing track, vocals
 ├── Sin título/                 # Track 4: backing track, vocals
+├── Medio Limón/                # Standalone single (Spanish), not on the album
 │
 ├── artwork/                    # Album cover (3000×3000 px)
 ├── artwork_archive/            # Unused track artwork concepts
@@ -65,8 +68,8 @@ Not by theme (different contexts per track). Coherence through:
 
 **Backing Tracks**: Custom Python generators per track
 - Kicking Stones: syncopated hip-hop rhythm with stochastic variations
+- Mirror Cry: cold wave in E minor at 156 BPM (gallop bass with sub layer, arpeggiated guitar, western whistle), 3D stereo mix
 - Rescue Us: ambient loops with sine-wave modulation (F-B-E-A arpeggio)
-- Medio Limón: vallenato pattern reconstructed from traditional recordings
 - Sin Título: stomp-clap with humanized timing (inspired by "Ho Hey")
 
 **Vocals**: Declamatory delivery (parlato)
