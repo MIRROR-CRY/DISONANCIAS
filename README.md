@@ -10,6 +10,7 @@ Composer from San Borja, Santiago. Uses code as a compositional tool.
 - AI-assisted (Claude for code refactoring + lyrics improvement)
 - All creative decisions: human-made
 - Vocals: declamatory (parlato, not sung)
+- YouTube: https://www.youtube.com/@mirror-cry-music
 
 ## The Album
 
