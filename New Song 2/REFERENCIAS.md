@@ -234,7 +234,9 @@ Casi todas las referencias vienen de Escandinavia e Islandia (AURORA, Of
 Monsters and Men, Skott; Björk y Sigur Rós sugeridas; Enya es irlandesa). Es una
 curiosidad del autor y vale la pena explorarla. Hipótesis a contrastar, sin
 afirmar todavía: relación cotidiana con paisajes extremos, fuerte tradición folk,
-y escenas locales con apoyo cultural. Posible estudio aparte.
+y escenas locales con apoyo cultural. **Investigado:** no hay estudio que lo
+explique y varias hipótesis no tienen respaldo; ver
+`INVESTIGACION_NORDICOS_Y_CHILE.md`. Propuesta musical en `README.md`.
 
 ---
 
