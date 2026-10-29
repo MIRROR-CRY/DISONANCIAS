@@ -46,3 +46,6 @@ config.local.js
 .cache/
 tmp/
 node_modules/
+
+# renders de diagnostico (pre-coro)
+The Roars of Rome/the_roars_of_rome_base_v2[7-9].mp3
