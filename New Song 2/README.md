@@ -136,3 +136,21 @@ A 100 BPM la canción dura 1:20 (la v1, a 60 BPM, dura 2:13), así que las gotas
 suenan más rápidas y menos "flotando". Para comparar, la v1 sigue siendo la
 referencia etérea pura. Ambas se escuchan como `.wav` (`versions/vN/mix.wav`,
 no se sube a git) o `new_song_2_base_vN.mp3` (sí se sube).
+
+## v3: vals sin batería (marimba + sintetizador de pulso)
+
+`python build_song.py --waltz --bpm 80`. Feedback del autor sobre la v2: le gustan
+las gotas, no le gustó la batería; propone usar otra percusión (marimba) y que un
+sintetizador acompañe toda la canción con **negra, negra, silencio de negra** en
+cada compás para que se sienta más 3/4.
+
+- Se quitan bombo, caja y hi-hat.
+- `pulse` (sintetizador): acorde en el tiempo 1 y en el 2, silencio en el 3, en
+  cada compás, de principio a fin. Notas cortas para que el silencio se oiga; la
+  reverb deja una cola, así que el tiempo 3 queda más suave, no totalmente mudo.
+- `marimba`: la raíz grave en el 1 y notas del acorde en el 2 y el 3 (el
+  "boom-chick-chick" del vals), con eco ping-pong. Entra suave en los versos y
+  llena en el coro.
+- Se mantienen el bajo galopante y el arpegio de la v2 (el autor no los criticó;
+  se pueden quitar).
+- 80 BPM es elección de la IA, un punto medio entre la v1 (60) y la v2 (100).

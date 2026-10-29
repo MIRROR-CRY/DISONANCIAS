@@ -9,6 +9,8 @@ Estructura y curvas de presencia (LEVELS) siguen el esquema de Mirror Cry.
 
 Uso:  python build_song.py                    v1: solo etereo, 60 BPM
       python build_song.py --cold --bpm 100   v2: suma capa coldwave en 3/4
+      python build_song.py --waltz --bpm 80   v3: sin bateria; marimba + sintetizador
+                                              de pulso (negra, negra, silencio)
 (necesita numpy; ffmpeg opcional para el mp3)
 """
 import argparse
@@ -23,11 +25,14 @@ _ap = argparse.ArgumentParser()
 _ap.add_argument("--bpm", type=int, default=60)
 _ap.add_argument("--cold", action="store_true",
                  help="agrega la capa coldwave (bombo, caja, hi-hat, bajo galopante, arpegio)")
+_ap.add_argument("--waltz", action="store_true",
+                 help="sin bateria: marimba en 3/4 + sintetizador negra, negra, silencio")
 ARGS = _ap.parse_args()
 
 SR = 44100
 BPM = ARGS.bpm
 COLD = ARGS.cold
+WALTZ = ARGS.waltz
 BEATS = 3                      # compas de 3/4
 BAR_S = BEATS * 60.0 / BPM     # 3 s por compas
 EIGHTH = 60.0 / BPM / 2        # 0.5 s; el patron de gotas son 6 corcheas por compas
@@ -83,7 +88,16 @@ if COLD:
         "hat":   [(0, 0), (16, 0), (18, 0.4), (27, 0.4), (28, 1), (36, 1), (40, 0), (44, 0)],
         "arp":   [(0, 0), (20, 0), (22, 0.5), (28, 0.8), (36, 0.8), (40, 0), (44, 0)],
     })
-GAINS = {"kick": 0.7, "snare": 0.35, "bass_cold": 0.4, "hat": 0.16, "arp": 0.3,
+if WALTZ:
+    LEVELS.update({
+        # el sintetizador acompana toda la cancion
+        "pulse":   [(0, 1.0), (40, 1.0), (44, 0.0)],
+        "marimba": [(0, 0), (6, 0), (8, 0.5), (24, 0.5), (28, 1.0), (36, 1.0),
+                    (40, 0.4), (44, 0)],
+        "bass_cold": [(0, 0), (27, 0), (28, 1), (36, 1), (40, 0), (44, 0)],
+        "arp":   [(0, 0), (20, 0), (22, 0.5), (28, 0.8), (36, 0.8), (40, 0), (44, 0)],
+    })
+GAINS = {"pulse": 0.28, "marimba": 0.5, "kick": 0.7, "snare": 0.35, "bass_cold": 0.4, "hat": 0.16, "arp": 0.3,
          "drops": 0.55, "drops_hi": 0.22, "pad": 0.30, "sub": 0.40, "timbal": 0.55}
 PAN = {"drops": 0.0, "drops_hi": 0.0, "pad": 0.0, "sub": 0.0, "timbal": 0.0}
 
@@ -291,6 +305,56 @@ def render_arp():
     return out
 
 
+# ------------------------------------- vals sin bateria (--waltz)
+
+def _marimba_hit(freq, length=0.5):
+    """Marimba: madera con ataque corto y un parcial agudo (~4x) que cae rapido."""
+    t = np.arange(int(length * SR)) / SR
+    body = np.sin(2 * np.pi * freq * t) * np.exp(-t / 0.22)
+    over = 0.35 * np.sin(2 * np.pi * 4 * freq * t) * np.exp(-t / 0.04)
+    return (body + over) * np.minimum(1.0, t / 0.001)
+
+
+def render_marimba():
+    """Acompanamiento de vals: raiz grave en el 1 y acorde mas agudo en 2 y 3."""
+    n = int((TOTAL_BARS * BAR_S + 8) * SR)
+    out = np.zeros((n, 2))
+    beat = 60.0 / BPM
+    for bar in range(TOTAL_BARS):
+        ch = chord_at_bar(bar)
+        notes = DROP_NOTES[ch]
+        plan = [(0, BASS_ROOT[ch] + 24, 1.0, -0.2),
+                (1, notes[1] - 12, 0.6, 0.35),
+                (2, notes[2] - 12, 0.6, -0.35)]
+        for b, pitch, vel, pan in plan:
+            hit = _marimba_hit(midi_hz(pitch)) * vel
+            s = bar_start(bar) + int(b * beat * SR)
+            seg = hit[: n - s]
+            out[s:s + len(seg), 0] += seg * np.sqrt((1 - pan) / 2)
+            out[s:s + len(seg), 1] += seg * np.sqrt((1 + pan) / 2)
+    return out
+
+
+def render_pulse():
+    """Sintetizador del vals: negra, negra, silencio de negra, en cada compas."""
+    n = int((TOTAL_BARS * BAR_S + 8) * SR)
+    out = np.zeros((n, 2))
+    beat = 60.0 / BPM
+    L = int(beat * 0.8 * SR)             # corta: deja oir el silencio del tiempo 3
+    t = np.arange(L) / SR
+    env = np.minimum(1.0, t / 0.01) * np.minimum(1.0, (t[-1] - t) / 0.03)
+    for bar in range(TOTAL_BARS):
+        tones = [m + 12 for m in PAD_NOTES[chord_at_bar(bar)]]
+        for b in (0, 1):                 # tiempos 1 y 2; el 3 queda en silencio
+            s = bar_start(bar) + int(b * beat * SR)
+            for note in tones:
+                for det, ch in ((-0.1, 0), (0.1, 1)):
+                    f = midi_hz(note) * 2 ** (det / 12.0)
+                    w = sum(np.sin(2 * np.pi * k * f * t) / k for k in (1, 2, 3, 4))
+                    out[s:s + L, ch] += w * env * 0.25
+    return out
+
+
 # ---------------------------------------------------------------- efectos
 
 def reverb(st, seconds=3.5, mix=0.4, seed=SEED):
@@ -358,9 +422,13 @@ def main():
         raw.update({"kick": render_kick(), "snare": render_snare(),
                     "hat": render_hat(), "bass_cold": render_bass_cold(),
                     "arp": pingpong(render_arp(), beats=1.5, feedback=0.35)})
+    if WALTZ:
+        raw.update({"pulse": render_pulse(), "marimba": pingpong(render_marimba(), beats=1.5, feedback=0.3),
+                    "bass_cold": render_bass_cold(),
+                    "arp": pingpong(render_arp(), beats=1.5, feedback=0.35)})
     stems = {}
     for name, st in raw.items():
-        if name in ("drops", "drops_hi", "pad", "timbal", "arp", "snare"):
+        if name in ("drops", "drops_hi", "pad", "timbal", "arp", "snare", "marimba", "pulse"):
             st = reverb(st, seconds=4.0 if name == "pad" else 3.0,
                         mix=0.45 if name != "timbal" else 0.3)
         st = st * level_curve(name, len(st))[:, None] * GAINS[name]
