@@ -136,3 +136,21 @@ viral sin perder identidad. Se agregó `--hook abc`:
   que la evidencia sugiere sobre los primeros segundos y la repetición del motivo.
 
 Comando: `python build_song.py --waltz --piano --rhythm one --center e --sustain 1.6 --long --bpm 80 --hook abc`.
+
+## v14 (ajuste): el compás del drop ya no es silencio total
+
+Reporte del autor: el silencio total antes del coro suena incómodo (awkward) frente al
+de Mirror Cry. Diagnóstico: en Mirror Cry el último compás del puente es el "drop
+silencioso" donde **queda el bombo**, no un corte a cero; aquí el compás 39 se
+multiplicaba por 0 y se cortaba también la cola de la reverb de golpe.
+
+Cambio (compás 39 del largo, afecta a todas las versiones `--long` al regenerarlas):
+
+- Todo se **agacha a 0,15** (en vez de 0), con bajada de 0,3 s y subida de 0,12 s al
+  entrar el coro: queda como un susurro, con las colas de reverb.
+- El **timbal queda fuera del recorte**: es el "bombo" que sigue sonando, como en
+  Mirror Cry.
+- Nivel medio medido: compás 38 0,080 · compás 39 0,033 · compás 40 (coro) 0,110.
+
+Si sigue sonando raro, alternativas: bajar menos (0,3), dejar solo una gota en vez del
+timbal, o un crescendo sin ningún hueco.

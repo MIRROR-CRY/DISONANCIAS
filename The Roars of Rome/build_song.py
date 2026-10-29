@@ -521,13 +521,19 @@ def render_piano():
     return out
 
 
+GATE_FLOOR = 0.15   # en el compas del "drop" todo baja a este nivel, no a cero
+
+
 def gate_curve(n):
+    """Compas del drop (como en Mirror Cry, que deja solo el bombo): todo se agacha pero
+    sigue sonando bajito, con bajada y subida suaves; el timbal queda fuera."""
     g = np.ones(n)
-    fade = int(0.03 * SR)
+    down, up = int(0.3 * SR), int(0.12 * SR)
     for a, b in GATES:
         i0, i1 = int(a * BAR_S * SR), int(b * BAR_S * SR)
-        g[i0:i1] = 0.0
-        g[i0 - fade:i0] = np.linspace(1, 0, fade)
+        g[i0:i1] = GATE_FLOOR
+        g[i0 - down:i0] = np.linspace(1, GATE_FLOOR, down)
+        g[i1 - up:i1] = np.linspace(GATE_FLOOR, 1, up)
     return g
 
 
@@ -610,7 +616,7 @@ def main():
             st = reverb(st, seconds=(4.5 if name == "pad" else 3.0) if name in ("pad", "piano") else (2.5 if name == "pulse" else 3.0),
                         mix=0.5 if name in ("piano",) else (0.4 if name == "pulse" else (0.45 if name != "timbal" else 0.3)))
         st = st * level_curve(name, len(st))[:, None] * GAINS[name]
-        if GATES:
+        if GATES and name != "timbal":
             st = st * gate_curve(len(st))[:, None]
         stems[name] = st
         write_wav(os.path.join(vdir, "stems", f"{name}.wav"), st / max(1e-9, np.abs(st).max()) * 0.9)

@@ -270,7 +270,7 @@ base musical (gotas, pad, marimba, pulso, piano, Mi frigio) es la de la v8.
 | Verso 1 | 8-16 | Gotas, pad, marimba suave; piano "fantasma" (nivel bajo) |
 | Verso 2 | 16-24 | + sub y arpegio; piano fantasma |
 | Interludio | 24-32 | La melodía de piano sola con el pulso (el "hook") |
-| Puente | 32-40 | Se vacía; **el compás 39 queda en silencio total** (como el corte de Mirror Cry) |
+| Puente | 32-40 | Se vacía; **el compás 39 baja a un susurro con el timbal** (el "drop" de Mirror Cry; antes era silencio total, que sonaba incómodo) |
 | Coro 1 | 40-56 | Todo: gotas agudas, timbal, bajo, piano pleno, dos frases |
 | Verso 3 | 56-64 | Baja la energía (después del coro, como en la última versión de Mirror Cry) |
 | Coro 2 | 64-72 | Vuelve todo |
