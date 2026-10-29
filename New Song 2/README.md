@@ -236,3 +236,15 @@ demás sonidos. Cambios al `pulse`:
 
 Comando: `python build_song.py --waltz --piano --rhythm dotted --center e --sustain 2 --bpm 80`
 (piano con sustain 2, elección de la IA; el autor pidió sustain para el piano solo).
+
+## v8: piano más etéreo, pulso menos etéreo
+
+Pedido del autor tras la v7 (se interpretó "tero" como "etéreo"):
+
+- **Piano**: martillo más lento (15 ms), menos armónicos agudos, eco ping-pong,
+  reverb más larga y más presente (mezcla 0.7, cola de 4.5 s), sustain 3.
+- **Pulso**: de vuelta hacia más presencia, a medio camino entre la v3 y la v7:
+  ataque 30 ms, salida 120 ms, cuatro armónicos suavizados y ganancia 0.24
+  (v3: 0.28; v7: 0.17), reverb 0.4.
+
+Comando: `python build_song.py --waltz --piano --rhythm dotted --center e --sustain 3 --bpm 80`.

@@ -114,7 +114,7 @@ if WALTZ:
     })
 if PIANO:
     LEVELS["piano"] = [(0, 0), (7.9, 0), (8, 0.9), (36, 0.9), (40, 0.5), (44, 0)]
-GAINS = {"piano": 0.45, "pulse": 0.17, "marimba": 0.5, "kick": 0.7, "snare": 0.35, "bass_cold": 0.4, "hat": 0.16, "arp": 0.3,
+GAINS = {"piano": 0.45, "pulse": 0.24, "marimba": 0.5, "kick": 0.7, "snare": 0.35, "bass_cold": 0.4, "hat": 0.16, "arp": 0.3,
          "drops": 0.55, "drops_hi": 0.22, "pad": 0.30, "sub": 0.40, "timbal": 0.55}
 PAN = {"drops": 0.0, "drops_hi": 0.0, "pad": 0.0, "sub": 0.0, "timbal": 0.0}
 
@@ -365,7 +365,7 @@ def render_pulse():
     L = int(beat * 0.8 * SR)             # corta: deja oir el silencio del tiempo 3
     t = np.arange(L) / SR
     # ataque lento y salida larga: el acorde "se asoma" en vez de golpear
-    env = np.minimum(1.0, t / 0.06) * np.minimum(1.0, (t[-1] - t) / 0.25)
+    env = np.minimum(1.0, t / 0.03) * np.minimum(1.0, (t[-1] - t) / 0.12)
     for bar in range(TOTAL_BARS):
         tones = [m + 12 for m in PAD_NOTES[chord_at_bar(bar)]]
         for b in (0, 1):                 # tiempos 1 y 2; el 3 queda en silencio
@@ -373,8 +373,8 @@ def render_pulse():
             for note in tones:
                 for det, ch in ((-0.1, 0), (0.1, 1)):
                     f = midi_hz(note) * 2 ** (det / 12.0)
-                    # solo fundamental y segundo armonico: timbre suave, sin brillo
-                    w = np.sin(2 * np.pi * f * t) + 0.25 * np.sin(2 * np.pi * 2 * f * t)
+                    # fundamental y tres armonicos: mas presencia que antes
+                    w = sum(np.sin(2 * np.pi * k * f * t) / k ** 1.5 for k in (1, 2, 3, 4))
                     out[s:s + L, ch] += w * env * 0.25
     return out
 
@@ -406,10 +406,10 @@ def melody_events():
 def _piano_note(freq, length, vel, sustain=1.0):
     t = np.arange(int(length * SR)) / SR
     out = np.zeros(len(t))
-    for k, amp, tau in ((1, 1.0, 1.1), (2, 0.5, 0.7), (3, 0.25, 0.45), (4, 0.15, 0.28),
-                        (5, 0.08, 0.2), (6, 0.05, 0.15)):
+    for k, amp, tau in ((1, 1.0, 1.1), (2, 0.5, 0.7), (3, 0.12, 0.45), (4, 0.06, 0.28),
+                        (5, 0.03, 0.2), (6, 0.02, 0.15)):
         out += amp * np.sin(2 * np.pi * k * freq * (1 + 0.0003 * k * k) * t) * np.exp(-t / (tau * sustain))
-    out *= np.minimum(1.0, t / 0.003)          # martillo suave
+    out *= np.minimum(1.0, t / 0.015)          # martillo muy suave
     out *= np.minimum(1.0, (t[-1] - t) / 0.12)  # pedal: cae sin cortar
     return out * vel
 
@@ -502,12 +502,12 @@ def main():
                     "bass_cold": render_bass_cold(),
                     "arp": pingpong(render_arp(), beats=1.5, feedback=0.35)})
     if PIANO:
-        raw["piano"] = render_piano()
+        raw["piano"] = pingpong(render_piano(), beats=1.5, feedback=0.4, mix=0.3)
     stems = {}
     for name, st in raw.items():
         if name in ("drops", "drops_hi", "pad", "timbal", "arp", "snare", "marimba", "pulse", "piano"):
-            st = reverb(st, seconds=4.0 if name == "pad" else (2.5 if name == "pulse" else 3.0),
-                        mix=0.6 if name == "pulse" else (0.45 if name != "timbal" else 0.3))
+            st = reverb(st, seconds=4.5 if name in ("pad", "piano") else (2.5 if name == "pulse" else 3.0),
+                        mix=0.7 if name == "piano" else (0.4 if name == "pulse" else (0.45 if name != "timbal" else 0.3)))
         st = st * level_curve(name, len(st))[:, None] * GAINS[name]
         stems[name] = st
         write_wav(os.path.join(vdir, "stems", f"{name}.wav"), st / max(1e-9, np.abs(st).max()) * 0.9)
