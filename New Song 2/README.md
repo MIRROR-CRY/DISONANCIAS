@@ -183,3 +183,30 @@ notas de la melodía ya pertenecen a La menor natural, así que no se usa ningun
 Cómo generar: `python build_song.py --waltz --piano --rhythm dotted|two --bpm 80`.
 El piano es sintetizado (armónicos con caída rápida y pedal). No se pudo escuchar:
 la duración y el solape se verificaron por el código, no de oído.
+
+## v6 y v7: centro en Mi (Mi frigio)
+
+Observación del autor: como la melodía vuelve tanto a Mi, siente que la escala tiene
+**centro en Mi**. Es correcto, y explica por qué no hacen falta bemoles: las notas
+**Mi Re Si Mi Re Do Sol Fa Mi**, sin alteraciones, son **Mi frigio** (Mi Fa Sol La Si
+Do Re): Mi = 1.º, Fa = ♭2, Sol = ♭3, Si = 5.º, Do = ♭6, Re = ♭7. Los bemoles están
+dentro del modo. La frase termina **Fa → Mi** (♭2 → 1.º), la cadencia frigia
+clásica, la que da el color "español/andaluz" (conecta con *Hijo de la Luna*).
+
+Con la armonía anterior (Am F C G) esa melodía se oía en La menor, con el Mi como
+quinta. Para que el centro sea Mi se cambió la progresión (`--center e`), 8 compases:
+
+| Compás | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 |
+|---|---|---|---|---|---|---|---|---|
+| Acorde | Em | F | G | Am | Em | F | Em | Em |
+| Melodía (v6, puntillo) | Mi | Re | Si | Mi Re | Do Sol | Fa Mi | (respiro) | (respiro) |
+
+- La melodía cae sobre notas del acorde (Mi/Em, Si/G como tercera, Fa/F como
+  fundamental) y el **Fa→Mi del compás 6 resuelve en el Em del compás 7**.
+- La progresión reinicia al empezar cada sección, para que cada frase empiece
+  en el Em.
+- Elección de la IA (no del autor): Em F G Am | Em F Em Em (i, ♭II, ♭III, iv). Hay
+  más opciones frigias (p. ej. Em-F alternando, o un pedal de Mi).
+
+Generar: `python build_song.py --waltz --piano --rhythm dotted|two --center e --bpm 80`.
+Las v4/v5 (centro en La) quedan para comparar.

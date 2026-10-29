@@ -31,6 +31,8 @@ _ap.add_argument("--piano", action="store_true",
                  help="agrega la melodia de piano de 9 notas (Mi Re Si, Mi Re Do Sol Fa Mi)")
 _ap.add_argument("--rhythm", choices=["dotted", "two"], default="dotted",
                  help="con --piano: duracion de las 6 ultimas notas (negra con puntillo o dos negras)")
+_ap.add_argument("--center", choices=["a", "e"], default="a",
+                 help="centro tonal: a = La menor (Am F C G); e = Mi frigio (Em F G Am | Em F Em Em)")
 ARGS = _ap.parse_args()
 
 SR = 44100
@@ -48,15 +50,20 @@ VERSIONS_DIR = os.path.join(PROJECT_DIR, "versions")
 
 # Progresion: un acorde por compas, ciclo de 4 compases.
 PROGRESSION = ["Am", "F", "C", "G"]
+if ARGS.center == "e":
+    # Mi frigio (E F G A B C D): i, bII, bIII, iv. En el compas 7 vuelve al Em
+    # justo cuando la melodia resuelve Fa -> Mi.
+    PROGRESSION = ["Em", "F", "G", "Am", "Em", "F", "Em", "Em"]
 # raiz, tercera, quinta, octava (notas MIDI) para las gotas
 DROP_NOTES = {
     "Am": [69, 72, 76, 81],
     "F":  [65, 69, 72, 77],
     "C":  [64, 67, 72, 76],
     "G":  [62, 67, 71, 74],
+    "Em": [64, 67, 71, 76],
 }
-PAD_NOTES = {"Am": [57, 60, 64], "F": [53, 57, 60], "C": [55, 60, 64], "G": [50, 55, 59]}
-BASS_ROOT = {"Am": 33, "F": 29, "C": 36, "G": 31}
+PAD_NOTES = {"Am": [57, 60, 64], "F": [53, 57, 60], "C": [55, 60, 64], "G": [50, 55, 59], "Em": [52, 55, 59]}
+BASS_ROOT = {"Am": 33, "F": 29, "C": 36, "G": 31, "Em": 28}
 
 # Patron de la idea: pam, pam, pa, pam, pam, pam. El "pa" (indice 2) es mas
 # corto y suave. Cada numero indica a que nota del acorde cae la gota.
@@ -74,6 +81,7 @@ SECTIONS = [
     ("outro", 8),       # se desvanece hasta una sola gota
 ]
 TOTAL_BARS = sum(b for _, b in SECTIONS)
+SECTION_STARTS = [sum(b for _, b in SECTIONS[:i]) for i in range(len(SECTIONS))]
 
 # Presencia por instrumento: (compas, nivel), interpolado linealmente.
 LEVELS = {
@@ -121,7 +129,12 @@ def level_curve(name, n_samples):
 
 
 def chord_at_bar(bar):
-    return PROGRESSION[bar % len(PROGRESSION)]
+    """La progresion reinicia al empezar cada seccion (asi cada frase empieza en el acorde 1)."""
+    start = 0
+    for b in SECTION_STARTS:
+        if b <= bar:
+            start = b
+    return PROGRESSION[(bar - start) % len(PROGRESSION)]
 
 
 def bar_start(bar):
