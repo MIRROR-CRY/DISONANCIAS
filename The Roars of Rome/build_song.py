@@ -189,7 +189,7 @@ if LONG:
             # Para que fluya: crescendo en el puente (pad, marimba, gotas agudas y
             # timbal crecen hasta el compas de silencio) antes de entrar al coro.
             LEVELS["pad"] = [(0, 0), (1, 0), (3, 0.6), (8, 0.7), (24, 0.9), (32, 0.4),
-                             (38.9, 1.0), (40, 1.0), (56, 0.7), (64, 1.0), (72, 1.0), (80, 0)]
+                             (38.9, 0.5), (40, 1.0), (56, 0.7), (64, 1.0), (72, 1.0), (80, 0)]
             LEVELS["drops"] = [(0, 1.3), (6, 1.1), (8, 1.0)] + LEVELS["drops"][2:]
             LEVELS["arp"] = [(0, 0), (8, 0), (10, 0.4), (24, 0.6), (32, 0.4), (40, 0.8), (56, 0.4),
                              (64, 0.8), (72, 0.4), (80, 0)]
@@ -571,7 +571,7 @@ def render_impact():
     # swell discreto: poco ruido, tono grave y suave, para que no domine la mezcla
     tone = np.sin(2 * np.pi * midi_hz(64) * t) + 0.25 * np.sin(2 * np.pi * midi_hz(52) * t)
     swell = (0.2 * noise + 0.45 * tone) * ramp
-    add(swell, 40 * BAR_S - sw, 0.1)
+    add(swell, 40 * BAR_S - sw, 0.0)   # apagado a pedido del autor (sonaba raro)
     for bar, g in ((40, 1.0), (64, 0.75)):                         # entrada a cada coro
         add(_boom(2.0, f0=110, tau=0.8), bar * BAR_S, 1.2 * g)
         add(_crash(2.5, 0.9), bar * BAR_S, 0.5 * g)

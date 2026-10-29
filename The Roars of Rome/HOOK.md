@@ -242,3 +242,18 @@ Comando recomendado: `python build_song.py --waltz --piano --rhythm one --center
 Reporte del autor: bajarle más al sonido raro. El volumen del swell pasa de 0,3 a 0,1 (un tercio),
 con el mismo ruido bajo y tono grave. Quedan sin cambios el golpe, el silencio corto (~0,75 s) y
 la entrada al coro. Si aún se oye, el siguiente paso es quitarlo del todo.
+
+## v16 (ajuste): el "sonido raro" no era el swell, era el pad
+
+El autor aclaró: el sonido parece una flauta pequeña, está justo antes del coro y suena muy fuerte
+al final. Se apagó el swell por completo (`add(swell, ..., 0.0)`) y el sonido seguía.
+
+Análisis del audio (compases 38-39): la energía está concentrada en graves (<200 Hz: 78 a 91 %,
+el golpe del timbal a ~41 Hz y el subgrave) y las notas de la zona media son **165, 198 y 245 Hz**,
+es decir **Mi3, Sol3 y Si3 = el acorde de Mi menor del pad**. El pad son senos con un segundo
+armónico: suena a flauta. Y en el puente subía a nivel 1,0 justo hasta el compás del drop
+(el crescendo), así que llegaba más fuerte exactamente antes del corte.
+
+Cambio: el pad llega al compás 39 a 0,5 (antes 1,0) y vuelve a 1,0 en el coro. Banda media
+(150 a 800 Hz) justo antes del golpe: de 48 % a 34 % de la energía. Si el flauteo persiste, los
+siguientes sospechosos son el piano sostenido, la marimba y las gotas agudas del puente.
