@@ -201,5 +201,5 @@ otros bemoles, hay que decir cuáles.
 - v5: `python build_song.py --waltz --piano --flat --bpm 80`
 
 El piano entra en el compás 8 (verso 1) y suena hasta el final. Es un piano
-sintetizado (armónicos con caída rápida y pedal); la verificación de las notas se
-hizo por el código y por análisis de frecuencias, no de oído.
+sintetizado (armónicos con caída rápida y pedal); las notas se
+verificaron leyendo el código; un análisis de frecuencias no fue concluyente por el solape de notas, y nada se verificó de oído.
