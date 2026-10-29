@@ -35,6 +35,9 @@ _ap.add_argument("--sustain", type=float, default=1.0,
                  help="con --piano: factor de pedal/sustain (1 = seco, 3 = notas que se funden)")
 _ap.add_argument("--long", action="store_true",
                  help="version larga (~3:00, 80 compases) con las partes de Mirror Cry; requiere --waltz")
+_ap.add_argument("--hook", choices=["a", "b", "c"], default=None,
+                 help="con --long, pruebas de hook: a = gotas con mas presencia y nivel inicial mas alto; "
+                      "b = a + intro de 4 compases; c = a + motivo de piano desde el compas 0")
 _ap.add_argument("--center", choices=["a", "e"], default="a",
                  help="centro tonal: a = La menor (Am F C G); e = Mi frigio (Em F G Am | Em F Em Em)")
 ARGS = _ap.parse_args()
@@ -45,6 +48,9 @@ COLD = ARGS.cold
 WALTZ = ARGS.waltz
 PIANO = ARGS.piano
 LONG = ARGS.long
+HOOK = ARGS.hook
+if HOOK and not ARGS.long:
+    _ap.error("--hook requiere --long")
 if LONG and not WALTZ:
     _ap.error("--long requiere --waltz")
 BEATS = 3                      # compas de 3/4
@@ -160,6 +166,14 @@ if LONG:
                     (71.9, 1.0), (72, 0.7), (80, 0)],
     }
     GATES = [(39.0, 40.0)]     # compas de silencio total antes del coro
+    if HOOK:
+        # A: gotas con mas presencia y nivel inicial mas alto; el pad y el pulso suben antes
+        LEVELS["drops"] = [(0, 1.5), (6, 1.2)] + LEVELS["drops"][1:]
+        LEVELS["pad"] = [(0, 0), (1, 0), (3, 0.6), (8, 0.7)] + LEVELS["pad"][3:]
+        LEVELS["pulse"] = [(0, 1.3), (8, 1.0), (79, 1.0), (80, 0.0)]
+        if HOOK == "c":
+            # C: el motivo de piano (Mi, Re, Si...) suena desde el compas 0
+            LEVELS["piano"] = [(0, 0.9), (7.9, 0.9)] + LEVELS["piano"][2:]
 else:
     GATES = []
 GAINS = {"piano": 0.45, "pulse": 0.24, "marimba": 0.5, "kick": 0.7, "snare": 0.35, "bass_cold": 0.4, "hat": 0.16, "arp": 0.3,
@@ -204,6 +218,8 @@ def drop(freq, vel, length_scale, rng, hi=False):
     env = np.exp(-t / tau)
     env *= np.minimum(1.0, t / 0.002)                # ataque suave, sin click
     body = np.sin(phase) + 0.18 * np.sin(2 * phase + 0.3)
+    if HOOK:   # parcial agudo y corto: gota mas cristalina, mas reconocible
+        body = body + 0.22 * np.sin(3.01 * phase) * np.exp(-t / 0.05)
     return body * env * vel
 
 
@@ -440,6 +456,8 @@ MELODY_PITCHES = [64, 62, 59, 64, 62, 60, 67, 65, 64]
 PHRASE_BARS = [8, 16, 28, 36]      # verso 1, verso 2, coro, outro (frase de 8 compases)
 if LONG:
     PHRASE_BARS = [8, 16, 24, 40, 48, 56, 64, 72]
+    if HOOK == "c":
+        PHRASE_BARS = [0] + PHRASE_BARS
 
 
 def melody_events():
@@ -575,6 +593,8 @@ def main():
         write_wav(os.path.join(vdir, "stems", f"{name}.wav"), st / max(1e-9, np.abs(st).max()) * 0.9)
     mix = sum(stems.values())
     mix = mix[: int((TOTAL_BARS * BAR_S + 1) * SR)]   # 1 s tras el ultimo compas
+    if HOOK == "b":
+        mix = mix[int(4 * BAR_S * SR):]               # B: se saltan los 4 primeros compases de la intro
     peak = np.abs(mix).max()
     mix = mix / peak * 0.8
     wav_path = os.path.join(vdir, "mix.wav")

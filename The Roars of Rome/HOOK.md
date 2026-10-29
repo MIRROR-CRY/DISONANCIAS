@@ -95,3 +95,22 @@ Probar por separado, en A/B contra la v10, con tu oído como juez:
 - **C**: A + 3 (más el motivo de piano desde el inicio).
 
 Ninguna de esas se ha generado todavía.
+
+## Pruebas generadas (v11, v12, v13)
+
+El autor aceptó la sugerencia de prueba. Se agregó `--hook a|b|c` a `build_song.py`
+(requiere `--long`), todas con el piano en negras y sustain 1,6 como la v10:
+
+| Versión | `--hook` | Qué cambia respecto a la v10 | Duración |
+|---|---|---|---|
+| v11 | `a` | Gotas con más presencia (nivel inicial ×1,5 que baja a ×1 en el compás 8), timbre más cristalino (parcial agudo corto en cada gota), pulso ×1,3 al inicio y el pad entra desde el compás 1-3 | 3:01 |
+| v12 | `b` | A, con los 4 primeros compases de la intro recortados | 2:52 |
+| v13 | `c` | A, con el motivo de piano (Mi, Re, Si...) desde el compás 0 | 3:01 |
+
+Nivel medio (RMS) de los primeros 5 s: v10 0,023; A 0,037; B 0,043; C 0,069. Por
+comparación, en la v10 los versos rondan 0,06. Ojo: el timbre más cristalino de A
+se aplica a todas las gotas de la canción, no solo a la intro.
+
+Comandos: `python build_song.py --waltz --piano --rhythm one --center e --sustain 1.6 --long --bpm 80 --hook a|b|c`.
+
+No se han oído; falta que el autor elija o combine.
