@@ -31,6 +31,8 @@ _ap.add_argument("--piano", action="store_true",
                  help="agrega la melodia de piano de 9 notas (Mi Re Si, Mi Re Do Sol Fa Mi)")
 _ap.add_argument("--rhythm", choices=["dotted", "one"], default="dotted",
                  help="con --piano: duracion de las 6 ultimas notas (negra con puntillo o una negra)")
+_ap.add_argument("--sustain", type=float, default=1.0,
+                 help="con --piano: factor de pedal/sustain (1 = seco, 3 = notas que se funden)")
 _ap.add_argument("--center", choices=["a", "e"], default="a",
                  help="centro tonal: a = La menor (Am F C G); e = Mi frigio (Em F G Am | Em F Em Em)")
 ARGS = _ap.parse_args()
@@ -399,12 +401,12 @@ def melody_events():
     return ev
 
 
-def _piano_note(freq, length, vel):
+def _piano_note(freq, length, vel, sustain=1.0):
     t = np.arange(int(length * SR)) / SR
     out = np.zeros(len(t))
     for k, amp, tau in ((1, 1.0, 1.1), (2, 0.5, 0.7), (3, 0.25, 0.45), (4, 0.15, 0.28),
                         (5, 0.08, 0.2), (6, 0.05, 0.15)):
-        out += amp * np.sin(2 * np.pi * k * freq * (1 + 0.0003 * k * k) * t) * np.exp(-t / tau)
+        out += amp * np.sin(2 * np.pi * k * freq * (1 + 0.0003 * k * k) * t) * np.exp(-t / (tau * sustain))
     out *= np.minimum(1.0, t / 0.003)          # martillo suave
     out *= np.minimum(1.0, (t[-1] - t) / 0.12)  # pedal: cae sin cortar
     return out * vel
@@ -418,7 +420,7 @@ def render_piano():
     for start_bar in PHRASE_BARS:
         for t0, midi, d in melody_events():
             vel = rng.uniform(0.9, 1.0)
-            note = _piano_note(midi_hz(midi), d * beat * 1.08, vel)
+            note = _piano_note(midi_hz(midi), d * beat * 1.08 * ARGS.sustain, vel, ARGS.sustain)
             s0 = max(0, int((start_bar * BAR_S + t0 * beat + rng.uniform(-0.008, 0.008)) * SR))
             seg = note[: n - s0]
             out[s0:s0 + len(seg), 0] += seg * 0.8
