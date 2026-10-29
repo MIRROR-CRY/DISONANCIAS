@@ -210,3 +210,13 @@ quinta. Para que el centro sea Mi se cambió la progresión (`--center e`), 8 co
 
 Generar: `python build_song.py --waltz --piano --rhythm dotted|two --center e --bpm 80`.
 Las v4/v5 (centro en La) quedan para comparar.
+
+## Descartado: dos negras. Nueva opción: una negra
+
+El autor descartó las seis últimas notas en **dos negras** y pidió probar con **una
+negra** (`--rhythm one`): una nota por tiempo, tres por compás, así que las seis
+ocupan 2 compases y la frase queda en 3 + 2 = **5 compases** (más 3 de respiro en
+el bloque de 8). Opciones vigentes: `dotted` (negra con puntillo) y `one` (negra).
+
+Generar la mezcla: `python build_song.py --waltz --piano --rhythm one --center e --bpm 80`
+(v5 en esta tanda de archivos). Las versiones antiguas con dos negras se eliminaron.

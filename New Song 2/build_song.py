@@ -29,8 +29,8 @@ _ap.add_argument("--waltz", action="store_true",
                  help="sin bateria: marimba en 3/4 + sintetizador negra, negra, silencio")
 _ap.add_argument("--piano", action="store_true",
                  help="agrega la melodia de piano de 9 notas (Mi Re Si, Mi Re Do Sol Fa Mi)")
-_ap.add_argument("--rhythm", choices=["dotted", "two"], default="dotted",
-                 help="con --piano: duracion de las 6 ultimas notas (negra con puntillo o dos negras)")
+_ap.add_argument("--rhythm", choices=["dotted", "one"], default="dotted",
+                 help="con --piano: duracion de las 6 ultimas notas (negra con puntillo o una negra)")
 _ap.add_argument("--center", choices=["a", "e"], default="a",
                  help="centro tonal: a = La menor (Am F C G); e = Mi frigio (Em F G Am | Em F Em Em)")
 ARGS = _ap.parse_args()
@@ -381,15 +381,16 @@ def render_pulse():
 # Fa4 Mi4. La armonia es el sintetizador de pulso (negra, negra, silencio).
 # --rhythm dotted: las 6 ultimas con negra con puntillo (1.5 tiempos): dos por
 #                  compas, caen exactas en las barras.
-# --rhythm two:    las 6 ultimas con dos negras (2 tiempos): cruzan la barra de
-#                  compas (2 contra 3).
+# --rhythm one:    las 6 ultimas con una negra (1 tiempo): tres por compas, una
+#                  por tiempo; ocupan 2 compases. (Se descarto la opcion de dos
+#                  negras.)
 MELODY_PITCHES = [64, 62, 59, 64, 62, 60, 67, 65, 64]
 PHRASE_BARS = [8, 16, 28, 36]      # verso 1, verso 2, coro, outro (frase de 8 compases)
 
 
 def melody_events():
     """(inicio en tiempos, midi, duracion en tiempos) de una frase."""
-    tail = 1.5 if ARGS.rhythm == "dotted" else 2.0
+    tail = 1.5 if ARGS.rhythm == "dotted" else 1.0
     ev, t = [], 0.0
     for i, m in enumerate(MELODY_PITCHES):
         d = 3.0 if i < 3 else tail
