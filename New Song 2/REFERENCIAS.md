@@ -167,6 +167,39 @@ con raíz folk escandinava**. Wikipedia describe su escritura como "etérea" y
 
 ---
 
+## Referencia: Hijo de la Luna (Mecano)
+
+Tema del dúo-trío español Mecano, escrito por José María Cano, del álbum *Entre
+el cielo y el suelo* (1986; el sencillo salió el 25 jul 1987 según Wikipedia,
+otra fuente dice 1987: discrepancia sin resolver). Duración 4:21. Wikipedia lo
+clasifica como piano rock, new wave y synth-pop. Voz principal: Ana Torroja.
+
+### Qué tomar de ella
+
+- **Compás ternario**: según una sola fuente (guitarraycanto.com) está en **3/4**.
+  Esa fuente no habla de vals, así que "es un vals" no está confirmado. Es un
+  precedente de synth-pop/new wave en tres tiempos, que nos sirve para la
+  pregunta de hacer algo frío en 3/4.
+- **Leyenda de la letra**: tradición romaní. Una mujer pide a la Luna casarse ese
+  mismo día con un hombre romaní a cambio de su primer hijo; el niño nace albino,
+  el padre lo abandona en una montaña y la Luna lo cría. Imaginario lunar, noche
+  y naturaleza que encaja con lo etéreo. Origen escrito de la leyenda: no
+  confirmado.
+- **Impacto**: número uno en España, México, Costa Rica, **Chile**, Colombia y
+  Argentina; versión de Loona (1998) y covers (Montserrat Caballé, Sarah
+  Brightman, Haggard, entre otros según la wiki en español, sin abrir).
+  Es una melodía que el público chileno ya conoce de memoria.
+
+### Sin confirmar
+
+- Tempo, progresión y estructura. Un snippet de Cifra Club indica **Do# menor**
+  (intro C#m, G#m/C#, A/C#, G#m) y otro de Ultimate Guitar Am con capo 4; ninguna
+  de las dos páginas pudo abrirse. Instrumentación y arreglos, créditos de
+  producción de la canción y la autoría separada de letra y música.
+- Versiones latinoamericanas o chilenas específicas: no se encontraron.
+
+---
+
 ## Idea sonora: gotas flotando
 
 Un instrumento de percusión afinada (timbal u otro) que suene como **gotas de
