@@ -272,3 +272,20 @@ pad) y pidió: menos fuerte, que se funda más rápido, y volver a poner el swel
   ~0,35 y sostén ~0,32.)
 - "O mejor al final" del mensaje del autor no quedó claro (¿que el golpe vaya más cerca del
   coro?). Se dejó la posición del golpe en el tiempo 1 del compás 39; falta aclararlo.
+
+## v16-v18 (ajuste): tres opciones de golpe en el drop
+
+El autor confirmó que el problema no era el swell, pero el golpe seguía sonando mal. Se agregó
+`--hit boom|tight|none` y se generaron las tres, idénticas salvo por el golpe del compás 39:
+
+| Versión | `--hit` | Qué suena en el tiempo 1 del compás 39 |
+|---|---|---|
+| v16 | `none` | Nada extra (sin boom ni timbal); queda solo el corte del resto de la banda |
+| v17 | `tight` | Golpe corto y seco de ~0,35 s: un "tok" de 110-200 Hz con clic, sin cola grave |
+| v18 | `boom` | El golpe grave de 38-95 Hz con timbal (la versión anterior) |
+
+Hipótesis de por qué el golpe grave suena mal: un seno puro muy grave con deslizamiento de tono
+suena a "bwong" o a bombo sin ataque, y en audífonos pequeños queda como un zumbido (el análisis
+mostró un pico a ~41 Hz y otro a ~85 Hz). Falta confirmar con el oído del autor cuál es mejor.
+
+Comando: `python build_song.py --waltz --piano --rhythm one --center e --sustain 1.6 --long --bpm 80 --hook abc --drop short --power --hit none|tight|boom`.
