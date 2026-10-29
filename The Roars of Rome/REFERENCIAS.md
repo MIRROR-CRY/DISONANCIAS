@@ -274,6 +274,25 @@ pam · pam · pa · pam · pam · pam
 Igual que en las otras canciones del álbum, esta tiene un contexto detrás. Hoja
 de ruta conceptual (ideas del autor, por desarrollar y verificar):
 
+### El título: *The Roars of Rome*
+
+Palabras del autor, resumidas:
+
+- **Roma = el Club de Roma.** Los "rugidos" son **el rugido de la naturaleza** por no
+  haber escuchado su advertencia (*Los límites del crecimiento*, 1972).
+- Son también **los ecos del Club de Roma que aún suenan entre los escombros** de
+  los que hablaba *Kicking Stones*: la ruina industrial de Humberstone (oficina
+  salitrera, hoy pueblo fantasma) y el deterioro de San Borja, sistemas que
+  trataron a la gente y al entorno como piezas reemplazables.
+- **Seguimos peleando contra nosotros mismos**, como en *Mirror Cry* (el yo frente
+  al espejo que se interpone). La canción une las dos escalas del álbum: lo
+  externo/sistémico (*Kicking Stones*) y lo interno (*Mirror Cry*, *Rescue Us*).
+
+Lectura sonora (propuesta de la IA, no decisión del autor): los "ecos" = reverb y
+eco ping-pong sobre las gotas y el piano; los "rugidos" = el coro o el sub grave
+que crece; los "escombros" = el tiempo 3 en silencio del pulso, el hueco que
+queda entre golpes.
+
 ### Pensamiento sistémico
 
 - **Club de Roma** (fundado en 1968) e *Informe Meadows / Los límites del
