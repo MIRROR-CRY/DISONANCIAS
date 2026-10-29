@@ -66,3 +66,55 @@ No hay voz, melodía ni letra todavía: ese es el siguiente paso.
    Monsters and Men) o folk de Chile.
 5. Escribir la letra desde el contexto sistémico (ver `REFERENCIAS.md` e
    `INVESTIGACION_NORDICOS_Y_CHILE.md`).
+
+## ¿Coldwave en 3/4, como un vals? (consideración)
+
+**Respuesta corta: sí se puede, y hay poco precedente, lo que lo hace distintivo.**
+No es una certeza de la investigación sino una lectura de lo encontrado.
+
+### Qué dicen las fuentes
+
+- **Solo hay un ejemplo sólido** de la familia post-punk/gótica en 3/4: *Melt!*
+  (Siouxsie and the Banshees, 1982), según la página Ethereal wave de Wikipedia.
+  Es post-punk gótico, no coldwave estricto.
+- **Indicios más débiles**: la misma página tiene una muestra de audio "en vals"
+  de Cocteau Twins (ethereal wave) sin asignarla a una canción con partitura, y
+  una base colaborativa (GetSongBPM) lista *Theft, and Wandering Around Lost* de
+  Cocteau Twins en 3/4 a 149 BPM. No son partituras.
+- **No se encontró ningún coldwave confirmado en 3/4 ni 6/8.** Joy Division,
+  Xmal Deutschland, Minimal Compact, Asylum Party, Kas Product, The Cure
+  (*Disintegration*) y Bauhaus no tienen compás confirmado en las fuentes leídas.
+  Esto puede ser una laguna de la búsqueda más que una ausencia real.
+- Más cerca de nuestro caso: *Hijo de la Luna* (Mecano), synth-pop/new wave en
+  3/4 según una sola fuente.
+
+### Cómo se adaptaría el sonido de Mirror Cry (inferencia, sin fuente)
+
+El corazón del coldwave de Mirror Cry es el bajo galopante en corcheas sobre una
+batería motorik, a 156 BPM. En 3/4 eso se puede conservar así:
+
+| Elemento | Mirror Cry (4/4) | Vals frío (3/4) propuesto |
+|---|---|---|
+| Acentos | 1 y 3 fuertes | 1 fuerte, 2 y 3 más suaves (esquema estándar del 3/4) |
+| Bombo / caja | bombo 1-3, caja 2-4 | bombo en 1, caja o hi-hat en 2 y/o 3 |
+| Hi-hat | corcheas | 6 corcheas por compás (ya es el pulso de las gotas) |
+| Bajo | galope de corcheas | corcheas con la raíz en el 1; o tresillos para el galope |
+| Guitarra | arpegio con chorus | arpegio de 6 corcheas por compás, frío y con eco |
+
+Un efecto buscado: el patrón de gotas de la idea (`pam pam pa pam pam pam`) ya son
+6 corcheas por compás, así que **el coldwave en 3/4 y las gotas comparten la
+misma rejilla**. La batería y el bajo podrían ser el "esqueleto" que marca el
+vals, y las gotas la capa etérea encima.
+
+### Riesgo / decisiones abiertas
+
+- Un tempo rápido (>130) en 3/4 se oye como vals vienés o jig; el coldwave en
+  ternario funciona mejor ~90-120 BPM (a verificar al oído, sin fuente).
+- ¿Un solo carácter (frío y pulsante) o dos secciones (versos etéreos a 60 BPM,
+  coro con motor coldwave)? Se puede probar como contraste entre secciones.
+
+### Siguiente paso posible
+
+Una variante `v2` de `build_song.py` con batería y bajo coldwave en 3/4 (bombo
+en 1, hi-hat en corcheas, bajo galopante) en el coro, para comparar contra la v1
+puramente etérea. Falta tu visto bueno y decidir el tempo.
