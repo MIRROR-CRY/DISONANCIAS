@@ -28,7 +28,9 @@ _ap.add_argument("--cold", action="store_true",
 _ap.add_argument("--waltz", action="store_true",
                  help="sin bateria: marimba en 3/4 + sintetizador negra, negra, silencio")
 _ap.add_argument("--piano", action="store_true",
-                 help="agrega el piano con el motivo de 9 notas (Mi Re Si | Mi Re Do | Sol Fa Mi)")
+                 help="agrega la melodia de piano de 9 notas (Mi Re Si, Mi Re Do Sol Fa Mi)")
+_ap.add_argument("--rhythm", choices=["dotted", "two"], default="dotted",
+                 help="con --piano: duracion de las 6 ultimas notas (negra con puntillo o dos negras)")
 _ap.add_argument("--flat", action="store_true",
                  help="con --piano: el Si pasa a Si bemol (color frigio)")
 ARGS = _ap.parse_args()
@@ -104,8 +106,7 @@ if WALTZ:
         "arp":   [(0, 0), (20, 0), (22, 0.5), (28, 0.8), (36, 0.8), (40, 0), (44, 0)],
     })
 if PIANO:
-    LEVELS["piano"] = [(0, 0), (7.9, 0), (8, 0.7), (24, 0.8), (28, 1.0), (36, 0.9),
-                       (40, 0.5), (44, 0)]
+    LEVELS["piano"] = [(0, 0), (7.9, 0), (8, 0.9), (36, 0.9), (40, 0.5), (44, 0)]
 GAINS = {"piano": 0.45, "pulse": 0.28, "marimba": 0.5, "kick": 0.7, "snare": 0.35, "bass_cold": 0.4, "hat": 0.16, "arp": 0.3,
          "drops": 0.55, "drops_hi": 0.22, "pad": 0.30, "sub": 0.40, "timbal": 0.55}
 PAN = {"drops": 0.0, "drops_hi": 0.0, "pad": 0.0, "sub": 0.0, "timbal": 0.0}
@@ -364,23 +365,40 @@ def render_pulse():
     return out
 
 
-# ------------------------------------------------------ piano (--piano)
+# ------------------------------------------------ melodia de piano (--piano)
 
-# Motivo del autor, notas MIDI: Mi4 Re4 Si3 | Mi4 Re4 Do4 | Sol4 Fa4 Mi4.
-# Cada grupo cae sobre un acorde: Am, F, C; el cuarto compas (G) sostiene el Re4.
-# Con --flat el Si3 pasa a Si bemol 3 (A frigio, sabor andaluz).
-PIANO_MOTIF = [[64, 62, 59], [64, 62, 60], [67, 65, 64]]
-PIANO_VEL = [1.0, 0.8, 0.85]
+# Melodia del autor: Mi4 Re4 Si3 (un compas cada una) y despues Mi4 Re4 Do4 Sol4
+# Fa4 Mi4. La armonia es el sintetizador de pulso (negra, negra, silencio).
+# --rhythm dotted: las 6 ultimas con negra con puntillo (1.5 tiempos): dos por
+#                  compas, caen exactas en las barras.
+# --rhythm two:    las 6 ultimas con dos negras (2 tiempos): cruzan la barra de
+#                  compas (2 contra 3).
+# Con --flat el Si3 pasa a Si bemol 3 (A frigio).
+MELODY_PITCHES = [64, 62, 59, 64, 62, 60, 67, 65, 64]
+PHRASE_BARS = [8, 16, 28, 36]      # verso 1, verso 2, coro, outro (frase de 8 compases)
+
+
+def melody_events():
+    """(inicio en tiempos, midi, duracion en tiempos) de una frase."""
+    tail = 1.5 if ARGS.rhythm == "dotted" else 2.0
+    ev, t = [], 0.0
+    for i, m in enumerate(MELODY_PITCHES):
+        if FLAT and i == 2:
+            m -= 1
+        d = 3.0 if i < 3 else tail
+        ev.append((t, m, d))
+        t += d
+    return ev
 
 
 def _piano_note(freq, length, vel):
     t = np.arange(int(length * SR)) / SR
     out = np.zeros(len(t))
-    for k, amp, tau in ((1, 1.0, 0.9), (2, 0.5, 0.6), (3, 0.25, 0.4), (4, 0.15, 0.25),
+    for k, amp, tau in ((1, 1.0, 1.1), (2, 0.5, 0.7), (3, 0.25, 0.45), (4, 0.15, 0.28),
                         (5, 0.08, 0.2), (6, 0.05, 0.15)):
         out += amp * np.sin(2 * np.pi * k * freq * (1 + 0.0003 * k * k) * t) * np.exp(-t / tau)
     out *= np.minimum(1.0, t / 0.003)          # martillo suave
-    out *= np.minimum(1.0, (t[-1] - t) / 0.15)  # pedal: cae sin cortar
+    out *= np.minimum(1.0, (t[-1] - t) / 0.12)  # pedal: cae sin cortar
     return out * vel
 
 
@@ -389,21 +407,11 @@ def render_piano():
     n = int((TOTAL_BARS * BAR_S + 8) * SR)
     out = np.zeros((n, 2))
     beat = 60.0 / BPM
-    for bar in range(TOTAL_BARS):
-        cyc = bar % 4
-        if cyc < 3:
-            notes = list(PIANO_MOTIF[cyc])
-            if FLAT and cyc == 0:
-                notes[2] -= 1                    # Si3 -> Si bemol 3
-            events = [(i * beat, notes[i], PIANO_VEL[cyc] * (1.0 if i == 0 else 0.8), beat * 1.6)
-                      for i in range(3)]
-        else:
-            events = [(0.0, 62, 0.7, BAR_S * 1.8)]  # Re4 sostenido sobre el Sol
-        for off, midi, vel, length in events:
-            vel *= rng.uniform(0.92, 1.0)
-            note = _piano_note(midi_hz(midi), length, vel)
-            s0 = bar_start(bar) + int((off + rng.uniform(-0.008, 0.008)) * SR)
-            s0 = max(0, s0)
+    for start_bar in PHRASE_BARS:
+        for t0, midi, d in melody_events():
+            vel = rng.uniform(0.9, 1.0)
+            note = _piano_note(midi_hz(midi), d * beat * 1.08, vel)
+            s0 = max(0, int((start_bar * BAR_S + t0 * beat + rng.uniform(-0.008, 0.008)) * SR))
             seg = note[: n - s0]
             out[s0:s0 + len(seg), 0] += seg * 0.8
             out[s0:s0 + len(seg), 1] += seg * 0.8

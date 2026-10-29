@@ -155,51 +155,31 @@ cada compás para que se sienta más 3/4.
   se pueden quitar).
 - 80 BPM es elección de la IA, un punto medio entre la v1 (60) y la v2 (100).
 
-## v4 y v5: piano con el motivo del autor
+## v4 y v5: melodía de piano (aclaración del autor)
 
-Idea del autor: la armonía puede ser un piano con **Mi4 Re4 Si3 · Mi4 Re4 Do4 ·
-Sol4 Fa4 Mi4** ("algo así"), y quizá algunas notas bemoles. Se pidió ordenar los
-intervalos manteniendo la idea.
+El autor aclaró: las notas **Mi4 Re4 Si3** duran **un compás cada una**; el resto
+(**Mi4 Re4 Do4 Sol4 Fa4 Mi4**) va en **negra y media (negra con puntillo) o dos
+negras**. Y esto es la **melodía**, no la armonía: la armonía es el sintetizador de
+pulso (**negra, negra, silencio**) que ya estaba en la v3.
 
-### Lectura del motivo
+| Versión | Rítmica de las 6 últimas notas | Frase |
+|---|---|---|
+| v4 `--rhythm dotted` | negra con puntillo (1,5 tiempos): dos por compás, caen exactas en las barras | 3 + 3 = 6 compases + 2 de respiro |
+| v5 `--rhythm two` | dos negras (2 tiempos): 2 contra 3, cruzan la barra de compás | 3 + 4 = 7 compases + 1 de respiro |
 
-Son tres células de tres notas, cada una cayendo por grados y con un salto hacia
-arriba entre una y otra:
+Las dos caben en una frase de 8 compases (el largo de las secciones). Se repite en
+el verso 1 (compás 8), verso 2 (16), coro (28) y outro (36, más suave). Entre
+frases queda el pulso, las gotas y el resto de la base.
 
-| Compás | Acorde | Notas | Intervalos |
-|---|---|---|---|
-| 1 | Am | Mi4 Re4 Si3 | 2.ª mayor ↓, 3.ª menor ↓ |
-| 2 | F | Mi4 Re4 Do4 | 2.ª mayor ↓, 2.ª mayor ↓ (salto 4.ª justa ↑ desde el Si3) |
-| 3 | C | Sol4 Fa4 Mi4 | 2.ª mayor ↓, 2.ª menor ↓ (salto 5.ª justa ↑ desde el Do4) |
-| 4 | G | Re4 largo | sostenido, deja respirar antes de repetir |
+Notas sobre la armonía (Am F C G, un acorde por compás): en la v4 la frase cae
+Mi4/Am, Re4/F, Si3/C, Mi4-Re4/G, Do4-Sol4/Am, Fa4-Mi4/F. Todas las notas caben en
+La menor; el Si sobre C es la séptima mayor y el Mi sobre F también (color "maj7").
 
-- **Todas las notas ya caben en La menor** (no hacen falta alteraciones): el Si
-  sobre Am es una novena, el Mi sobre F es una séptima mayor (color "maj7"), y
-  Sol-Fa-Mi sobre C es quinta-cuarta-tercera. Se dejaron los intervalos de la idea
-  original sin cambios (**v4**).
-- El motivo calza justo con la progresión Am-F-C-G de 4 compases: tres grupos de
-  tres notas y un cuarto compás de reposo. Cae una nota por tiempo del 3/4, y el
-  tiempo 3 coincide con el silencio del sintetizador de pulso, así que
-  el piano responde donde el pulso calla.
+**Bemol** (opcional, `--flat`): el Si3 pasa a Si♭3 (La frigio, color andaluz; sobre
+C suena a C7 y baja hacia el Mi4 con un tritono). No está generado en las versiones
+enviadas; se combina con cualquiera: `python build_song.py --waltz --piano --flat
+--bpm 80`.
 
-### Dónde entra el bemol (v5)
-
-El Si3 pasa a **Si♭3**: la tonalidad se vuelve La frigio (La Si♭ Do Re Mi Fa Sol),
-el modo "español/andaluz", que además conecta con *Hijo de la Luna* y su leyenda
-gitana. Efectos: el Re→Si♭ baja una 3.ª mayor (en vez de menor) y el Si♭→Mi
-sube un **tritono**, un intervalo duro, de tensión. Rozará con el La y el Mi del
-acorde. Es disonancia a propósito (el álbum se llama DISONANCIAS), pero si es
-demasiado, la v4 es el respaldo.
-
-Se probó solo un bemol por ser el único que cabe sin chocar de frente con el
-acorde de Do (Mi♭ sobre C chocaría con el Mi del pad). Si el autor tenía en mente
-otros bemoles, hay que decir cuáles.
-
-### Cómo generar
-
-- v4: `python build_song.py --waltz --piano --bpm 80`
-- v5: `python build_song.py --waltz --piano --flat --bpm 80`
-
-El piano entra en el compás 8 (verso 1) y suena hasta el final. Es un piano
-sintetizado (armónicos con caída rápida y pedal); las notas se
-verificaron leyendo el código; un análisis de frecuencias no fue concluyente por el solape de notas, y nada se verificó de oído.
+Cómo generar: `python build_song.py --waltz --piano --rhythm dotted|two --bpm 80`.
+El piano es sintetizado (armónicos con caída rápida y pedal). No se pudo escuchar:
+la duración y el solape se verificaron por el código, no de oído.
