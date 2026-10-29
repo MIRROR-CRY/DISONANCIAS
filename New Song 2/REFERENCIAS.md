@@ -37,6 +37,34 @@ estructura.
 
 ---
 
+## Idea sonora: gotas flotando
+
+Un instrumento de percusión afinada (timbal u otro) que suene como **gotas de
+agua suspendidas en el aire**: notas sueltas, con cola larga de reverb, que
+flotan sobre el pad etéreo en vez de marcar un beat duro.
+
+### Patrón base (idea del autor)
+
+```
+pam · pam · pa · pam · pam · pam
+ 1     2    3    4     5     6
+```
+
+- Seis golpes; el tercero ("pa") es más corto/suave que el resto, lo que rompe la
+  simetría y da la sensación de gota que cae a destiempo.
+- Pendiente de definir: ¿es un compás de 6 (6/8 o 3/4 con subdivisión), o un
+  patrón que se repite sobre un compás de 4/4 y va desfasándose?
+
+### Cómo lograr el efecto "gota"
+
+| Elemento | Dirección |
+|---|---|
+| Timbre | Timbal afinado, marimba/kalimba o un synth tipo "water drop"; ataque suave, sin golpe seco |
+| Afinación | Notas de la escala de la canción (no un solo tono), para que el patrón sea también una melodía mínima |
+| Espacio | Reverb larga + delay en ping-pong, para que las gotas se repitan y "floten" |
+| Dinámica | Velocidades ligeramente variables (como gotas reales) y el "pa" más bajo |
+| Lugar en la mezcla | Entra solo en la intro, queda de fondo bajo la voz y vuelve en los puentes |
+
 ## Cómo encaja en DISONANCIAS
 
 - El álbum ya tiene piezas de carga histórica y social (*Kicking Stones*,
