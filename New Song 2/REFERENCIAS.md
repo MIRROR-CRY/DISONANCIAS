@@ -200,6 +200,47 @@ clasifica como piano rock, new wave y synth-pop. Voz principal: Ana Torroja.
 
 ---
 
+## Referencia: Vangelis
+
+Evángelos Papathanassíou (Agria, Grecia, 29 mar 1943 - París, 17 may 2022).
+Compositor griego de música electrónica y sinfónica. Referencia de **textura
+sintética, espacio y escala cósmica**: lo etéreo hecho con sintetizadores en vez
+de voces.
+
+### Qué tomar de él
+
+- **Sintetizador como protagonista**: Yamaha CS-80 como su teclado favorito desde
+  1977 (también CS-40M, GS-1 y CP-80). Cómo suena su pitch ribbon o su
+  portamento: no confirmado en las fuentes leídas. Sirve de guía para el
+  sintetizador de pulso y el pad.
+- **Estudio propio**: Nemo Studios, Londres, de 16 pistas (1975-1987).
+- **Improvisación libre** al teclado en el estudio, sin plan previo (fuente de
+  búsqueda sin abrir: Sound International, 1979; no confirmado).
+- **Naturaleza, espacio y ciencia**: música de *Heaven and Hell* y *Albedo 0.39*
+  usada en *Cosmos* de Carl Sagan (1980); *Mythodea* como tema de la misión NASA
+  2001 Mars Odyssey; la NASA le dio la Public Service Medal en 2003. Un puente
+  con la idea sistémica y de ciclos de la canción.
+- **Grecia**: *Mythodea* tiene letra en griego antiguo. Antecedente de cantar en
+  una lengua inventada o antigua (cf. Enya).
+- **Discos**: *Heaven and Hell* (1975), *Albedo 0.39* (1976), *Spiral* (1977),
+  *China* (1979), *Opéra sauvage* (1979), *Antarctica* (1983), *Direct* (1988),
+  *Mythodea* (estreno 1993, disco 2001). Cine: *Chariots of Fire* (1981, Oscar a
+  mejor banda sonora original), *Blade Runner* (1982), *1492: Conquest of
+  Paradise* (1992).
+
+### Piezas para escuchar
+
+- *Chariots of Fire*, *Blade Runner Love Theme*, *Tears in Rain*, *Rachel's
+  Song*, *1492 Conquest of Paradise*, *Alpha*, *To the Unknown Man*, *La Petite
+  Fille de la Mer*
+
+> No confirmado: compás, tonalidad y BPM de todas sus piezas, y si alguna usa
+> 3/4; percusión, voces y arreglos; técnica de texturas y uso del espacio.
+> Páginas de Sound on Sound y Reverb no se pudieron leer. Casi todo lo
+> confirmado sale de Wikipedia.
+
+---
+
 ## Idea sonora: gotas flotando
 
 Un instrumento de percusión afinada (timbal u otro) que suene como **gotas de
