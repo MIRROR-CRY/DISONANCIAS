@@ -40,6 +40,37 @@ Lo que comenzó como canciones independientes se está perfilando como un **álb
 
 ---
 
+## Track (posición por definir): "The Roars of Rome"
+
+- **Estado**: Base instrumental en desarrollo (versión larga de ~3 min), letra en
+  esbozo por parte del autor
+- **Tema**: Los rugidos de la naturaleza por no haber escuchado al **Club de Roma**
+  (*Los límites del crecimiento*, 1972). Son los ecos de ese aviso que aún suenan
+  entre los **escombros: nuestra civilización**, lo que produjeron ideas como el
+  ladrillo. Y mientras tanto seguimos peleando contra nosotros mismos, como en
+  "Mirror Cry"
+- **Enfoque**: Crítica sistémica (pensamiento sistémico, dinámica de sistemas de
+  Forrester y los Meadows, con la herencia chilena de Maturana y Varela) unida a la
+  mirada interna. Retoma desde otro ángulo la crítica a los sistemas de
+  "Kicking Stones"
+- **Rol en el álbum**: Une lo externo/sistémico con lo interno. Una canción que
+  crece de a poco, como un rugido
+- **Elementos musicales**:
+  - Etérea, con referencias: AURORA, Enya, Of Monsters and Men, Skott, Vangelis y
+    "Hijo de la Luna" (Mecano)
+  - Gotas de agua flotantes con el patrón "pam, pam, pa, pam, pam, pam"
+  - 3/4 (vals), a 80 BPM, centro en Mi (Mi frigio); sintetizador de pulso
+    "negra, negra, silencio" como armonía, marimba en vez de batería, melodía de
+    piano Mi-Re-Si · Mi-Re-Do-Sol-Fa-Mi
+  - Empieza con un "Ooh Oooh oOOOooh" (vocal "u")
+  - Va ganando fuerza de a poco, algo como Hans Zimmer
+  - Estructura con las mismas partes que "Mirror Cry"
+- **Ubicación**: `The Roars of Rome/` (documentos: `README.md`, `REFERENCIAS.md`,
+  `INVESTIGACION_NORDICOS_Y_CHILE.md`)
+- **Nombre**: antes "New Song 2"; renombrada por el autor
+
+---
+
 ## Posible Arco Narrativo (hipótesis abierta, NO confirmada)
 
 ```
