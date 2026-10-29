@@ -46,6 +46,9 @@ _ap.add_argument("--hit", choices=["boom", "tight", "none"], default="boom",
                  help="golpe del compas del drop: boom = grave con caida (v16), tight = golpe corto y seco, none = solo el corte, sin golpe")
 _ap.add_argument("--mute", default="",
                  help="diagnostico: instrumentos a silenciar, separados por coma (p.ej. drops_hi,pad)")
+_ap.add_argument("--limiter", choices=["true", "tanh", "none"], default="true",
+                 help="con --power: limitador real con ganancia suave (true), saturador tanh (el de v16-v22, "
+                      "distorsiona) o ninguno (solo normaliza el pico)")
 _ap.add_argument("--power", action="store_true",
                  help="con --long --hook abc: mas fuerza en el drop y en los coros (impactos, swell, graves y timbal mas fuertes)")
 _ap.add_argument("--center", choices=["a", "e"], default="a",
@@ -643,6 +646,28 @@ def pingpong(st, beats=0.75, feedback=0.4, taps=5, mix=0.5):
 
 # ---------------------------------------------------------------- mezcla
 
+def peak_limit(x, thr, lookahead_ms=6.0, release_ms=180.0, blk=64):
+    """Limitador de picos con ganancia suave (sin saturar la onda): mira un poco hacia
+    adelante, baja la ganancia antes del pico y la devuelve despacio, asi no se meten armonicos."""
+    n = (len(x) // blk) * blk
+    env = np.abs(x[:n]).max(axis=1).reshape(-1, blk).max(axis=1)
+    g = np.minimum(1.0, thr / np.maximum(env, 1e-9))
+    la = max(1, int(lookahead_ms / 1000 * SR / blk))
+    gmin = g.copy()
+    for k in range(1, la + 1):                 # ganancia minima de los bloques cercanos
+        gmin[:-k] = np.minimum(gmin[:-k], g[k:])
+        gmin[k:] = np.minimum(gmin[k:], g[:-k])
+    a = 1.0 - np.exp(-blk / (release_ms / 1000 * SR))
+    gs = np.empty_like(gmin)
+    cur = 1.0
+    for i, v in enumerate(gmin):               # baja de golpe, sube despacio
+        cur = v if v < cur else cur + (1.0 - cur) * a
+        gs[i] = cur
+    gs = np.minimum(gs, gmin)
+    gain = np.interp(np.arange(len(x)), (np.arange(len(gs)) + 0.5) * blk, gs)
+    return x * gain[:, None]
+
+
 def next_version_dir():
     os.makedirs(VERSIONS_DIR, exist_ok=True)
     n = 1
@@ -699,10 +724,12 @@ def main():
     mix = mix[: int((TOTAL_BARS * BAR_S + 1) * SR)]   # 1 s tras el ultimo compas
     if HOOK in ("b", "abc"):
         mix = mix[int(4 * BAR_S * SR):]               # B: se saltan los 4 primeros compases de la intro
-    if POWER:
-        # limitador suave: los golpes de impacto no deben bajar el volumen de todo lo demas
+    if POWER and ARGS.limiter == "tanh":
+        # saturador tanh (versiones antiguas): ensucia, mete armonicos en todo
         ref = np.percentile(np.abs(mix), 99.9)
         mix = np.tanh(mix / ref * 1.2)
+    elif POWER and ARGS.limiter == "true":
+        mix = peak_limit(mix, thr=4.5 * float(np.sqrt(np.mean(mix ** 2))))
     peak = np.abs(mix).max()
     mix = mix / peak * 0.8
     wav_path = os.path.join(vdir, "mix.wav")

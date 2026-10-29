@@ -304,3 +304,32 @@ instrumentos y se generaron cuatro variantes del tramo (sin golpe, drop corto, `
 | abl_sin_gotas_agudas | `drops_hi` | 3 % (casi no se oye en ese tramo, poco probable) |
 
 Se espera que el autor indique en cuál desaparece el sonido para ubicar al responsable.
+
+## Hipótesis del autor: saturación global (limitador)
+
+El autor probó los cuatro fragmentos por descarte y **todos sonaban mal**, así que propuso que el
+problema es global: los instrumentos quizá están bien, pero hay clipping y el limitador o
+compresor los convierte en sonidos saturados.
+
+**Esto es muy plausible y coincide con la línea de tiempo:** el sonido molesto apareció después de
+`--power`, que agregó un saturador `tanh` (`np.tanh(mix / ref * 1.2)`) sobre toda la mezcla. Un
+`tanh` es una deformación de la onda, no un limitador: mete armónicos en todo lo que supere su
+zona lineal e intermodula los graves fuertes (golpe, subgrave, bajo) con el resto, y eso suena
+"saturado" aunque no haya clipping duro (el conteo de muestras > 0,99 daba 0). Además la mezcla
+quedó ~6 dB más fuerte (RMS 0,20 contra 0,10 de antes).
+
+**Cambio:** `--limiter true|tanh|none` (por defecto `true`). El limitador real (`peak_limit`)
+mira 6 ms adelante, baja la ganancia antes del pico, la devuelve en 180 ms y **no toca la forma de
+onda**; el umbral es 4,5 veces el RMS de la mezcla.
+
+| Opción | RMS de la mezcla | Pico | Energía sobre 5 kHz (tramo de 30 s) |
+|---|---|---|---|
+| `tanh` (v16) | 0,19 | 0,78 | 0,203 % |
+| `true` (v23) | 0,16 | 0,75 | 0,168 % (17 % menos) |
+| `none` (v24) | 0,098 | 0,80 | (no medido) |
+
+Los fragmentos se enviaron igualados en volumen. Si con el limitador real sigue molestando, el
+siguiente sospechoso es la reverb (hecha con ruido blanco convolucionado) o el volumen general.
+La mezcla "sin limitador" es más callada, pero sin la deformación.
+
+Comando: `python build_song.py --waltz --piano --rhythm one --center e --sustain 1.6 --long --bpm 80 --hook abc --drop short --power --hit none --limiter true`.
