@@ -212,9 +212,11 @@ de ruta conceptual (ideas del autor, por desarrollar y verificar):
   mismos. Ojo: pertenecen a la tradición cibernética y sistémica más amplia, pero
   no son la base directa del modelo del Club de Roma (esa es Forrester); son
   una línea paralela. Conviene presentarlo así para no afirmar de más.
-- **Posible tercer hilo (a decidir):** Cybersyn, proyecto chileno de gestión
-  cibernética de la economía (Stafford Beer, 1971-73). Aparece en el repositorio
-  solo si el autor quiere; es otro caso de pensamiento sistémico en Chile.
+- **Posible tercer hilo, agregado por la IA (Claude), no por el autor:** Cybersyn,
+  proyecto chileno de gestión cibernética de la economía (Stafford Beer,
+  1971-73). Al autor no se le había ocurrido; le parece interesante. Está como
+  propuesta a explorar, aún sin investigar con fuentes: es otro caso de
+  pensamiento sistémico en Chile.
 
 ### Por qué tiene sentido hacerla en Chile
 
