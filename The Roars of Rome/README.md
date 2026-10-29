@@ -284,3 +284,26 @@ base musical (gotas, pad, marimba, pulso, piano, Mi frigio) es la de la v8.
   modelada sobre `SECTIONS` y `LEVELS` de Mirror Cry.
 
 Comando: `python build_song.py --waltz --piano --rhythm dotted --center e --sustain 3 --long --bpm 80`
+
+## Arreglo del piano: menos saturado y sin zumbido
+
+Reporte del autor sobre la v9: el piano sonaba demasiado saturado. (1) No se
+entendían las notas, sonaba como ruido; (2) en algunas partes sonaba como tinnitus,
+molesto. Pedido: seguir etéreo pero sin quedar tan fundido.
+
+Causa probable (diagnóstico por el código, sin poder escuchar): con sustain 3 y la
+melodía en Mi frigio, las notas seguían sonando unas encima de otras (Mi, Re, Si,
+Do, Fa...), formando racimos de segundas y semitonos que baten entre sí; encima, la
+reverb larga (4.5 s, mezcla 0.7) y el eco ping-pong repetían esas notas sostenidas.
+
+Cambios:
+
+- **Cada nota se apaga (0,3 s) cuando entra la siguiente**: ya no se acumulan. El
+  "efecto etéreo" lo da la cola de reverb, no el solape de las notas.
+- Sustain (`--sustain`) baja de 3 a 1,6: resonancia más corta de cada nota.
+- Reverb del piano: de 4,5 s y mezcla 0,7 a 3 s y mezcla 0,5.
+- Eco ping-pong del piano: mezcla de 0,3 a 0,12.
+
+Comando: `python build_song.py --waltz --piano --rhythm dotted --center e --sustain 1.6 --long --bpm 80`.
+Si sigue molestando, siguientes pasos: bajar más los armónicos agudos, cortar con
+un filtro pasa-bajos la reverb del piano o bajar el nivel del piano en el coro.

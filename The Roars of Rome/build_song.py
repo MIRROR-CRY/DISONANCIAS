@@ -460,7 +460,7 @@ def _piano_note(freq, length, vel, sustain=1.0):
                         (5, 0.03, 0.2), (6, 0.02, 0.15)):
         out += amp * np.sin(2 * np.pi * k * freq * (1 + 0.0003 * k * k) * t) * np.exp(-t / (tau * sustain))
     out *= np.minimum(1.0, t / 0.015)          # martillo muy suave
-    out *= np.minimum(1.0, (t[-1] - t) / 0.12)  # pedal: cae sin cortar
+    out *= np.minimum(1.0, (t[-1] - t) / 0.3)   # la nota se apaga al entrar la siguiente
     return out * vel
 
 
@@ -472,7 +472,7 @@ def render_piano():
     for start_bar in PHRASE_BARS:
         for t0, midi, d in melody_events():
             vel = rng.uniform(0.9, 1.0)
-            note = _piano_note(midi_hz(midi), d * beat * 1.08 * ARGS.sustain, vel, ARGS.sustain)
+            note = _piano_note(midi_hz(midi), d * beat + 0.3, vel, ARGS.sustain)
             s0 = max(0, int((start_bar * BAR_S + t0 * beat + rng.uniform(-0.008, 0.008)) * SR))
             seg = note[: n - s0]
             out[s0:s0 + len(seg), 0] += seg * 0.8
@@ -562,12 +562,12 @@ def main():
                     "bass_cold": render_bass_cold(),
                     "arp": pingpong(render_arp(), beats=1.5, feedback=0.35)})
     if PIANO:
-        raw["piano"] = pingpong(render_piano(), beats=1.5, feedback=0.4, mix=0.3)
+        raw["piano"] = pingpong(render_piano(), beats=1.5, feedback=0.35, mix=0.12)
     stems = {}
     for name, st in raw.items():
         if name in ("drops", "drops_hi", "pad", "timbal", "arp", "snare", "marimba", "pulse", "piano"):
-            st = reverb(st, seconds=4.5 if name in ("pad", "piano") else (2.5 if name == "pulse" else 3.0),
-                        mix=0.7 if name in ("piano",) else (0.4 if name == "pulse" else (0.45 if name != "timbal" else 0.3)))
+            st = reverb(st, seconds=(4.5 if name == "pad" else 3.0) if name in ("pad", "piano") else (2.5 if name == "pulse" else 3.0),
+                        mix=0.5 if name in ("piano",) else (0.4 if name == "pulse" else (0.45 if name != "timbal" else 0.3)))
         st = st * level_curve(name, len(st))[:, None] * GAINS[name]
         if GATES:
             st = st * gate_curve(len(st))[:, None]
