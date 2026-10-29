@@ -62,7 +62,8 @@ Lo que comenzó como canciones independientes se está perfilando como un **álb
   - 3/4 (vals), a 80 BPM, centro en Mi (Mi frigio); sintetizador de pulso
     "negra, negra, silencio" como armonía, marimba en vez de batería, melodía de
     piano Mi-Re-Si · Mi-Re-Do-Sol-Fa-Mi
-  - Empieza con un "Ooh Oooh oOOOooh" (vocal "u")
+  - La canción empieza con un "Ooh Oooh oOOOooh" (vocal "u"), que canta el autor; la
+    base instrumental no lleva voz
   - Va ganando fuerza de a poco, algo como Hans Zimmer
   - Estructura con las mismas partes que "Mirror Cry"
 - **Ubicación**: `The Roars of Rome/` (documentos: `README.md`, `REFERENCIAS.md`,

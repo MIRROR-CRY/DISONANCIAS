@@ -257,12 +257,16 @@ Pedido del autor: la letra se esboza aparte y **no debe cambiar la base sonora**
 que falta es extender la canción a unos 3 minutos para desarrollar todas las partes
 como en Mirror Cry, y que **empiece con "Ooh Oooh oOOOooh"** (sonidos de "u").
 
+> **Regla del autor:** la letra y la voz no afectan la base sonora y no se agregan a
+> ella; las canta el autor. La base es solo instrumental y deja el espacio.
+> (Una primera versión incluía un "ooh" sintetizado como marcador; se eliminó.)
+
 Se agregó `--long` (requiere `--waltz`): 80 compases a 80 BPM en 3/4 = **3:01**. La
 base musical (gotas, pad, marimba, pulso, piano, Mi frigio) es la de la v8.
 
 | Sección | Compases | Qué pasa |
 |---|---|---|
-| Intro | 0-8 | "Ooh Oooh oOOOooh" + gotas + pulso; el pad entra en el compás 4 |
+| Intro | 0-8 | Gotas + pulso; el pad entra en el compás 4. Espacio para el "Ooh Oooh oOOOooh" que canta el autor |
 | Verso 1 | 8-16 | Gotas, pad, marimba suave; piano "fantasma" (nivel bajo) |
 | Verso 2 | 16-24 | + sub y arpegio; piano fantasma |
 | Interludio | 24-32 | La melodía de piano sola con el pulso (el "hook") |
@@ -270,12 +274,8 @@ base musical (gotas, pad, marimba, pulso, piano, Mi frigio) es la de la v8.
 | Coro 1 | 40-56 | Todo: gotas agudas, timbal, bajo, piano pleno, dos frases |
 | Verso 3 | 56-64 | Baja la energía (después del coro, como en la última versión de Mirror Cry) |
 | Coro 2 | 64-72 | Vuelve todo |
-| Outro | 72-80 | Vuelve el "ooh" y todo se desvanece hasta una gota |
+| Outro | 72-80 | Todo se desvanece hasta una gota |
 
-- **El "ooh"** es un marcador sintetizado: tres gestos que suben Do5 → Re5 → Mi5
-  (Mi frigio), en vocal [u] con tres voces; el último se hincha y se retira. Fija
-  tiempo y altura y se reemplaza por la voz del autor. Los compases son 1, 2 y 3-4
-  (relativos al inicio de la sección).
 - La progresión (Em F G Am | Em F Em Em) reinicia al empezar cada sección, así que
   cada frase de piano empieza en el Em.
 - Los versos quedan con espacio para cantar (8 compases ≈ 18 s cada uno). Si hacen
