@@ -62,6 +62,39 @@ viento. Es el precedente directo del patrón de gotas flotando.
 
 ---
 
+## Referencia: Enya
+
+Cantante irlandesa (Eithne Ní Bhraonáin, n. 1961; ex Clannad, solista desde
+1982). Referencia de **capas vocales y espacio**: el "coro de una persona".
+
+### Qué tomar de ella
+
+- **Apilado vocal**: idea de Nicky Ryan inspirada en el "wall of sound" de Phil
+  Spector; en *Orinoco Flow* (*Watermark*, 1988) se grabaron cientos de tomas de
+  voz en cinta de 32 pistas, con reverb de varias unidades Lexicon 480L.
+  Número de capas no confirmado (fuentes dicen 120 y "más de 200").
+- **Equipo**: Nicky Ryan (producción, arreglos; fallecido en 2025) y Roma Ryan
+  (letras), en su propio estudio Aigle. Roma inventó el *loxian*, lengua
+  imaginaria que aparece desde *Amarantine* (2005).
+- **Idiomas**: inglés, gaélico irlandés, latín, galés; élfico (quenya) en
+  *May It Be*. Cantar en un idioma inventado es una opción para nuestra canción.
+- **Discos**: *Watermark* (1988), *Shepherd Moons* (1991), *The Memory of Trees*
+  (1995), *A Day Without Rain* (2000), *Amarantine* (2005), *And Winter Came…*
+  (2008), *Dark Sky Island* (2015, sobre poemas de Roma Ryan acerca de islas).
+
+### Canciones para escuchar
+
+- *Orinoco Flow* — el muro de voces; sin puente central. Tonalidad discrepante
+  (sol menor ~115 BPM según análisis de DJ; sol mayor ~120 BPM según partitura)
+- *Caribbean Blue* — vals; si menor según Mixmeister (BPM dudoso)
+- *Only Time*, *May It Be*, *Anywhere Is* — tonalidad y BPM no confirmados
+
+> Advertencia: tonalidades y BPM salen de software de DJ y bases comunitarias,
+> son orientativos. No se encontró fuente sobre timbales o percusión suave en su
+> producción ni entrevistas directas sobre su proceso vocal.
+
+---
+
 ## Idea sonora: gotas flotando
 
 Un instrumento de percusión afinada (timbal u otro) que suene como **gotas de
