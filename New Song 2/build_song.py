@@ -7,8 +7,11 @@ Propuesta v1, a propósito con pocos sonidos para ir armando la idea de a poco.
 Sintesis con numpy puro (sin FluidSynth ni SoundFont): gotas, pad, sub y timbal.
 Estructura y curvas de presencia (LEVELS) siguen el esquema de Mirror Cry.
 
-Uso:  python build_song.py     (necesita numpy; ffmpeg opcional para el mp3)
+Uso:  python build_song.py                    v1: solo etereo, 60 BPM
+      python build_song.py --cold --bpm 100   v2: suma capa coldwave en 3/4
+(necesita numpy; ffmpeg opcional para el mp3)
 """
+import argparse
 import os
 import shutil
 import subprocess
@@ -16,8 +19,15 @@ import wave
 
 import numpy as np
 
+_ap = argparse.ArgumentParser()
+_ap.add_argument("--bpm", type=int, default=60)
+_ap.add_argument("--cold", action="store_true",
+                 help="agrega la capa coldwave (bombo, caja, hi-hat, bajo galopante, arpegio)")
+ARGS = _ap.parse_args()
+
 SR = 44100
-BPM = 60
+BPM = ARGS.bpm
+COLD = ARGS.cold
 BEATS = 3                      # compas de 3/4
 BAR_S = BEATS * 60.0 / BPM     # 3 s por compas
 EIGHTH = 60.0 / BPM / 2        # 0.5 s; el patron de gotas son 6 corcheas por compas
@@ -65,7 +75,16 @@ LEVELS = {
                 (36, 0.8), (40, 0), (44, 0)],
     "timbal":  [(0, 0), (31.9, 0), (32, 1.0), (36, 1.0), (36.1, 0), (44, 0)],
 }
-GAINS = {"drops": 0.55, "drops_hi": 0.22, "pad": 0.30, "sub": 0.40, "timbal": 0.55}
+if COLD:
+    LEVELS.update({
+        "kick":  [(0, 0), (27, 0), (28, 1), (36, 1), (40, 0), (44, 0)],
+        "snare": [(0, 0), (27, 0), (28, 1), (36, 1), (40, 0), (44, 0)],
+        "bass_cold": [(0, 0), (27, 0), (28, 1), (36, 1), (40, 0), (44, 0)],
+        "hat":   [(0, 0), (16, 0), (18, 0.4), (27, 0.4), (28, 1), (36, 1), (40, 0), (44, 0)],
+        "arp":   [(0, 0), (20, 0), (22, 0.5), (28, 0.8), (36, 0.8), (40, 0), (44, 0)],
+    })
+GAINS = {"kick": 0.7, "snare": 0.35, "bass_cold": 0.4, "hat": 0.16, "arp": 0.3,
+         "drops": 0.55, "drops_hi": 0.22, "pad": 0.30, "sub": 0.40, "timbal": 0.55}
 PAN = {"drops": 0.0, "drops_hi": 0.0, "pad": 0.0, "sub": 0.0, "timbal": 0.0}
 
 
@@ -180,6 +199,98 @@ def render_timbal():
     return np.stack([out, out], axis=1)
 
 
+# ----------------------------------------------- capa coldwave en 3/4 (--cold)
+
+def _stereo(x):
+    return np.stack([x, x], axis=1)
+
+
+def render_kick():
+    """Bombo en el tiempo 1 de cada compas (el 'boom' del vals)."""
+    n = int((TOTAL_BARS * BAR_S + 8) * SR)
+    out = np.zeros(n)
+    t = np.arange(int(0.35 * SR)) / SR
+    phase = 2 * np.pi * np.cumsum(45 + 90 * np.exp(-t / 0.04)) / SR
+    hit = np.sin(phase) * np.exp(-t / 0.12) * np.minimum(1.0, t / 0.002)
+    for bar in range(TOTAL_BARS):
+        s = bar_start(bar)
+        out[s:s + len(hit)] += hit[: n - s]
+    return _stereo(out)
+
+
+def render_snare():
+    """Caja seca en los tiempos 2 y 3 (el 'chick chick')."""
+    rng = np.random.default_rng(SEED + 11)
+    n = int((TOTAL_BARS * BAR_S + 8) * SR)
+    out = np.zeros(n)
+    t = np.arange(int(0.18 * SR)) / SR
+    for bar in range(TOTAL_BARS):
+        for beat, vel in ((1, 0.8), (2, 1.0)):
+            noise = rng.standard_normal(len(t))
+            tone = np.sin(2 * np.pi * 190 * t) * np.exp(-t / 0.03)
+            hit = (noise * 0.6 + tone) * np.exp(-t / 0.05) * vel
+            s = bar_start(bar) + int(beat * 60.0 / BPM * SR)
+            seg = hit[: n - s]
+            out[s:s + len(seg)] += seg
+    return _stereo(out)
+
+
+def render_hat():
+    """Hi-hat en las 6 corcheas del compas, acentuando el tiempo 1."""
+    rng = np.random.default_rng(SEED + 12)
+    n = int((TOTAL_BARS * BAR_S + 8) * SR)
+    out = np.zeros(n)
+    t = np.arange(int(0.05 * SR)) / SR
+    for bar in range(TOTAL_BARS):
+        for i in range(6):
+            noise = np.diff(rng.standard_normal(len(t) + 1))   # pasa-altos simple
+            vel = 1.0 if i == 0 else (0.45 if i % 2 == 0 else 0.7)
+            hit = noise * np.exp(-t / 0.012) * vel
+            s = bar_start(bar) + int(i * EIGHTH * SR)
+            seg = hit[: n - s]
+            out[s:s + len(seg)] += seg
+    return _stereo(out)
+
+
+def render_bass_cold():
+    """Bajo galopante: la raiz en cada corchea, saturado y con el 1 acentuado."""
+    n = int((TOTAL_BARS * BAR_S + 8) * SR)
+    out = np.zeros(n)
+    L = int(EIGHTH * 0.9 * SR)
+    t = np.arange(L) / SR
+    for bar in range(TOTAL_BARS):
+        f = midi_hz(BASS_ROOT[chord_at_bar(bar)] + 12)
+        env = np.exp(-t / 0.25) * np.minimum(1.0, t / 0.004)
+        tone = np.tanh(3.0 * (np.sin(2 * np.pi * f * t) + 0.5 * np.sin(2 * np.pi * 2 * f * t)))
+        for i in range(6):
+            s = bar_start(bar) + int(i * EIGHTH * SR)
+            seg = (tone * env * (1.0 if i == 0 else 0.7))[: n - s]
+            out[s:s + len(seg)] += seg
+    return _stereo(out)
+
+
+def render_arp():
+    """Arpegio frio de 6 corcheas por compas, pulsado (sin sustain)."""
+    rng = np.random.default_rng(SEED + 13)
+    n = int((TOTAL_BARS * BAR_S + 8) * SR)
+    out = np.zeros((n, 2))
+    L = int(0.5 * SR)
+    t = np.arange(L) / SR
+    order = [0, 1, 2, 1, 2, 1]
+    for bar in range(TOTAL_BARS):
+        notes = DROP_NOTES[chord_at_bar(bar)]
+        for i in range(6):
+            f = midi_hz(notes[order[i]] - 12)
+            pluck = (np.sin(2 * np.pi * f * t) + 0.5 * np.sin(2 * np.pi * 2 * f * t)
+                     + 0.25 * np.sin(2 * np.pi * 3 * f * t)) * np.exp(-t / 0.12)
+            s = bar_start(bar) + int(i * EIGHTH * SR)
+            seg = pluck[: n - s]
+            pan = -0.5 if i % 2 == 0 else 0.5
+            out[s:s + len(seg), 0] += seg * np.sqrt((1 - pan) / 2)
+            out[s:s + len(seg), 1] += seg * np.sqrt((1 + pan) / 2)
+    return out
+
+
 # ---------------------------------------------------------------- efectos
 
 def reverb(st, seconds=3.5, mix=0.4, seed=SEED):
@@ -243,9 +354,13 @@ def main():
         "sub": render_sub(),
         "timbal": render_timbal(),
     }
+    if COLD:
+        raw.update({"kick": render_kick(), "snare": render_snare(),
+                    "hat": render_hat(), "bass_cold": render_bass_cold(),
+                    "arp": pingpong(render_arp(), beats=1.5, feedback=0.35)})
     stems = {}
     for name, st in raw.items():
-        if name in ("drops", "drops_hi", "pad", "timbal"):
+        if name in ("drops", "drops_hi", "pad", "timbal", "arp", "snare"):
             st = reverb(st, seconds=4.0 if name == "pad" else 3.0,
                         mix=0.45 if name != "timbal" else 0.3)
         st = st * level_curve(name, len(st))[:, None] * GAINS[name]

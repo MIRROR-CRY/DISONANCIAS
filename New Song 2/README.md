@@ -118,3 +118,21 @@ vals, y las gotas la capa etérea encima.
 Una variante `v2` de `build_song.py` con batería y bajo coldwave en 3/4 (bombo
 en 1, hi-hat en corcheas, bajo galopante) en el coro, para comparar contra la v1
 puramente etérea. Falta tu visto bueno y decidir el tempo.
+
+## v2: vals coldwave (hecha)
+
+`python build_song.py --cold --bpm 100`. Misma base de la v1 a **100 BPM**, más una
+capa coldwave en 3/4 (propuesta de la IA, tempo elegido por la IA sin escuchar):
+
+| Capa | Dónde | Qué hace |
+|---|---|---|
+| `kick` | coro | Bombo en el tiempo 1 |
+| `snare` | coro | Caja seca en los tiempos 2 y 3 |
+| `hat` | desde el compás 18 (suave), coro a pleno | 6 corcheas por compás, acento en el 1 |
+| `bass_cold` | coro | Bajo galopante: la raíz en cada corchea, saturado |
+| `arp` | desde el compás 22 | Arpegio frío pulsado con eco ping-pong |
+
+A 100 BPM la canción dura 1:20 (la v1, a 60 BPM, dura 2:13), así que las gotas
+suenan más rápidas y menos "flotando". Para comparar, la v1 sigue siendo la
+referencia etérea pura. Ambas se escuchan como `.wav` (`versions/vN/mix.wav`,
+no se sube a git) o `new_song_2_base_vN.mp3` (sí se sube).
