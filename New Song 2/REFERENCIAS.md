@@ -23,17 +23,42 @@ estructura.
 | Naturaleza | Imaginario de bosque, hielo, animales, mito; lo natural como algo vivo y a veces amenazante |
 | Producción | Folk acústico (guitarra, voz) debajo de pads, reverb larga y percusión tribal |
 
+### Investigación (fuentes: Wikipedia, Interview Magazine; ver al final)
+
+- Aurora Aksnes, n. 15 jun 1996 en Stavanger, criada cerca de Bergen. Soprano
+  descrita como "etérea"; motivos vocales recurrentes "ah", "oh", "la".
+- Álbumes: *All My Demons Greeting Me as a Friend* (2016), *Infections of a
+  Different Kind (Step 1)* (2018), *A Different Kind of Human (Step 2)* (2019),
+  *The Gods We Can Touch* (2022), *What Happened to the Heart?* (2024; produce
+  Tom Rowlands de The Chemical Brothers). EP *Running with the Wolves* (2015).
+- Colaboradores: Magnus Skylstad y Odd Martin Skålnes (*Runaway*); Isobel
+  Waller-Bridge en cuerdas de *Exist for Love*. Produce parte de su música desde
+  un estudio en casa.
+- Temas: fantasía, desamor, vida y muerte, naturaleza y medio ambiente
+  (*The Seed*, *Apple Tree*); tristeza con esperanza.
+- Proceso: escribe al piano frente al mar y las montañas; el punto de partida
+  varía entre melodía y letra.
+
+### Dato clave para nuestra idea de las gotas
+
+**Runaway**: según AllMusic (citado en Wikipedia) usa piano, sintetizadores,
+batería/percusión y efectos de **"gotas de agua"**, chirridos y transiciones de
+viento. Es el precedente directo del patrón de gotas flotando.
+- Tonalidad La menor, ~58 BPM, rango A3–E5 (de una partitura citada por
+  Wikipedia; sin verificar directamente).
+
 ### Canciones para escuchar
 
-- *Runaway* (2015) — la voz frágil y los coros, el punto de entrada
-- *Running with the Wolves* (2015) — pulso tribal, imaginario de naturaleza
-- *Conqueror* (2016) — contraste entre la dulzura vocal y la intensidad
-- *Cure for Me* (2018) — vena electropop sin perder la voz
-- *Exist for Love* (2018) — balada, la vulnerabilidad en primer plano
-- *Giving in to the Love* (2022) — el lado más folk y ritual
+- *Runaway* — gotas de agua + voz frágil; el punto de entrada
+- *Running with the Wolves* — pulso tribal, naturaleza
+- *Conqueror* — contraste entre dulzura vocal e intensidad
+- *Cure for Me* — vena electropop
+- *Exist for Love* — balada acústica con cuerdas y coros
+- *Giving in to the Love* — lado más folk y ritual
 
-> Pendiente: confirmar con calma fechas y créditos de producción antes de citar
-> nada de esto en material público (Bandcamp, PUBLICACION.md).
+> No confirmado: tonalidad/BPM de las demás canciones, detalle técnico del
+> apilado de voces y del reverb. Antes de usar cifras en material público,
+> contrastar con partitura o análisis de audio.
 
 ---
 
