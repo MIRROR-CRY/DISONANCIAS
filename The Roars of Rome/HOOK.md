@@ -114,3 +114,25 @@ se aplica a todas las gotas de la canción, no solo a la intro.
 Comandos: `python build_song.py --waltz --piano --rhythm one --center e --sustain 1.6 --long --bpm 80 --hook a|b|c`.
 
 No se han oído; falta que el autor elija o combine.
+
+## v14: las tres ideas juntas + crescendo en el puente
+
+Pedido del autor: combinar A, B y C y que **fluya algo más**, para que tenga potencial
+viral sin perder identidad. Se agregó `--hook abc`:
+
+- **A + B + C:** gotas con más presencia y timbre cristalino, intro recortada 4
+  compases (empieza 9 s adentro) y el motivo de piano (Mi Re Si · Mi Re Do Sol Fa Mi)
+  desde el primer compás que se escucha. Como B recorta el inicio, la frase de piano
+  se movió al compás 4 y termina al llegar el verso 1 (por eso el verso 1 no lleva su
+  frase "fantasma"; sí la llevan los demás versos).
+- **Fluir (interpretación de la IA):** en el puente, el pad, la marimba, las gotas
+  agudas y el timbal crecen hasta el compás de silencio; después entra el coro. Se
+  subió el nivel de marimba y arpegio en el verso 1 y el subgrave en el interludio
+  para que el nivel no baje tanto entre secciones.
+- Duración 2:52. Nivel de los primeros 5 s: 0,064 (la v10 tenía 0,023). Nivel por
+  sección, aproximado: intro 0,065 · verso 1 0,057 · verso 2 0,075 · interludio 0,070
+  · puente 0,060 · coro 0,102 · verso 3 0,077 · coro 2 0,105 · outro 0,048.
+- No se garantiza "viral": nada de lo investigado lo asegura; esto solo aplica lo
+  que la evidencia sugiere sobre los primeros segundos y la repetición del motivo.
+
+Comando: `python build_song.py --waltz --piano --rhythm one --center e --sustain 1.6 --long --bpm 80 --hook abc`.

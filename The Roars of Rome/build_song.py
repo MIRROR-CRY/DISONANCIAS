@@ -35,9 +35,10 @@ _ap.add_argument("--sustain", type=float, default=1.0,
                  help="con --piano: factor de pedal/sustain (1 = seco, 3 = notas que se funden)")
 _ap.add_argument("--long", action="store_true",
                  help="version larga (~3:00, 80 compases) con las partes de Mirror Cry; requiere --waltz")
-_ap.add_argument("--hook", choices=["a", "b", "c"], default=None,
+_ap.add_argument("--hook", choices=["a", "b", "c", "abc"], default=None,
                  help="con --long, pruebas de hook: a = gotas con mas presencia y nivel inicial mas alto; "
-                      "b = a + intro de 4 compases; c = a + motivo de piano desde el compas 0")
+                      "b = a + intro de 4 compases; c = a + motivo de piano desde el compas 0; "
+                      "abc = las tres ideas juntas, con un crescendo en el puente para que fluya")
 _ap.add_argument("--center", choices=["a", "e"], default="a",
                  help="centro tonal: a = La menor (Am F C G); e = Mi frigio (Em F G Am | Em F Em Em)")
 ARGS = _ap.parse_args()
@@ -174,6 +175,26 @@ if LONG:
         if HOOK == "c":
             # C: el motivo de piano (Mi, Re, Si...) suena desde el compas 0
             LEVELS["piano"] = [(0, 0.9), (7.9, 0.9)] + LEVELS["piano"][2:]
+        if HOOK == "abc":
+            # A + B + C. B recorta los 4 primeros compases, asi que el motivo de piano
+            # empieza en el compas 4 (el primer compas que se escucha). Termina en el
+            # compas 9, por eso no hay frase fantasma en el verso 1.
+            LEVELS["piano"] = [(0, 0), (3.9, 0), (4, 0.7), (8.9, 0.7), (9, 0.35)] + LEVELS["piano"][3:]
+            # Para que fluya: crescendo en el puente (pad, marimba, gotas agudas y
+            # timbal crecen hasta el compas de silencio) antes de entrar al coro.
+            LEVELS["pad"] = [(0, 0), (1, 0), (3, 0.6), (8, 0.7), (24, 0.9), (32, 0.4),
+                             (38.9, 1.0), (40, 1.0), (56, 0.7), (64, 1.0), (72, 1.0), (80, 0)]
+            LEVELS["drops"] = [(0, 1.3), (6, 1.1), (8, 1.0)] + LEVELS["drops"][2:]
+            LEVELS["arp"] = [(0, 0), (8, 0), (10, 0.4), (24, 0.6), (32, 0.4), (40, 0.8), (56, 0.4),
+                             (64, 0.8), (72, 0.4), (80, 0)]
+            LEVELS["sub"] = [(0, 0), (16, 0), (18, 0.8), (23.9, 0.8), (24, 0.6), (31.9, 0.6), (32, 0),
+                             (40, 0.9), (56, 0.5), (64, 0.9), (72, 0.6), (80, 0)]
+            LEVELS["marimba"] = [(0, 0.3), (8, 0.65), (16, 0.7), (24, 0.6), (32, 0.3), (38.9, 0.9),
+                                 (40, 1.0), (56, 0.5), (64, 1.0), (72, 0.5), (80, 0)]
+            LEVELS["drops_hi"] = [(0, 0), (35, 0), (38.9, 0.8), (40, 0.8), (55.9, 0.8), (56, 0),
+                                  (63.9, 0), (64, 0.8), (71.9, 0.8), (72, 0), (80, 0)]
+            LEVELS["timbal"] = [(0, 0), (36, 0), (38.9, 0.8), (40, 1.0), (55.9, 1.0), (56, 0),
+                                (64, 0), (64.1, 1.0), (71.9, 1.0), (72, 0), (80, 0)]
 else:
     GATES = []
 GAINS = {"piano": 0.45, "pulse": 0.24, "marimba": 0.5, "kick": 0.7, "snare": 0.35, "bass_cold": 0.4, "hat": 0.16, "arp": 0.3,
@@ -458,6 +479,8 @@ if LONG:
     PHRASE_BARS = [8, 16, 24, 40, 48, 56, 64, 72]
     if HOOK == "c":
         PHRASE_BARS = [0] + PHRASE_BARS
+    if HOOK == "abc":
+        PHRASE_BARS = [4] + PHRASE_BARS[1:]     # sin la frase del verso 1 (compas 8)
 
 
 def melody_events():
@@ -593,7 +616,7 @@ def main():
         write_wav(os.path.join(vdir, "stems", f"{name}.wav"), st / max(1e-9, np.abs(st).max()) * 0.9)
     mix = sum(stems.values())
     mix = mix[: int((TOTAL_BARS * BAR_S + 1) * SR)]   # 1 s tras el ultimo compas
-    if HOOK == "b":
+    if HOOK in ("b", "abc"):
         mix = mix[int(4 * BAR_S * SR):]               # B: se saltan los 4 primeros compases de la intro
     peak = np.abs(mix).max()
     mix = mix / peak * 0.8
