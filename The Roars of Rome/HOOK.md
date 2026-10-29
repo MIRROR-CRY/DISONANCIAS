@@ -213,3 +213,13 @@ coro). Con `--power` (requiere `--hook abc`):
   mismo volumen.
 
 Comando: `python build_song.py --waltz --piano --rhythm one --center e --sustain 1.6 --long --bpm 80 --hook abc --drop mc --power`.
+
+## v16 (ajuste): swell más suave
+
+Reporte del autor: le gusta más, pero el sonido raro, que asume es el swell, domina demasiado.
+Cambios al swell inverso: volumen de 0,8 a 0,3 (menos de la mitad), ruido de 0,6 a 0,2, y el
+tono pasa de Mi4 + Mi5 (agudo) a Mi4 + Mi3 (grave y más suave). El golpe del drop y la entrada
+al coro quedan igual.
+
+Si sigue molestando, siguientes pasos: bajarlo más, quitarlo (solo queda el golpe) o acortarlo
+a medio segundo.
