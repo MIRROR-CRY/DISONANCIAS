@@ -46,6 +46,8 @@ _ap.add_argument("--hit", choices=["boom", "tight", "none"], default="boom",
                  help="golpe del compas del drop: boom = grave con caida (v16), tight = golpe corto y seco, none = solo el corte, sin golpe")
 _ap.add_argument("--mute", default="",
                  help="diagnostico: instrumentos a silenciar, separados por coma (p.ej. drops_hi,pad)")
+_ap.add_argument("--reverb", choices=["old", "soft", "none"], default="old",
+                 help="old: ruido blanco suavizado (v1-v24); soft: cola que se oscurece y entra suave; none: sin reverb")
 _ap.add_argument("--limiter", choices=["true", "tanh", "none"], default="true",
                  help="con --power: limitador real con ganancia suave (true), saturador tanh (el de v16-v22, "
                       "distorsiona) o ninguno (solo normaliza el pico)")
@@ -622,8 +624,17 @@ def reverb(st, seconds=3.5, mix=0.4, seed=SEED):
     size = 1 << int(np.ceil(np.log2(len(st) + n_ir)))
     for ch in range(2):
         ir = rng.standard_normal(n_ir) * np.exp(-t / (seconds / 4.5))
-        k = 64                                  # suaviza: cola mas oscura
-        ir = np.convolve(ir, np.ones(k) / k, mode="same")
+        if ARGS.reverb == "soft":
+            # cola que se oscurece con el tiempo (mezcla de 3 filtros) y entrada suave sin chasquido
+            bright = np.convolve(ir, np.ones(8) / 8, mode="same")
+            mid = np.convolve(ir, np.ones(32) / 32, mode="same")
+            dark = np.convolve(ir, np.ones(128) / 128, mode="same")
+            w = np.clip(t / seconds * 2.0, 0, 2.0)
+            ir = np.where(w < 1, bright * (1 - w) + mid * w, mid * (2 - w) + dark * (w - 1))
+            ir *= np.minimum(1.0, t / 0.02)
+        else:
+            k = 64                                  # suaviza: cola mas oscura
+            ir = np.convolve(ir, np.ones(k) / k, mode="same")
         ir /= np.sqrt(np.sum(ir ** 2))
         wet = np.fft.irfft(np.fft.rfft(st[:, ch], size) * np.fft.rfft(ir, size), size)
         out[:, ch] = wet[: len(st)]
@@ -710,7 +721,7 @@ def main():
         raw["piano"] = pingpong(render_piano(), beats=1.5, feedback=0.35, mix=0.12)
     stems = {}
     for name, st in raw.items():
-        if name in ("drops", "drops_hi", "pad", "timbal", "arp", "snare", "marimba", "pulse", "piano", "impact"):
+        if ARGS.reverb != "none" and name in ("drops", "drops_hi", "pad", "timbal", "arp", "snare", "marimba", "pulse", "piano", "impact"):
             st = reverb(st, seconds=(4.5 if name == "pad" else 3.0) if name in ("pad", "piano") else (2.5 if name == "pulse" else 3.0),
                         mix=0.5 if name in ("piano",) else (0.4 if name == "pulse" else (0.45 if name != "timbal" else 0.3)))
         st = st * level_curve(name, len(st))[:, None] * GAINS[name]
