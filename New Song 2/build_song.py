@@ -27,12 +27,18 @@ _ap.add_argument("--cold", action="store_true",
                  help="agrega la capa coldwave (bombo, caja, hi-hat, bajo galopante, arpegio)")
 _ap.add_argument("--waltz", action="store_true",
                  help="sin bateria: marimba en 3/4 + sintetizador negra, negra, silencio")
+_ap.add_argument("--piano", action="store_true",
+                 help="agrega el piano con el motivo de 9 notas (Mi Re Si | Mi Re Do | Sol Fa Mi)")
+_ap.add_argument("--flat", action="store_true",
+                 help="con --piano: el Si pasa a Si bemol (color frigio)")
 ARGS = _ap.parse_args()
 
 SR = 44100
 BPM = ARGS.bpm
 COLD = ARGS.cold
 WALTZ = ARGS.waltz
+PIANO = ARGS.piano
+FLAT = ARGS.flat
 BEATS = 3                      # compas de 3/4
 BAR_S = BEATS * 60.0 / BPM     # 3 s por compas
 EIGHTH = 60.0 / BPM / 2        # 0.5 s; el patron de gotas son 6 corcheas por compas
@@ -97,7 +103,10 @@ if WALTZ:
         "bass_cold": [(0, 0), (27, 0), (28, 1), (36, 1), (40, 0), (44, 0)],
         "arp":   [(0, 0), (20, 0), (22, 0.5), (28, 0.8), (36, 0.8), (40, 0), (44, 0)],
     })
-GAINS = {"pulse": 0.28, "marimba": 0.5, "kick": 0.7, "snare": 0.35, "bass_cold": 0.4, "hat": 0.16, "arp": 0.3,
+if PIANO:
+    LEVELS["piano"] = [(0, 0), (7.9, 0), (8, 0.7), (24, 0.8), (28, 1.0), (36, 0.9),
+                       (40, 0.5), (44, 0)]
+GAINS = {"piano": 0.45, "pulse": 0.28, "marimba": 0.5, "kick": 0.7, "snare": 0.35, "bass_cold": 0.4, "hat": 0.16, "arp": 0.3,
          "drops": 0.55, "drops_hi": 0.22, "pad": 0.30, "sub": 0.40, "timbal": 0.55}
 PAN = {"drops": 0.0, "drops_hi": 0.0, "pad": 0.0, "sub": 0.0, "timbal": 0.0}
 
@@ -355,6 +364,52 @@ def render_pulse():
     return out
 
 
+# ------------------------------------------------------ piano (--piano)
+
+# Motivo del autor, notas MIDI: Mi4 Re4 Si3 | Mi4 Re4 Do4 | Sol4 Fa4 Mi4.
+# Cada grupo cae sobre un acorde: Am, F, C; el cuarto compas (G) sostiene el Re4.
+# Con --flat el Si3 pasa a Si bemol 3 (A frigio, sabor andaluz).
+PIANO_MOTIF = [[64, 62, 59], [64, 62, 60], [67, 65, 64]]
+PIANO_VEL = [1.0, 0.8, 0.85]
+
+
+def _piano_note(freq, length, vel):
+    t = np.arange(int(length * SR)) / SR
+    out = np.zeros(len(t))
+    for k, amp, tau in ((1, 1.0, 0.9), (2, 0.5, 0.6), (3, 0.25, 0.4), (4, 0.15, 0.25),
+                        (5, 0.08, 0.2), (6, 0.05, 0.15)):
+        out += amp * np.sin(2 * np.pi * k * freq * (1 + 0.0003 * k * k) * t) * np.exp(-t / tau)
+    out *= np.minimum(1.0, t / 0.003)          # martillo suave
+    out *= np.minimum(1.0, (t[-1] - t) / 0.15)  # pedal: cae sin cortar
+    return out * vel
+
+
+def render_piano():
+    rng = np.random.default_rng(SEED + 21)
+    n = int((TOTAL_BARS * BAR_S + 8) * SR)
+    out = np.zeros((n, 2))
+    beat = 60.0 / BPM
+    for bar in range(TOTAL_BARS):
+        cyc = bar % 4
+        if cyc < 3:
+            notes = list(PIANO_MOTIF[cyc])
+            if FLAT and cyc == 0:
+                notes[2] -= 1                    # Si3 -> Si bemol 3
+            events = [(i * beat, notes[i], PIANO_VEL[cyc] * (1.0 if i == 0 else 0.8), beat * 1.6)
+                      for i in range(3)]
+        else:
+            events = [(0.0, 62, 0.7, BAR_S * 1.8)]  # Re4 sostenido sobre el Sol
+        for off, midi, vel, length in events:
+            vel *= rng.uniform(0.92, 1.0)
+            note = _piano_note(midi_hz(midi), length, vel)
+            s0 = bar_start(bar) + int((off + rng.uniform(-0.008, 0.008)) * SR)
+            s0 = max(0, s0)
+            seg = note[: n - s0]
+            out[s0:s0 + len(seg), 0] += seg * 0.8
+            out[s0:s0 + len(seg), 1] += seg * 0.8
+    return out
+
+
 # ---------------------------------------------------------------- efectos
 
 def reverb(st, seconds=3.5, mix=0.4, seed=SEED):
@@ -426,9 +481,11 @@ def main():
         raw.update({"pulse": render_pulse(), "marimba": pingpong(render_marimba(), beats=1.5, feedback=0.3),
                     "bass_cold": render_bass_cold(),
                     "arp": pingpong(render_arp(), beats=1.5, feedback=0.35)})
+    if PIANO:
+        raw["piano"] = render_piano()
     stems = {}
     for name, st in raw.items():
-        if name in ("drops", "drops_hi", "pad", "timbal", "arp", "snare", "marimba", "pulse"):
+        if name in ("drops", "drops_hi", "pad", "timbal", "arp", "snare", "marimba", "pulse", "piano"):
             st = reverb(st, seconds=4.0 if name == "pad" else 3.0,
                         mix=0.45 if name != "timbal" else 0.3)
         st = st * level_curve(name, len(st))[:, None] * GAINS[name]

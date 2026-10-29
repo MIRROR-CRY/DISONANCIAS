@@ -154,3 +154,52 @@ cada compás para que se sienta más 3/4.
 - Se mantienen el bajo galopante y el arpegio de la v2 (el autor no los criticó;
   se pueden quitar).
 - 80 BPM es elección de la IA, un punto medio entre la v1 (60) y la v2 (100).
+
+## v4 y v5: piano con el motivo del autor
+
+Idea del autor: la armonía puede ser un piano con **Mi4 Re4 Si3 · Mi4 Re4 Do4 ·
+Sol4 Fa4 Mi4** ("algo así"), y quizá algunas notas bemoles. Se pidió ordenar los
+intervalos manteniendo la idea.
+
+### Lectura del motivo
+
+Son tres células de tres notas, cada una cayendo por grados y con un salto hacia
+arriba entre una y otra:
+
+| Compás | Acorde | Notas | Intervalos |
+|---|---|---|---|
+| 1 | Am | Mi4 Re4 Si3 | 2.ª mayor ↓, 3.ª menor ↓ |
+| 2 | F | Mi4 Re4 Do4 | 2.ª mayor ↓, 2.ª mayor ↓ (salto 4.ª justa ↑ desde el Si3) |
+| 3 | C | Sol4 Fa4 Mi4 | 2.ª mayor ↓, 2.ª menor ↓ (salto 5.ª justa ↑ desde el Do4) |
+| 4 | G | Re4 largo | sostenido, deja respirar antes de repetir |
+
+- **Todas las notas ya caben en La menor** (no hacen falta alteraciones): el Si
+  sobre Am es una novena, el Mi sobre F es una séptima mayor (color "maj7"), y
+  Sol-Fa-Mi sobre C es quinta-cuarta-tercera. Se dejaron los intervalos de la idea
+  original sin cambios (**v4**).
+- El motivo calza justo con la progresión Am-F-C-G de 4 compases: tres grupos de
+  tres notas y un cuarto compás de reposo. Cae una nota por tiempo del 3/4, y el
+  tiempo 3 coincide con el silencio del sintetizador de pulso, así que
+  el piano responde donde el pulso calla.
+
+### Dónde entra el bemol (v5)
+
+El Si3 pasa a **Si♭3**: la tonalidad se vuelve La frigio (La Si♭ Do Re Mi Fa Sol),
+el modo "español/andaluz", que además conecta con *Hijo de la Luna* y su leyenda
+gitana. Efectos: el Re→Si♭ baja una 3.ª mayor (en vez de menor) y el Si♭→Mi
+sube un **tritono**, un intervalo duro, de tensión. Rozará con el La y el Mi del
+acorde. Es disonancia a propósito (el álbum se llama DISONANCIAS), pero si es
+demasiado, la v4 es el respaldo.
+
+Se probó solo un bemol por ser el único que cabe sin chocar de frente con el
+acorde de Do (Mi♭ sobre C chocaría con el Mi del pad). Si el autor tenía en mente
+otros bemoles, hay que decir cuáles.
+
+### Cómo generar
+
+- v4: `python build_song.py --waltz --piano --bpm 80`
+- v5: `python build_song.py --waltz --piano --flat --bpm 80`
+
+El piano entra en el compás 8 (verso 1) y suena hasta el final. Es un piano
+sintetizado (armónicos con caída rápida y pedal); la verificación de las notas se
+hizo por el código y por análisis de frecuencias, no de oído.
