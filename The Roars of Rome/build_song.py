@@ -39,6 +39,9 @@ _ap.add_argument("--hook", choices=["a", "b", "c", "abc"], default=None,
                  help="con --long, pruebas de hook: a = gotas con mas presencia y nivel inicial mas alto; "
                       "b = a + intro de 4 compases; c = a + motivo de piano desde el compas 0; "
                       "abc = las tres ideas juntas, con un crescendo en el puente para que fluya")
+_ap.add_argument("--drop", choices=["mc", "short"], default="mc",
+                 help="compas del drop antes del coro: mc = golpe en el tiempo 1 y ~1,4 s de silencio "
+                      "(como Mirror Cry); short = el golpe suena casi 2 tiempos y solo el ultimo tiempo queda en silencio")
 _ap.add_argument("--center", choices=["a", "e"], default="a",
                  help="centro tonal: a = La menor (Am F C G); e = Mi frigio (Em F G Am | Em F Em Em)")
 ARGS = _ap.parse_args()
@@ -193,8 +196,9 @@ if LONG:
                                  (40, 1.0), (56, 0.5), (64, 1.0), (72, 0.5), (80, 0)]
             LEVELS["drops_hi"] = [(0, 0), (35, 0), (38.9, 0.8), (40, 0.8), (55.9, 0.8), (56, 0),
                                   (63.9, 0), (64, 0.8), (71.9, 0.8), (72, 0), (80, 0)]
-            LEVELS["timbal"] = [(0, 0), (36, 0), (38.9, 0.8), (40, 1.0), (55.9, 1.0), (56, 0),
-                                (64, 0), (64.1, 1.0), (71.9, 1.0), (72, 0), (80, 0)]
+            LEVELS["timbal"] = [(0, 0), (36, 0), (38.9, 0.9), (39, 1.3), (39.99, 1.3), (40, 1.4),
+                                (40.5, 1.0), (55.9, 1.0), (56, 0), (64, 0), (64.1, 1.0),
+                                (71.9, 1.0), (72, 0), (80, 0)]
 else:
     GATES = []
 GAINS = {"piano": 0.45, "pulse": 0.24, "marimba": 0.5, "kick": 0.7, "snare": 0.35, "bass_cold": 0.4, "hat": 0.16, "arp": 0.3,
@@ -521,19 +525,18 @@ def render_piano():
     return out
 
 
-GATE_FLOOR = 0.15   # en el compas del "drop" todo baja a este nivel, no a cero
-
-
 def gate_curve(n):
-    """Compas del drop (como en Mirror Cry, que deja solo el bombo): todo se agacha pero
-    sigue sonando bajito, con bajada y subida suaves; el timbal queda fuera."""
+    """Compas del drop, como en Mirror Cry: un golpe en el tiempo 1, un corte seco (con una
+    bajada muy corta, sin que baje el volumen de a poco) y silencio hasta que el coro entra
+    justo en el tiempo 1 del compas siguiente. Se corta todo junto, colas incluidas; el
+    timbal queda fuera para que su golpe y su cola suenen enteros."""
     g = np.ones(n)
-    down, up = int(0.3 * SR), int(0.12 * SR)
+    keep, down = (0.55, 0.3) if ARGS.drop == "mc" else (1.2, 0.25)
     for a, b in GATES:
         i0, i1 = int(a * BAR_S * SR), int(b * BAR_S * SR)
-        g[i0:i1] = GATE_FLOOR
-        g[i0 - down:i0] = np.linspace(1, GATE_FLOOR, down)
-        g[i1 - up:i1] = np.linspace(GATE_FLOOR, 1, up)
+        k, d = int(keep * SR), int(down * SR)
+        g[i0 + k:i0 + k + d] = np.linspace(1, 0, d)
+        g[i0 + k + d:i1] = 0.0
     return g
 
 

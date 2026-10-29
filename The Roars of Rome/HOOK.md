@@ -154,3 +154,43 @@ Cambio (compás 39 del largo, afecta a todas las versiones `--long` al regenerar
 
 Si sigue sonando raro, alternativas: bajar menos (0,3), dejar solo una gota en vez del
 timbal, o un crescendo sin ningún hueco.
+
+## v14 y v15: el drop antes del coro, como en Mirror Cry
+
+Reporte del autor: el corte en 1:18 (compás 39) sigue sonando raro. Se midió Mirror Cry
+(v13) y se buscaron técnicas (Faderpro, Lyric Assistant; el resto de las fuentes dio 403 o
+estaba truncado).
+
+**Lo que hace Mirror Cry (medido):** un solo golpe de bombo en el tiempo 1; el sonido cae
+de ~0,10 a ~0,01 en ~0,3 s; ~1,2 s de casi silencio total (≈ 3 tiempos a 156 BPM); el
+coro entra de golpe, en el tiempo 1, más fuerte que antes (de ~0,001 a 0,09-0,14), con
+platillo y todos los instrumentos a la vez. Antes del corte viene su parte más intensa.
+
+**Por qué el nuestro seguía raro (hipótesis):**
+
+- La pausa duraba 2,25 s (un compás a 80 BPM), casi el doble que en Mirror Cry, en una
+  canción lenta.
+- Agachaba todo a 0,15: suena a bajón de volumen, no a corte.
+- No había un golpe claro que marcara el tiempo 1 ni un impacto al entrar al coro.
+
+**Lo que dicen las fuentes (poca evidencia):** de unos "pocos tiempos" a un compás de
+silencio (Faderpro); "un tiempo de silencio" que termina justo en el tiempo 1 del coro
+(Lyric Assistant); dejar un golpe o un "bass boom" (Faderpro); cortar las colas de
+reverb juntas en la misma posición (snippet de MusicRadar, no confirmado); un lift
+tardío o un riser más fuerte que el coro son errores comunes. No se encontró nada
+sobre pausas en canciones lentas, ternarias o sin batería.
+
+**Cambios (`--drop mc|short`):**
+
+| Versión | Qué pasa en el compás 39 |
+|---|---|
+| v14 `--drop mc` | Golpe de timbal fuerte en el tiempo 1 (×1,3), todo lo demás se corta seco a 0,55 s con una bajada de 0,3 s; ~1,4 s de casi silencio; el coro entra en el tiempo 1 con un timbal aún más fuerte (×1,4) |
+| v15 `--drop short` | El golpe y todo el sonido siguen ~1,2 s (casi 2 tiempos), y solo el último tiempo (~0,75 s) queda en silencio |
+
+Nivel medido en ventanas de 0,25 s desde el compás 39: v14 0,17 → 0,02 → 0,01 → coro
+0,19; v15 0,17 → ~0,09 por ~1 s → 0,02 → coro 0,19.
+
+Todo el material se corta junto (colas de reverb y eco incluidas); el timbal queda
+fuera del corte para que su golpe y cola suenen enteros.
+
+Comando: `python build_song.py --waltz --piano --rhythm one --center e --sustain 1.6 --long --bpm 80 --hook abc --drop mc|short`.
