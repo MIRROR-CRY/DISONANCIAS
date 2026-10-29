@@ -307,3 +307,11 @@ Cambios:
 Comando: `python build_song.py --waltz --piano --rhythm dotted --center e --sustain 1.6 --long --bpm 80`.
 Si sigue molestando, siguientes pasos: bajar más los armónicos agudos, cortar con
 un filtro pasa-bajos la reverb del piano o bajar el nivel del piano en el coro.
+
+## v10: piano con las notas sueltas en negra
+
+Pedido del autor: las notas que no ocupan un compás entero van en **negra**. Mi, Re y
+Si siguen con un compás cada una; Mi Re Do Sol Fa Mi pasan a una negra cada una (6
+tiempos = 2 compases). La frase de piano dura 5 compases. Mismo piano limpio de antes.
+
+Comando: `python build_song.py --waltz --piano --rhythm one --center e --sustain 1.6 --long --bpm 80`.
