@@ -1,4 +1,4 @@
-# Investigación: lo nórdico y lo chileno (New Song 2)
+# Investigación: lo nórdico y lo chileno (The Roars of Rome)
 
 Respuesta a dos preguntas del autor: **¿por qué tantos artistas etéreos son
 nórdicos?** y **¿qué se ha hecho en Chile?** La hicieron agentes de IA leyendo

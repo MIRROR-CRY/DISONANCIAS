@@ -1,4 +1,4 @@
-# New Song 2 — Referencias
+# The Roars of Rome — Referencias
 
 Carpeta de partida para la nueva canción del álbum. Todavía sin letra, tempo ni
 tonalidad: acá solo se juntan las referencias antes de componer nada (misma

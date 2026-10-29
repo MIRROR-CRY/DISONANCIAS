@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""New Song 2: base instrumental etérea (gotas flotando).
+"""The Roars of Rome: base instrumental etérea (gotas flotando).
 
 Propuesta v1, a propósito con pocos sonidos para ir armando la idea de a poco.
 3/4 a 60 BPM, La menor (Am - F - C - G), 44 compases (~2:12).
@@ -520,7 +520,7 @@ def main():
     rms = float(np.sqrt(np.mean(mix ** 2)))
     print(f"v{version}: {len(mix) / SR:.1f} s, pico {np.abs(mix).max():.3f}, RMS {rms:.4f}")
     if shutil.which("ffmpeg"):
-        mp3 = os.path.join(PROJECT_DIR, f"new_song_2_base_v{version}.mp3")
+        mp3 = os.path.join(PROJECT_DIR, f"the_roars_of_rome_base_v{version}.mp3")
         subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-i", wav_path,
                         "-b:a", "192k", mp3], check=True)
         print("mp3:", mp3)

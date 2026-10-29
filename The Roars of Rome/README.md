@@ -1,11 +1,13 @@
-# New Song 2: propuesta musical v1
+# The Roars of Rome: propuesta musical
+
+_(Antes llamada "New Song 2"; renombrada por el autor.)_
 
 Base instrumental etérea con **pocos sonidos a propósito**, para ir armando la
 idea de a poco. Misma estructura de trabajo que Mirror Cry (secciones en
 compases + curvas de presencia por instrumento), pero sintetizada con numpy puro:
 no necesita FluidSynth ni SoundFont.
 
-Escuchar: `new_song_2_base_v1.mp3` (2:13). Se regenera con `python build_song.py`
+Escuchar: `the_roars_of_rome_base_v1.mp3` (2:13). Se regenera con `python build_song.py`
 (requiere numpy; ffmpeg opcional para el mp3). Cada ejecución crea una versión
 nueva en `versions/vN/` (mix + stems por instrumento, no se sube a git).
 
@@ -135,7 +137,7 @@ capa coldwave en 3/4 (propuesta de la IA, tempo elegido por la IA sin escuchar):
 A 100 BPM la canción dura 1:20 (la v1, a 60 BPM, dura 2:13), así que las gotas
 suenan más rápidas y menos "flotando". Para comparar, la v1 sigue siendo la
 referencia etérea pura. Ambas se escuchan como `.wav` (`versions/vN/mix.wav`,
-no se sube a git) o `new_song_2_base_vN.mp3` (sí se sube).
+no se sube a git) o `the_roars_of_rome_base_vN.mp3` (sí se sube).
 
 ## v3: vals sin batería (marimba + sintetizador de pulso)
 
