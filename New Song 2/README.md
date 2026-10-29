@@ -220,3 +220,19 @@ el bloque de 8). Opciones vigentes: `dotted` (negra con puntillo) y `one` (negra
 
 Generar la mezcla: `python build_song.py --waltz --piano --rhythm one --center e --bpm 80`
 (v5 en esta tanda de archivos). Las versiones antiguas con dos negras se eliminaron.
+
+## v7: mezcla con puntillo y pulso más etéreo
+
+Pedido del autor: mezcla completa con la melodía en **negra con puntillo**, y el
+sintetizador negra, negra, silencio más etéreo porque sonaba "muy encima" de los
+demás sonidos. Cambios al `pulse`:
+
+- Solo fundamental y un segundo armónico suave (antes 4 armónicos, más brillante).
+- Ataque de 60 ms y salida de 250 ms (antes 10 y 30 ms): el acorde se asoma en
+  vez de golpear.
+- Ganancia de 0.28 a 0.17 y más reverb (mezcla 0.6, cola de 2.5 s).
+- Consecuencia: la reverb llena un poco más el silencio del tiempo 3; sigue
+  habiendo hueco, pero más suave.
+
+Comando: `python build_song.py --waltz --piano --rhythm dotted --center e --sustain 2 --bpm 80`
+(piano con sustain 2, elección de la IA; el autor pidió sustain para el piano solo).

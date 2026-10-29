@@ -114,7 +114,7 @@ if WALTZ:
     })
 if PIANO:
     LEVELS["piano"] = [(0, 0), (7.9, 0), (8, 0.9), (36, 0.9), (40, 0.5), (44, 0)]
-GAINS = {"piano": 0.45, "pulse": 0.28, "marimba": 0.5, "kick": 0.7, "snare": 0.35, "bass_cold": 0.4, "hat": 0.16, "arp": 0.3,
+GAINS = {"piano": 0.45, "pulse": 0.17, "marimba": 0.5, "kick": 0.7, "snare": 0.35, "bass_cold": 0.4, "hat": 0.16, "arp": 0.3,
          "drops": 0.55, "drops_hi": 0.22, "pad": 0.30, "sub": 0.40, "timbal": 0.55}
 PAN = {"drops": 0.0, "drops_hi": 0.0, "pad": 0.0, "sub": 0.0, "timbal": 0.0}
 
@@ -364,7 +364,8 @@ def render_pulse():
     beat = 60.0 / BPM
     L = int(beat * 0.8 * SR)             # corta: deja oir el silencio del tiempo 3
     t = np.arange(L) / SR
-    env = np.minimum(1.0, t / 0.01) * np.minimum(1.0, (t[-1] - t) / 0.03)
+    # ataque lento y salida larga: el acorde "se asoma" en vez de golpear
+    env = np.minimum(1.0, t / 0.06) * np.minimum(1.0, (t[-1] - t) / 0.25)
     for bar in range(TOTAL_BARS):
         tones = [m + 12 for m in PAD_NOTES[chord_at_bar(bar)]]
         for b in (0, 1):                 # tiempos 1 y 2; el 3 queda en silencio
@@ -372,7 +373,8 @@ def render_pulse():
             for note in tones:
                 for det, ch in ((-0.1, 0), (0.1, 1)):
                     f = midi_hz(note) * 2 ** (det / 12.0)
-                    w = sum(np.sin(2 * np.pi * k * f * t) / k for k in (1, 2, 3, 4))
+                    # solo fundamental y segundo armonico: timbre suave, sin brillo
+                    w = np.sin(2 * np.pi * f * t) + 0.25 * np.sin(2 * np.pi * 2 * f * t)
                     out[s:s + L, ch] += w * env * 0.25
     return out
 
@@ -504,8 +506,8 @@ def main():
     stems = {}
     for name, st in raw.items():
         if name in ("drops", "drops_hi", "pad", "timbal", "arp", "snare", "marimba", "pulse", "piano"):
-            st = reverb(st, seconds=4.0 if name == "pad" else 3.0,
-                        mix=0.45 if name != "timbal" else 0.3)
+            st = reverb(st, seconds=4.0 if name == "pad" else (2.5 if name == "pulse" else 3.0),
+                        mix=0.6 if name == "pulse" else (0.45 if name != "timbal" else 0.3))
         st = st * level_curve(name, len(st))[:, None] * GAINS[name]
         stems[name] = st
         write_wav(os.path.join(vdir, "stems", f"{name}.wav"), st / max(1e-9, np.abs(st).max()) * 0.9)
