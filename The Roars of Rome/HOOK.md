@@ -236,3 +236,9 @@ Si todavía es largo: bajar `keep` y `down` a (1,35 s; 0,2 s) para dejar ~0,5 s,
 hueco y dejar solo el golpe con un corte de reverb.
 
 Comando recomendado: `python build_song.py --waltz --piano --rhythm one --center e --sustain 1.6 --long --bpm 80 --hook abc --drop short --power`.
+
+## v16 (ajuste): swell casi inaudible
+
+Reporte del autor: bajarle más al sonido raro. El volumen del swell pasa de 0,3 a 0,1 (un tercio),
+con el mismo ruido bajo y tono grave. Quedan sin cambios el golpe, el silencio corto (~0,75 s) y
+la entrada al coro. Si aún se oye, el siguiente paso es quitarlo del todo.

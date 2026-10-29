@@ -571,7 +571,7 @@ def render_impact():
     # swell discreto: poco ruido, tono grave y suave, para que no domine la mezcla
     tone = np.sin(2 * np.pi * midi_hz(64) * t) + 0.25 * np.sin(2 * np.pi * midi_hz(52) * t)
     swell = (0.2 * noise + 0.45 * tone) * ramp
-    add(swell, 40 * BAR_S - sw, 0.3)
+    add(swell, 40 * BAR_S - sw, 0.1)
     for bar, g in ((40, 1.0), (64, 0.75)):                         # entrada a cada coro
         add(_boom(2.0, f0=110, tau=0.8), bar * BAR_S, 1.2 * g)
         add(_crash(2.5, 0.9), bar * BAR_S, 0.5 * g)
