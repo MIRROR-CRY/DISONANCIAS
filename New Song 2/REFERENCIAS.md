@@ -131,6 +131,42 @@ lado acústico del álbum.
 
 ---
 
+## Referencia: Skott
+
+Pauline Skött (n. 4 oct 1991, Vikarbyn, Dalarna, Suecia). Cantautora y
+productora sueca; creció con música folk y tradiciones locales, tocando voz,
+violín y piano. Estudió composición en Estocolmo (Musikmakarna), tuvo contrato
+con Sony y luego fundó su propio sello, Dollar Menu. Referencia de **pop etéreo
+con raíz folk escandinava**. Wikipedia describe su escritura como "etérea" y
+"atmosférica".
+
+### Qué tomar de ella
+
+- **Proceso**: primero melodía y armonía; el primer borrador suele ser al piano
+  y "el núcleo se mantiene desde la primera canción cruda". Prioriza la emoción
+  sobre la perfección técnica (entrevista de BUST).
+- **Imaginería**: bosques, mundos fantásticos y colores; dice que la producción
+  puede ir "de un bosque verde a un mundo sci-fi robótico".
+- **Versiones acústicas**: con arreglos despojados, la letra y la voz ganan
+  protagonismo; útil como prueba de que la canción aguanta sin producción.
+- **Discos**: *Porcelain* (2016, primer sencillo, lado B *Wolf*), *Stay Off My
+  Mind* (EP, 2018), *Always Live for Always* (2020), *Chapter I (Acoustic)*
+  (2021), *A Letter from the Universe* (EP, 2022), *Roses N Guns* (2023),
+  *Overcome* (2025).
+
+### Canciones para escuchar
+
+- *Porcelain* (2016) — el punto de entrada
+- *Amelia* (2016) y su versión acústica (2021)
+- *Glitter & Gloss* (2017)
+- *Talk About Me* (2020), *Overcome*, *Roses N Guns* (2023)
+
+> No confirmado: tonalidad y BPM de todas sus canciones, productores concretos,
+> instrumentación, percusión y reverb, y los temas de cada letra. Fuentes: solo
+> Wikipedia, Codamusic y una entrevista de BUST (AllMusic dio error 403).
+
+---
+
 ## Idea sonora: gotas flotando
 
 Un instrumento de percusión afinada (timbal u otro) que suene como **gotas de
