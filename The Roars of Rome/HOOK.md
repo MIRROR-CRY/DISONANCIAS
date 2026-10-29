@@ -289,3 +289,18 @@ suena a "bwong" o a bombo sin ataque, y en audífonos pequeños queda como un zu
 mostró un pico a ~41 Hz y otro a ~85 Hz). Falta confirmar con el oído del autor cuál es mejor.
 
 Comando: `python build_song.py --waltz --piano --rhythm one --center e --sustain 1.6 --long --bpm 80 --hook abc --drop short --power --hit none|tight|boom`.
+
+## Diagnóstico del "sonido molesto" antes del coro (por descarte)
+
+El autor confirmó que el sonido molesto **no es el swell ni el golpe** (aparece también sin golpe,
+v16 `--hit none`, y persiste). Se agregó `--mute a,b` a `build_song.py` para silenciar
+instrumentos y se generaron cuatro variantes del tramo (sin golpe, drop corto, `--power`):
+
+| Archivo | Se silencia | Cuánto cambia la señal en esos 12 s |
+|---|---|---|
+| abl_sin_pad | `pad` | 29 % |
+| abl_sin_gotas_graves | `drops` | 19 % |
+| abl_sin_marimba_arpegio_pulso | `marimba`, `arp`, `pulse` | 58 % |
+| abl_sin_gotas_agudas | `drops_hi` | 3 % (casi no se oye en ese tramo, poco probable) |
+
+Se espera que el autor indique en cuál desaparece el sonido para ubicar al responsable.

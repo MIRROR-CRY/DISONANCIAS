@@ -44,6 +44,8 @@ _ap.add_argument("--drop", choices=["mc", "short"], default="mc",
                       "(como Mirror Cry); short = el golpe suena casi 2 tiempos y solo el ultimo tiempo queda en silencio")
 _ap.add_argument("--hit", choices=["boom", "tight", "none"], default="boom",
                  help="golpe del compas del drop: boom = grave con caida (v16), tight = golpe corto y seco, none = solo el corte, sin golpe")
+_ap.add_argument("--mute", default="",
+                 help="diagnostico: instrumentos a silenciar, separados por coma (p.ej. drops_hi,pad)")
 _ap.add_argument("--power", action="store_true",
                  help="con --long --hook abc: mas fuerza en el drop y en los coros (impactos, swell, graves y timbal mas fuertes)")
 _ap.add_argument("--center", choices=["a", "e"], default="a",
@@ -59,6 +61,7 @@ LONG = ARGS.long
 HOOK = ARGS.hook
 POWER = ARGS.power
 HIT = ARGS.hit
+MUTE = {m for m in ARGS.mute.split(",") if m}
 if HOOK and not ARGS.long:
     _ap.error("--hook requiere --long")
 if LONG and not WALTZ:
@@ -686,6 +689,8 @@ def main():
             st = reverb(st, seconds=(4.5 if name == "pad" else 3.0) if name in ("pad", "piano") else (2.5 if name == "pulse" else 3.0),
                         mix=0.5 if name in ("piano",) else (0.4 if name == "pulse" else (0.45 if name != "timbal" else 0.3)))
         st = st * level_curve(name, len(st))[:, None] * GAINS[name]
+        if name in MUTE:
+            st = st * 0.0
         if GATES and name not in ("timbal", "impact"):
             st = st * gate_curve(len(st))[:, None]
         stems[name] = st
