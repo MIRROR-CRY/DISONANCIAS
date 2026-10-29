@@ -95,6 +95,42 @@ Cantante irlandesa (Eithne Ní Bhraonáin, n. 1961; ex Clannad, solista desde
 
 ---
 
+## Referencia: Of Monsters and Men
+
+Banda islandesa de indie folk (formada en 2010; ganaron Músíktilraunir ese año).
+Referencia de **folk con coros grupales y voces alternadas**, la más cercana al
+lado acústico del álbum.
+
+### Qué tomar de ellos
+
+- **Dos voces** (masculina y femenina) que se alternan la voz principal, con
+  coros de apoyo en los estribillos.
+- **Instrumentación**: brass, acordeón, glockenspiel, melódica, piano y guitarra
+  (según reseñas). El glockenspiel es un candidato para las "gotas".
+- **Imaginario**: mito y fábula (reyes, fantasmas, barcos), exilio, soledad,
+  animales y naturaleza.
+- **Discos**: *My Head Is an Animal* (2011), *Beneath the Skin* (2015),
+  *Fever Dream* (2019), *All Is Love and Pain in the Mouse Parade* (2025).
+  Debut grabado desde marzo de 2011 en Studio Sýrland, Reikiavik.
+- **Integrantes actuales**: Nanna Bryndís Hilmarsdóttir, Ragnar Þórhallsson,
+  Brynjar Leifsson, Kristján Páll Kristjánsson, Arnar Rósenkranz Hilmarsson.
+
+### Canciones para escuchar
+
+- *Little Talks* — ~103-104 BPM, Si♭ menor según Chart Radio y sitios de acordes
+  (fuentes contradictorias; una partitura da ~206 BPM, probablemente doble tiempo)
+- *Mountain Sound* — piano pegajoso, estribillo coral, voces alternas
+- *Dirty Paws* — guitarra punteada y voces duales; abre el debut
+- *King and Lionheart* — fábula de un pueblo que huye de una invasión
+- *Crystals* — sin información encontrada
+
+> No confirmado: productor del debut, tonalidad/BPM de las demás canciones,
+> uso de timbales, reverb y detalles del proceso de composición. El agente no
+> abrió las páginas completas, solo resultados de búsqueda. Pendiente buscar
+> entrevistas en Clash Music.
+
+---
+
 ## Idea sonora: gotas flotando
 
 Un instrumento de percusión afinada (timbal u otro) que suene como **gotas de
