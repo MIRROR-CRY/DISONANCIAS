@@ -223,3 +223,16 @@ al coro quedan igual.
 
 Si sigue molestando, siguientes pasos: bajarlo más, quitarlo (solo queda el golpe) o acortarlo
 a medio segundo.
+
+## v16 (ajuste): silencio más corto
+
+Reporte del autor: el silencio es muy largo. Se pasó a `--drop short` (ver arriba): el golpe del
+compás 39 sostiene casi 2 tiempos (1,2 s) y el silencio baja de ~1,4 s a ~0,75 s (un tiempo,
+como sugería la fuente de "un tiempo de silencio"). Nivel medido en ventanas de 0,25 s desde
+el golpe: 0,35 · 0,35 · 0,31 · 0,32 · 0,24 · 0,16 · 0,07 · 0,05 · 0,04 y entonces el coro a 0,41.
+Con el swell suave llenando la parte final, el hueco real es de aprox. medio segundo a 0,75 s.
+
+Si todavía es largo: bajar `keep` y `down` a (1,35 s; 0,2 s) para dejar ~0,5 s, o quitar el
+hueco y dejar solo el golpe con un corte de reverb.
+
+Comando recomendado: `python build_song.py --waltz --piano --rhythm one --center e --sustain 1.6 --long --bpm 80 --hook abc --drop short --power`.
