@@ -42,6 +42,8 @@ _ap.add_argument("--hook", choices=["a", "b", "c", "abc"], default=None,
 _ap.add_argument("--drop", choices=["mc", "short"], default="mc",
                  help="compas del drop antes del coro: mc = golpe en el tiempo 1 y ~1,4 s de silencio "
                       "(como Mirror Cry); short = el golpe suena casi 2 tiempos y solo el ultimo tiempo queda en silencio")
+_ap.add_argument("--power", action="store_true",
+                 help="con --long --hook abc: mas fuerza en el drop y en los coros (impactos, swell, graves y timbal mas fuertes)")
 _ap.add_argument("--center", choices=["a", "e"], default="a",
                  help="centro tonal: a = La menor (Am F C G); e = Mi frigio (Em F G Am | Em F Em Em)")
 ARGS = _ap.parse_args()
@@ -53,6 +55,7 @@ WALTZ = ARGS.waltz
 PIANO = ARGS.piano
 LONG = ARGS.long
 HOOK = ARGS.hook
+POWER = ARGS.power
 if HOOK and not ARGS.long:
     _ap.error("--hook requiere --long")
 if LONG and not WALTZ:
@@ -201,7 +204,12 @@ if LONG:
                                 (71.9, 1.0), (72, 0), (80, 0)]
 else:
     GATES = []
-GAINS = {"piano": 0.45, "pulse": 0.24, "marimba": 0.5, "kick": 0.7, "snare": 0.35, "bass_cold": 0.4, "hat": 0.16, "arp": 0.3,
+if POWER and HOOK == "abc":
+    # coros con mas cuerpo: bajo, subgrave, timbal y gotas agudas mas fuertes
+    for _k, _f in (("bass_cold", 1.35), ("sub", 1.3), ("timbal", 1.25), ("drops_hi", 1.2)):
+        LEVELS[_k] = [(x, y * _f if (40 <= x <= 55.9 or 64 <= x <= 71.9) else y) for x, y in LEVELS[_k]]
+    LEVELS["impact"] = [(0, 1.0), (80, 1.0)]
+GAINS = {"impact": 0.6, "piano": 0.45, "pulse": 0.24, "marimba": 0.5, "kick": 0.7, "snare": 0.35, "bass_cold": 0.4, "hat": 0.16, "arp": 0.3,
          "drops": 0.55, "drops_hi": 0.22, "pad": 0.30, "sub": 0.40, "timbal": 0.55}
 PAN = {"drops": 0.0, "drops_hi": 0.0, "pad": 0.0, "sub": 0.0, "timbal": 0.0}
 
@@ -525,6 +533,49 @@ def render_piano():
     return out
 
 
+def _boom(length, f0=95.0, f1=38.0, tau=0.5):
+    t = np.arange(int(length * SR)) / SR
+    f = f1 + (f0 - f1) * np.exp(-t / 0.08)
+    ph = 2 * np.pi * np.cumsum(f) / SR
+    return np.sin(ph) * np.exp(-t / tau) * np.minimum(1.0, t / 0.002)
+
+
+def _crash(length, tau):
+    """Platillo/impacto sin cuerpo de bateria: ruido brillante que cae despacio."""
+    rng = np.random.default_rng(SEED + 31)
+    t = np.arange(int(length * SR)) / SR
+    noise = np.diff(rng.standard_normal(len(t) + 1))            # pasa-altos simple
+    return noise * np.exp(-t / tau) * np.minimum(1.0, t / 0.004)
+
+
+def render_impact():
+    """Golpe del drop (compas 39), swell inverso hacia el coro y golpe de entrada (40, 64)."""
+    n = int((TOTAL_BARS * BAR_S + 8) * SR)
+    out = np.zeros((n, 2))
+
+    def add(sig, start, gain, pan=0.0):
+        s0 = int(start * SR)
+        seg = sig[: n - s0] * gain
+        out[s0:s0 + len(seg), 0] += seg * np.sqrt((1 - pan) / 2)
+        out[s0:s0 + len(seg), 1] += seg * np.sqrt((1 + pan) / 2)
+
+    t_drop = 39 * BAR_S
+    add(_boom(1.6, tau=0.55), t_drop, 1.0)                         # golpe del drop
+    # swell inverso: ruido que se abre + tono en Mi, ultimo segundo del silencio
+    sw = 1.1
+    t = np.arange(int(sw * SR)) / SR
+    ramp = (t / sw) ** 2
+    rng = np.random.default_rng(SEED + 32)
+    noise = np.convolve(rng.standard_normal(len(t)), np.ones(6) / 6, mode="same")
+    tone = np.sin(2 * np.pi * midi_hz(64) * t) + 0.5 * np.sin(2 * np.pi * midi_hz(76) * t)
+    swell = (0.6 * noise + 0.5 * tone) * ramp
+    add(swell, 40 * BAR_S - sw, 0.8)
+    for bar, g in ((40, 1.0), (64, 0.75)):                         # entrada a cada coro
+        add(_boom(2.0, f0=110, tau=0.8), bar * BAR_S, 1.2 * g)
+        add(_crash(2.5, 0.9), bar * BAR_S, 0.5 * g)
+    return out
+
+
 def gate_curve(n):
     """Compas del drop, como en Mirror Cry: un golpe en el tiempo 1, un corte seco (con una
     bajada muy corta, sin que baje el volumen de a poco) y silencio hasta que el coro entra
@@ -611,15 +662,17 @@ def main():
         raw.update({"pulse": render_pulse(), "marimba": pingpong(render_marimba(), beats=1.5, feedback=0.3),
                     "bass_cold": render_bass_cold(),
                     "arp": pingpong(render_arp(), beats=1.5, feedback=0.35)})
+    if POWER and HOOK == "abc":
+        raw["impact"] = render_impact()
     if PIANO:
         raw["piano"] = pingpong(render_piano(), beats=1.5, feedback=0.35, mix=0.12)
     stems = {}
     for name, st in raw.items():
-        if name in ("drops", "drops_hi", "pad", "timbal", "arp", "snare", "marimba", "pulse", "piano"):
+        if name in ("drops", "drops_hi", "pad", "timbal", "arp", "snare", "marimba", "pulse", "piano", "impact"):
             st = reverb(st, seconds=(4.5 if name == "pad" else 3.0) if name in ("pad", "piano") else (2.5 if name == "pulse" else 3.0),
                         mix=0.5 if name in ("piano",) else (0.4 if name == "pulse" else (0.45 if name != "timbal" else 0.3)))
         st = st * level_curve(name, len(st))[:, None] * GAINS[name]
-        if GATES and name != "timbal":
+        if GATES and name not in ("timbal", "impact"):
             st = st * gate_curve(len(st))[:, None]
         stems[name] = st
         write_wav(os.path.join(vdir, "stems", f"{name}.wav"), st / max(1e-9, np.abs(st).max()) * 0.9)
@@ -627,6 +680,10 @@ def main():
     mix = mix[: int((TOTAL_BARS * BAR_S + 1) * SR)]   # 1 s tras el ultimo compas
     if HOOK in ("b", "abc"):
         mix = mix[int(4 * BAR_S * SR):]               # B: se saltan los 4 primeros compases de la intro
+    if POWER:
+        # limitador suave: los golpes de impacto no deben bajar el volumen de todo lo demas
+        ref = np.percentile(np.abs(mix), 99.9)
+        mix = np.tanh(mix / ref * 1.2)
     peak = np.abs(mix).max()
     mix = mix / peak * 0.8
     wav_path = os.path.join(vdir, "mix.wav")

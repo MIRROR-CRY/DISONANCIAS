@@ -194,3 +194,22 @@ Todo el material se corta junto (colas de reverb y eco incluidas); el timbal que
 fuera del corte para que su golpe y cola suenen enteros.
 
 Comando: `python build_song.py --waltz --piano --rhythm one --center e --sustain 1.6 --long --bpm 80 --hook abc --drop mc|short`.
+
+## v16: más fuerza (`--power`)
+
+Reporte del autor: "quizá le falta más fuerza aún" (se interpretó como el drop y la entrada al
+coro). Con `--power` (requiere `--hook abc`):
+
+- **Capa `impact`:** golpe grave en el compás 39 (el drop), **swell inverso** (ruido que se
+  abre más un tono en Mi) en el último segundo del silencio, que lo llena de tensión, y un
+  golpe fuerte + "platillo" sintético al entrar a cada coro (compases 40 y 64).
+- **Coros con más cuerpo:** bajo ×1,35, subgrave ×1,3, timbal ×1,25 y gotas agudas ×1,2.
+- **Limitador suave** (`tanh` sobre el percentil 99,9): antes, los golpes del timbal
+  fijaban el pico y la normalización bajaba el volumen de todo lo demás.
+- Efecto medido: volumen medio (RMS) de toda la mezcla de 0,10 a 0,20, es decir **unos
+  6 dB más fuerte**; en el coro 1 pasa de 0,10 a 0,20 y en el compás del drop el golpe llega
+  a 0,31 contra 0,17. Al comparar con las versiones anteriores hay que igualar el volumen,
+  porque más volumen por sí solo ya suena a "más fuerza". Para eso se envió un fragmento a
+  mismo volumen.
+
+Comando: `python build_song.py --waltz --piano --rhythm one --center e --sustain 1.6 --long --bpm 80 --hook abc --drop mc --power`.
