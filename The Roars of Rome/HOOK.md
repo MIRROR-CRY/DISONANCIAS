@@ -257,3 +257,18 @@ armónico: suena a flauta. Y en el puente subía a nivel 1,0 justo hasta el comp
 Cambio: el pad llega al compás 39 a 0,5 (antes 1,0) y vuelve a 1,0 en el coro. Banda media
 (150 a 800 Hz) justo antes del golpe: de 48 % a 34 % de la energía. Si el flauteo persiste, los
 siguientes sospechosos son el piano sostenido, la marimba y las gotas agudas del puente.
+
+## v16 (ajuste): golpe del drop más suave, swell de vuelta
+
+El autor sospecha que el sonido raro puede ser el "golpe fuerte" del drop (no el swell ni el
+pad) y pidió: menos fuerte, que se funda más rápido, y volver a poner el swell.
+
+- **Golpe grave del drop** (`_boom` en el compás 39): volumen de 1,0 a 0,5 y caída más rápida
+  (constante de 0,55 s a 0,28 s; largo de 1,6 s a 1,0 s).
+- **Timbal en el compás 39:** de ×1,3 a ×0,9. El timbal de la entrada al coro queda en ×1,4.
+- **Swell** vuelve, a 0,2 (antes 0,3 y luego 0,1). El pad sigue más bajo en el puente (0,5).
+- Nivel medido en ventanas de 0,25 s desde 0,5 s antes del golpe: 0,18 · 0,18 · **0,30** · 0,27 ·
+  0,23 · 0,24 · 0,18 · 0,12 · 0,04 · 0,03 · 0,02 · coro **0,41**. (Antes, con golpe fuerte: pico
+  ~0,35 y sostén ~0,32.)
+- "O mejor al final" del mensaje del autor no quedó claro (¿que el golpe vaya más cerca del
+  coro?). Se dejó la posición del golpe en el tiempo 1 del compás 39; falta aclararlo.

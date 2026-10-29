@@ -199,7 +199,7 @@ if LONG:
                                  (40, 1.0), (56, 0.5), (64, 1.0), (72, 0.5), (80, 0)]
             LEVELS["drops_hi"] = [(0, 0), (35, 0), (38.9, 0.8), (40, 0.8), (55.9, 0.8), (56, 0),
                                   (63.9, 0), (64, 0.8), (71.9, 0.8), (72, 0), (80, 0)]
-            LEVELS["timbal"] = [(0, 0), (36, 0), (38.9, 0.9), (39, 1.3), (39.99, 1.3), (40, 1.4),
+            LEVELS["timbal"] = [(0, 0), (36, 0), (38.9, 0.9), (39, 0.9), (39.99, 0.9), (40, 1.4),
                                 (40.5, 1.0), (55.9, 1.0), (56, 0), (64, 0), (64.1, 1.0),
                                 (71.9, 1.0), (72, 0), (80, 0)]
 else:
@@ -560,7 +560,7 @@ def render_impact():
         out[s0:s0 + len(seg), 1] += seg * np.sqrt((1 + pan) / 2)
 
     t_drop = 39 * BAR_S
-    add(_boom(1.6, tau=0.55), t_drop, 1.0)                         # golpe del drop
+    add(_boom(1.0, tau=0.28), t_drop, 0.5)                         # golpe del drop: mas suave y se funde rapido
     # swell inverso: ruido que se abre + tono en Mi, ultimo segundo del silencio
     sw = 1.1
     t = np.arange(int(sw * SR)) / SR
@@ -571,7 +571,7 @@ def render_impact():
     # swell discreto: poco ruido, tono grave y suave, para que no domine la mezcla
     tone = np.sin(2 * np.pi * midi_hz(64) * t) + 0.25 * np.sin(2 * np.pi * midi_hz(52) * t)
     swell = (0.2 * noise + 0.45 * tone) * ramp
-    add(swell, 40 * BAR_S - sw, 0.0)   # apagado a pedido del autor (sonaba raro)
+    add(swell, 40 * BAR_S - sw, 0.2)
     for bar, g in ((40, 1.0), (64, 0.75)):                         # entrada a cada coro
         add(_boom(2.0, f0=110, tau=0.8), bar * BAR_S, 1.2 * g)
         add(_crash(2.5, 0.9), bar * BAR_S, 0.5 * g)
