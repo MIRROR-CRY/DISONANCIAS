@@ -31,8 +31,6 @@ _ap.add_argument("--piano", action="store_true",
                  help="agrega la melodia de piano de 9 notas (Mi Re Si, Mi Re Do Sol Fa Mi)")
 _ap.add_argument("--rhythm", choices=["dotted", "two"], default="dotted",
                  help="con --piano: duracion de las 6 ultimas notas (negra con puntillo o dos negras)")
-_ap.add_argument("--flat", action="store_true",
-                 help="con --piano: el Si pasa a Si bemol (color frigio)")
 ARGS = _ap.parse_args()
 
 SR = 44100
@@ -40,7 +38,6 @@ BPM = ARGS.bpm
 COLD = ARGS.cold
 WALTZ = ARGS.waltz
 PIANO = ARGS.piano
-FLAT = ARGS.flat
 BEATS = 3                      # compas de 3/4
 BAR_S = BEATS * 60.0 / BPM     # 3 s por compas
 EIGHTH = 60.0 / BPM / 2        # 0.5 s; el patron de gotas son 6 corcheas por compas
@@ -373,7 +370,6 @@ def render_pulse():
 #                  compas, caen exactas en las barras.
 # --rhythm two:    las 6 ultimas con dos negras (2 tiempos): cruzan la barra de
 #                  compas (2 contra 3).
-# Con --flat el Si3 pasa a Si bemol 3 (A frigio).
 MELODY_PITCHES = [64, 62, 59, 64, 62, 60, 67, 65, 64]
 PHRASE_BARS = [8, 16, 28, 36]      # verso 1, verso 2, coro, outro (frase de 8 compases)
 
@@ -383,8 +379,6 @@ def melody_events():
     tail = 1.5 if ARGS.rhythm == "dotted" else 2.0
     ev, t = [], 0.0
     for i, m in enumerate(MELODY_PITCHES):
-        if FLAT and i == 2:
-            m -= 1
         d = 3.0 if i < 3 else tail
         ev.append((t, m, d))
         t += d

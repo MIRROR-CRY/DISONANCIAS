@@ -175,10 +175,10 @@ Notas sobre la armonía (Am F C G, un acorde por compás): en la v4 la frase cae
 Mi4/Am, Re4/F, Si3/C, Mi4-Re4/G, Do4-Sol4/Am, Fa4-Mi4/F. Todas las notas caben en
 La menor; el Si sobre C es la séptima mayor y el Mi sobre F también (color "maj7").
 
-**Bemol** (opcional, `--flat`): el Si3 pasa a Si♭3 (La frigio, color andaluz; sobre
-C suena a C7 y baja hacia el Mi4 con un tritono). No está generado en las versiones
-enviadas; se combina con cualquiera: `python build_song.py --waltz --piano --flat
---bpm 80`.
+**Bemoles**: no hacen falta. Criterio del autor: un bemol solo se agrega si una nota
+lo necesita para encajar en la escala y sonar bien, nunca de adorno. Todas las
+notas de la melodía ya pertenecen a La menor natural, así que no se usa ninguno
+(se quitó la opción `--flat`).
 
 Cómo generar: `python build_song.py --waltz --piano --rhythm dotted|two --bpm 80`.
 El piano es sintetizado (armónicos con caída rápida y pedal). No se pudo escuchar:
