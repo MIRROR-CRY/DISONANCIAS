@@ -250,3 +250,37 @@ Pedido del autor tras la v7 (se interpretó "tero" como "etéreo"):
   (v3: 0.28; v7: 0.17), reverb 0.4.
 
 Comando: `python build_song.py --waltz --piano --rhythm dotted --center e --sustain 3 --bpm 80`.
+
+## v9: versión larga (~3:00), partes como Mirror Cry
+
+Pedido del autor: la letra se esboza aparte y **no debe cambiar la base sonora**; lo
+que falta es extender la canción a unos 3 minutos para desarrollar todas las partes
+como en Mirror Cry, y que **empiece con "Ooh Oooh oOOOooh"** (sonidos de "u").
+
+Se agregó `--long` (requiere `--waltz`): 80 compases a 80 BPM en 3/4 = **3:01**. La
+base musical (gotas, pad, marimba, pulso, piano, Mi frigio) es la de la v8.
+
+| Sección | Compases | Qué pasa |
+|---|---|---|
+| Intro | 0-8 | "Ooh Oooh oOOOooh" + gotas + pulso; el pad entra en el compás 4 |
+| Verso 1 | 8-16 | Gotas, pad, marimba suave; piano "fantasma" (nivel bajo) |
+| Verso 2 | 16-24 | + sub y arpegio; piano fantasma |
+| Interludio | 24-32 | La melodía de piano sola con el pulso (el "hook") |
+| Puente | 32-40 | Se vacía; **el compás 39 queda en silencio total** (como el corte de Mirror Cry) |
+| Coro 1 | 40-56 | Todo: gotas agudas, timbal, bajo, piano pleno, dos frases |
+| Verso 3 | 56-64 | Baja la energía (después del coro, como en la última versión de Mirror Cry) |
+| Coro 2 | 64-72 | Vuelve todo |
+| Outro | 72-80 | Vuelve el "ooh" y todo se desvanece hasta una gota |
+
+- **El "ooh"** es un marcador sintetizado: tres gestos que suben Do5 → Re5 → Mi5
+  (Mi frigio), en vocal [u] con tres voces; el último se hincha y se retira. Fija
+  tiempo y altura y se reemplaza por la voz del autor. Los compases son 1, 2 y 3-4
+  (relativos al inicio de la sección).
+- La progresión (Em F G Am | Em F Em Em) reinicia al empezar cada sección, así que
+  cada frase de piano empieza en el Em.
+- Los versos quedan con espacio para cantar (8 compases ≈ 18 s cada uno). Si hacen
+  falta versos más largos, se pueden duplicar a 16 compases.
+- La estructura de partes y los niveles de cada instrumento son propuesta de la IA,
+  modelada sobre `SECTIONS` y `LEVELS` de Mirror Cry.
+
+Comando: `python build_song.py --waltz --piano --rhythm dotted --center e --sustain 3 --long --bpm 80`

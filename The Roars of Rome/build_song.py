@@ -33,6 +33,8 @@ _ap.add_argument("--rhythm", choices=["dotted", "one"], default="dotted",
                  help="con --piano: duracion de las 6 ultimas notas (negra con puntillo o una negra)")
 _ap.add_argument("--sustain", type=float, default=1.0,
                  help="con --piano: factor de pedal/sustain (1 = seco, 3 = notas que se funden)")
+_ap.add_argument("--long", action="store_true",
+                 help="version larga (~3:00, 80 compases) con las partes de Mirror Cry; requiere --waltz")
 _ap.add_argument("--center", choices=["a", "e"], default="a",
                  help="centro tonal: a = La menor (Am F C G); e = Mi frigio (Em F G Am | Em F Em Em)")
 ARGS = _ap.parse_args()
@@ -42,6 +44,9 @@ BPM = ARGS.bpm
 COLD = ARGS.cold
 WALTZ = ARGS.waltz
 PIANO = ARGS.piano
+LONG = ARGS.long
+if LONG and not WALTZ:
+    _ap.error("--long requiere --waltz")
 BEATS = 3                      # compas de 3/4
 BAR_S = BEATS * 60.0 / BPM     # 3 s por compas
 EIGHTH = 60.0 / BPM / 2        # 0.5 s; el patron de gotas son 6 corcheas por compas
@@ -82,6 +87,21 @@ SECTIONS = [
     ("chorus", 8),      # todo: timbal, gotas altas, pad abierto
     ("outro", 8),       # se desvanece hasta una sola gota
 ]
+if LONG:
+    # Mismas partes que Mirror Cry: intro, versos, interludio, puente con el compas
+    # final en silencio, dos coros, verso 3 despues del coro, outro. 80 compases a
+    # 80 BPM en 3/4 = 3:00.
+    SECTIONS = [
+        ("intro", 8),        # "ooh" + gotas + pad
+        ("verse1", 8),
+        ("verse2", 8),
+        ("interlude", 8),    # la melodia de piano sola con el pulso
+        ("bridge", 8),       # se vacia; el ultimo compas queda en silencio total
+        ("chorus1", 16),
+        ("verse3", 8),
+        ("chorus2", 8),
+        ("outro", 8),        # vuelve el "ooh" y todo se desvanece
+    ]
 TOTAL_BARS = sum(b for _, b in SECTIONS)
 SECTION_STARTS = [sum(b for _, b in SECTIONS[:i]) for i in range(len(SECTIONS))]
 
@@ -114,7 +134,36 @@ if WALTZ:
     })
 if PIANO:
     LEVELS["piano"] = [(0, 0), (7.9, 0), (8, 0.9), (36, 0.9), (40, 0.5), (44, 0)]
-GAINS = {"piano": 0.45, "pulse": 0.24, "marimba": 0.5, "kick": 0.7, "snare": 0.35, "bass_cold": 0.4, "hat": 0.16, "arp": 0.3,
+if LONG:
+    # inicio de cada seccion: intro 0, v1 8, v2 16, interludio 24, puente 32,
+    # coro1 40, v3 56, coro2 64, outro 72, fin 80
+    LEVELS = {
+        "drops":   [(0, 0.85), (8, 1.0), (32, 1.0), (38, 0.6), (40, 1.0), (72, 1.0), (79, 0.3), (80, 0.0)],
+        "drops_hi": [(0, 0), (39.9, 0), (40, 0.8), (55.9, 0.8), (56, 0), (63.9, 0), (64, 0.8),
+                     (71.9, 0.8), (72, 0), (80, 0)],
+        "pad":     [(0, 0), (4, 0), (8, 0.7), (24, 0.9), (32, 0.4), (40, 1.0), (56, 0.7),
+                    (64, 1.0), (72, 1.0), (80, 0.0)],
+        "sub":     [(0, 0), (16, 0), (18, 0.8), (23.9, 0.8), (24, 0), (32, 0), (40, 0.9), (56, 0.5),
+                    (64, 0.9), (72, 0.6), (80, 0)],
+        "timbal":  [(0, 0), (40, 0), (40.1, 1.0), (55.9, 1.0), (56, 0), (64, 0), (64.1, 1.0),
+                    (71.9, 1.0), (72, 0), (80, 0)],
+        "pulse":   [(0, 1.0), (79, 1.0), (80, 0.0)],
+        "marimba": [(0, 0), (6, 0), (8, 0.5), (16, 0.6), (24, 0.5), (32, 0.3), (40, 1.0),
+                    (56, 0.5), (64, 1.0), (72, 0.5), (80, 0)],
+        "bass_cold": [(0, 0), (39.9, 0), (40, 1.0), (55.9, 1.0), (56, 0), (63.9, 0), (64, 1.0),
+                      (71.9, 1.0), (72, 0), (80, 0)],
+        "arp":     [(0, 0), (16, 0), (18, 0.5), (24, 0.5), (32, 0.3), (40, 0.8), (56, 0.4),
+                    (64, 0.8), (72, 0.4), (80, 0)],
+        # piano: fantasma bajo los versos, pleno en interludio y coros (como el hook de Mirror Cry)
+        "piano":   [(0, 0), (7.9, 0), (8, 0.35), (23.9, 0.35), (24, 0.7), (31.9, 0.7), (32, 0),
+                    (39.9, 0), (40, 1.0), (55.9, 1.0), (56, 0.35), (63.9, 0.35), (64, 1.0),
+                    (71.9, 1.0), (72, 0.7), (80, 0)],
+        "ooh":     [(0, 1.0), (80, 1.0)],
+    }
+    GATES = [(39.0, 40.0)]     # compas de silencio total antes del coro
+else:
+    GATES = []
+GAINS = {"ooh": 0.7, "piano": 0.45, "pulse": 0.24, "marimba": 0.5, "kick": 0.7, "snare": 0.35, "bass_cold": 0.4, "hat": 0.16, "arp": 0.3,
          "drops": 0.55, "drops_hi": 0.22, "pad": 0.30, "sub": 0.40, "timbal": 0.55}
 PAN = {"drops": 0.0, "drops_hi": 0.0, "pad": 0.0, "sub": 0.0, "timbal": 0.0}
 
@@ -390,6 +439,8 @@ def render_pulse():
 #                  negras.)
 MELODY_PITCHES = [64, 62, 59, 64, 62, 60, 67, 65, 64]
 PHRASE_BARS = [8, 16, 28, 36]      # verso 1, verso 2, coro, outro (frase de 8 compases)
+if LONG:
+    PHRASE_BARS = [8, 16, 24, 40, 48, 56, 64, 72]
 
 
 def melody_events():
@@ -428,6 +479,62 @@ def render_piano():
             out[s0:s0 + len(seg), 0] += seg * 0.8
             out[s0:s0 + len(seg), 1] += seg * 0.8
     return out
+
+
+# --------------------------------------------- "ooh" de la intro y el outro (--long)
+
+# Marcador de posicion de la voz: tres gestos "Ooh", "Oooh", "oOOOooh" que suben
+# Do5 -> Re5 -> Mi5 (Mi frigio). Es una vocal [u] sintetizada con formantes
+# (~300 y ~870 Hz): sirve para fijar tiempo y altura, no reemplaza la voz del autor.
+OOH_AT = [0, 72]            # compases de inicio: intro y outro
+OOH_EVENTS = [              # (compas relativo, tiempo, midi, duracion en tiempos, hinchazon)
+    (1, 0.0, 72, 1.5, False),   # "Ooh"
+    (2, 0.0, 74, 3.0, False),   # "Oooh"
+    (3, 0.0, 76, 6.0, True),    # "oOOOooh": se hincha y se retira
+]
+
+
+def _ooh_note(freq, length, swell):
+    t = np.arange(int(length * SR)) / SR
+    out = np.zeros(len(t))
+    vib = 1.0 + 0.004 * np.sin(2 * np.pi * 5.3 * t) * np.minimum(1.0, t / 0.8)
+    for k in range(1, 25):
+        fk = k * freq
+        amp = (np.exp(-((fk - 300) / 160.0) ** 2) + 0.45 * np.exp(-((fk - 870) / 260.0) ** 2)
+               + 0.02 / k)
+        out += amp * np.sin(2 * np.pi * np.cumsum(fk * vib) / SR)
+    if swell:
+        env = np.sin(np.pi * t / length) ** 1.5        # sube y baja en una sola ola
+    else:
+        env = np.minimum(1.0, t / 0.12) * np.minimum(1.0, (length - t) / 0.4)
+    return out * env
+
+
+def render_ooh():
+    n = int((TOTAL_BARS * BAR_S + 8) * SR)
+    out = np.zeros((n, 2))
+    beat = 60.0 / BPM
+    for start in OOH_AT:
+        for rel_bar, rel_beat, midi, beats, swell in OOH_EVENTS:
+            length = beats * beat
+            s0 = int((start + rel_bar) * BAR_S * SR + rel_beat * beat * SR)
+            for det, pan in ((-8, -0.4), (0, 0.0), (8, 0.4)):    # coro de tres voces
+                f = midi_hz(midi) * 2 ** (det / 1200.0)
+                note = _ooh_note(f, length, swell)
+                seg = note[: n - s0]
+                out[s0:s0 + len(seg), 0] += seg * np.sqrt((1 - pan) / 2) * 0.33
+                out[s0:s0 + len(seg), 1] += seg * np.sqrt((1 + pan) / 2) * 0.33
+    return out
+
+
+def gate_curve(n):
+    g = np.ones(n)
+    fade = int(0.03 * SR)
+    for a, b in GATES:
+        i0, i1 = int(a * BAR_S * SR), int(b * BAR_S * SR)
+        g[i0:i1] = 0.0
+        g[i0 - fade:i0] = np.linspace(1, 0, fade)
+    return g
 
 
 # ---------------------------------------------------------------- efectos
@@ -503,12 +610,16 @@ def main():
                     "arp": pingpong(render_arp(), beats=1.5, feedback=0.35)})
     if PIANO:
         raw["piano"] = pingpong(render_piano(), beats=1.5, feedback=0.4, mix=0.3)
+    if LONG:
+        raw["ooh"] = pingpong(render_ooh(), beats=1.5, feedback=0.4, mix=0.3)
     stems = {}
     for name, st in raw.items():
-        if name in ("drops", "drops_hi", "pad", "timbal", "arp", "snare", "marimba", "pulse", "piano"):
-            st = reverb(st, seconds=4.5 if name in ("pad", "piano") else (2.5 if name == "pulse" else 3.0),
-                        mix=0.7 if name == "piano" else (0.4 if name == "pulse" else (0.45 if name != "timbal" else 0.3)))
+        if name in ("drops", "drops_hi", "pad", "timbal", "arp", "snare", "marimba", "pulse", "piano", "ooh"):
+            st = reverb(st, seconds=4.5 if name in ("pad", "piano", "ooh") else (2.5 if name == "pulse" else 3.0),
+                        mix=0.7 if name in ("piano", "ooh") else (0.4 if name == "pulse" else (0.45 if name != "timbal" else 0.3)))
         st = st * level_curve(name, len(st))[:, None] * GAINS[name]
+        if GATES:
+            st = st * gate_curve(len(st))[:, None]
         stems[name] = st
         write_wav(os.path.join(vdir, "stems", f"{name}.wav"), st / max(1e-9, np.abs(st).max()) * 0.9)
     mix = sum(stems.values())
