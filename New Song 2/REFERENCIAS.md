@@ -195,6 +195,47 @@ pam · pam · pa · pam · pam · pam
 | Dinámica | Velocidades ligeramente variables (como gotas reales) y el "pa" más bajo |
 | Lugar en la mezcla | Entra solo en la intro, queda de fondo bajo la voz y vuelve en los puentes |
 
+## Contexto de la canción: por qué esta canción, por qué desde Chile
+
+Igual que en las otras canciones del álbum, esta tiene un contexto detrás. Hoja
+de ruta conceptual (ideas del autor, por desarrollar y verificar):
+
+### Pensamiento sistémico
+
+- **Club de Roma** (fundado en 1968) e *Informe Meadows / Los límites del
+  crecimiento* (1972): modelo del mundo basado en la **dinámica de sistemas** de
+  Jay Forrester (MIT), con Donella y Dennis Meadows. Idea central: un sistema
+  finito no sostiene crecimiento indefinido; los bucles de retroalimentación
+  importan más que los eventos aislados.
+- **Humberto Maturana y Francisco Varela** (chilenos, Universidad de Chile):
+  autopoiesis (1972-73), los seres vivos como sistemas que se producen a sí
+  mismos. Ojo: pertenecen a la tradición cibernética y sistémica más amplia, pero
+  no son la base directa del modelo del Club de Roma (esa es Forrester); son
+  una línea paralela. Conviene presentarlo así para no afirmar de más.
+- **Posible tercer hilo (a decidir):** Cybersyn, proyecto chileno de gestión
+  cibernética de la economía (Stafford Beer, 1971-73). Aparece en el repositorio
+  solo si el autor quiere; es otro caso de pensamiento sistémico en Chile.
+
+### Por qué tiene sentido hacerla en Chile
+
+- Chile aportó pensamiento sistémico de primer nivel (Maturana y Varela); una
+  música sobre ciclos, naturaleza y sistemas conecta con esa herencia.
+- Se une al hilo del álbum: las demás canciones (salitreras, obreros,
+  Recabarren) hablan de límites, extracción y trabajo. Esta aporta el lado de
+  los **límites del sistema y el cuidado de lo vivo**.
+- Conexión con la idea sonora: gotas que flotan como imagen de un ciclo (agua,
+  retroalimentación, patrón que se repite y se desfasa).
+
+### Pregunta abierta: ¿por qué lo nórdico?
+
+Casi todas las referencias vienen de Escandinavia e Islandia (AURORA, Of
+Monsters and Men, Skott; Björk y Sigur Rós sugeridas; Enya es irlandesa). Es una
+curiosidad del autor y vale la pena explorarla. Hipótesis a contrastar, sin
+afirmar todavía: relación cotidiana con paisajes extremos, fuerte tradición folk,
+y escenas locales con apoyo cultural. Posible estudio aparte.
+
+---
+
 ## Cómo encaja en DISONANCIAS
 
 - El álbum ya tiene piezas de carga histórica y social (*Kicking Stones*,
