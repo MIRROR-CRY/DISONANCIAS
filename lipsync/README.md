@@ -13,3 +13,12 @@ Herramienta estándar para sincronizar a mano una letra con su canción, palabra
 
 ## Formato JSON
 `{song, reactionOffsetMs, sections:[{section, lines:[{text,start,end,words:[{text,start,end,_tagged}]}]}]}` (segundos). Los builders de video (`build_tiktok.py`, `build_lyrics.py`) deben leer este formato.
+
+## Biblioteca de canciones
+
+El selector "Biblioteca" carga cada canción con su audio y letra:
+
+- **Mirror Cry** (Bandcamp, sin tiempos: se sincroniza a mano).
+- **Kicking Stones (EN)** y **(ES)**, con los tiempos del antiguo Editor de Timing ya precargados (editables).
+
+La plantilla usa los placeholders `__MC__` (audio data-URI), `__KS__` (audio data-URI) y `__LIB__` (JSON de la biblioteca).

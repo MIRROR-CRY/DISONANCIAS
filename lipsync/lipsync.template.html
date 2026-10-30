@@ -18,6 +18,7 @@ button:hover{border-color:var(--acc)}
 button.pri{background:var(--acc);color:var(--acc-fg);border-color:var(--acc);font-weight:700}
 button.on{border-color:var(--acc);background:var(--cur)}
 button:disabled{opacity:.5;cursor:default}
+select{background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:8px;font:inherit;color:inherit}
 input[type=text],textarea{background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:8px;width:100%;box-sizing:border-box}
 textarea{min-height:160px;font-family:var(--mono);font-size:13px}
 .mono{font-family:var(--mono)}
@@ -41,10 +42,11 @@ input[type=range]{flex:1;min-width:120px;accent-color:var(--acc)}
  <div><h1>Lipsync</h1><p class="sub">Sincroniza la letra con la canción tocando cada palabra mientras suena. Exporta tiempos por palabra.</p></div>
 
  <div class="card">
+  <div class="row"><label class="l" for="sel">Biblioteca</label><select id="sel" style="flex:1;min-width:140px"></select></div>
   <div class="row"><label class="l" for="song">Canción</label><input type="text" id="song" value="Mirror Cry" style="flex:1;min-width:140px"></div>
-  <div class="row"><label class="l" for="file">Audio</label><input type="file" id="file" accept="audio/*"><span id="aname" class="sub mono">Mirror Cry (Bandcamp, 184 s)</span></div>
+  <div class="row"><label class="l" for="file">Audio</label><input type="file" id="file" accept="audio/*"><span id="aname" class="sub mono"></span></div>
   <label class="l" for="lyr">Letra · [Sección] en su línea; una línea por verso</label>
-  <textarea id="lyr" spellcheck="false">__LYRICS__</textarea>
+  <textarea id="lyr" spellcheck="false"></textarea>
   <div class="row"><button id="load" class="pri">Cargar letra</button><span class="sub">Recargar borra los tiempos.</span></div>
  </div>
 
@@ -66,7 +68,7 @@ input[type=range]{flex:1;min-width:120px;accent-color:var(--acc)}
  </div>
 </div>
 <div id="tapbar"><div class="in"><button id="undo" title="Deshacer último">↶</button><button id="tap" class="pri">TAP · siguiente palabra</button></div></div>
-<audio id="a" preload="auto" src="__AUDIO__"></audio>
+<audio id="a" preload="auto"></audio>
 <script>
 (function(){
 var a=document.getElementById('a'),$=function(i){return document.getElementById(i)};
@@ -115,8 +117,8 @@ $('tap').onclick=function(){if(cur<flat.length)tag(cur)};
 $('undo').onclick=function(){var o=hist.pop();if(!o)return;var f=flat[o.i];f.w.start=o.s;f.w.end=o.e;f.w._tagged=o.t;f.w._b.classList.toggle('tag',o.t);
  if(o.i>0){flat[o.i-1].w.start=o.ps;flat[o.i-1].w.end=o.pe}cur=o.i;mark()};
 document.addEventListener('keydown',function(e){if(e.code==='Space'&&!/INPUT|TEXTAREA/.test(document.activeElement.tagName)){e.preventDefault();if(cur<flat.length)tag(cur)}});
-function load(){secs=parse($('lyr').value);hist=[];rebuild();render();msg(flat.length+' palabras cargadas')}
-$('load').onclick=load;
+function load(pre){secs=pre?JSON.parse(JSON.stringify(pre)):parse($('lyr').value);hist=[];rebuild();render();msg(flat.length+' palabras cargadas')}
+$('load').onclick=function(){load()};
 $('clr').onclick=function(){secs.forEach(function(s){s.lines.forEach(function(l){l.start=l.end=null;l.words.forEach(function(w){w.start=w.end=null;w._tagged=false})})});hist=[];rebuild();render()};
 function msg(t){$('msg').textContent=t}
 // player
@@ -163,6 +165,10 @@ $('cpy').onclick=function(){var t=srt();function fb(){var x=document.createEleme
  if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(t).then(function(){msg('SRT copiado')},fb);else fb()};
 $('dbs').onclick=async function(){try{var db=await claude.use('db');if(!db){msg('Base de datos no disponible');return}await db.doc('lipsync/'+slug()).set({data:JSON.stringify(payload()),updatedAt:Date.now()});msg('Guardado para Claude ✓')}catch(e){msg('No se guardó ('+(e&&e.code||e)+')')}};
 a.onended=function(){if(flat.some(function(f){return f.w._tagged}))msg('Fin. Guarda JSON o "Guardar para Claude".')};
-load();
+var AUD={MC:__MC__,KS:__KS__},LIB=__LIB__;
+LIB.forEach(function(s,i){var o=document.createElement('option');o.value=i;o.textContent=s.name;$('sel').appendChild(o)});
+function pick(i){var s=LIB[i];a.src=AUD[s.audio];$('song').value=s.name;$('lyr').value=s.lyrics;$('aname').textContent=s.audio==='MC'?'Bandcamp, 184 s':'Kicking Stones';load(s.pre)}
+$('sel').onchange=function(){pick(this.value)};
+pick(0);
 })();
 </script>
