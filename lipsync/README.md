@@ -22,3 +22,7 @@ El selector "Biblioteca" carga cada canción con su audio y letra:
 - **Kicking Stones (EN)** y **(ES)**, con los tiempos del antiguo Editor de Timing ya precargados (editables).
 
 La plantilla usa los placeholders `__MC__` (audio data-URI), `__KS__` (audio data-URI) y `__LIB__` (JSON de la biblioteca).
+
+## GitHub Pages
+
+`index.html` es la versión estática (audio en `audio/`, biblioteca en `library.json`). Con Pages activado desde `main` / raíz: https://mirror-cry.github.io/DISONANCIAS/lipsync/ . Descarga JSON/SRT con un enlace normal; "Guardar para Claude" solo existe dentro de claude.ai.

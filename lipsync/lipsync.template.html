@@ -165,7 +165,7 @@ $('cpy').onclick=function(){var t=srt();function fb(){var x=document.createEleme
  if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(t).then(function(){msg('SRT copiado')},fb);else fb()};
 $('dbs').onclick=async function(){try{var db=await claude.use('db');if(!db){msg('Base de datos no disponible');return}await db.doc('lipsync/'+slug()).set({data:JSON.stringify(payload()),updatedAt:Date.now()});msg('Guardado para Claude ✓')}catch(e){msg('No se guardó ('+(e&&e.code||e)+')')}};
 a.onended=function(){if(flat.some(function(f){return f.w._tagged}))msg('Fin. Guarda JSON o "Guardar para Claude".')};
-var AUD={MC:__MC__,KS:__KS__},LIB=__LIB__;
+var AUD={MC:"audio/mirror_cry.mp3",KS:"audio/kicking_stones.mp3"},LIB=__LIB__;
 LIB.forEach(function(s,i){var o=document.createElement('option');o.value=i;o.textContent=s.name;$('sel').appendChild(o)});
 function pick(i){var s=LIB[i];a.src=AUD[s.audio];$('song').value=s.name;$('lyr').value=s.lyrics;$('aname').textContent=s.audio==='MC'?'Bandcamp, 184 s':'Kicking Stones';load(s.pre)}
 $('sel').onchange=function(){pick(this.value)};
