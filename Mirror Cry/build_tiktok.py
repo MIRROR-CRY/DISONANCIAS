@@ -1,11 +1,10 @@
-"""Mirror Cry: clip TikTok 9:16 con letra palabra por palabra sobre el coro (el hook).
+"""Mirror Cry: clip TikTok 9:16 con letra palabra por palabra (el hook: coro + post-coro).
 
 Uso: python3 build_tiktok.py AUDIO.mp3 [salida.mp4]
 
-Tiempos por compases (156 BPM) con reparto por silabas dentro de cada verso; no es un
-alineado con la voz. Ajusta START_BAR / LINES si algo queda corrido.
+Tiempos reales marcados a mano con lipsync (mirror_cry_timing.json). START/END (s) por env.
 """
-import os, re, subprocess, sys
+import json, os, subprocess, sys
 import numpy as np
 from PIL import Image, ImageDraw, ImageFilter, ImageFont, ImageEnhance
 
@@ -13,34 +12,18 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 BEAT = 60 / 156
 BAR = BEAT * 4
 W, H, FPS = 1080, 1920, 30
-START_BAR, END_BAR = 74, 92          # 2 compases de entrada + coro completo
+START, END = float(os.environ.get("START", 35.6)), float(os.environ.get("END", 55.6))
 B = "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"
 ACCENT, WHITE, DIM = (255, 92, 120), (255, 255, 255), (120, 124, 140)
-LINES = [(76, "It's a mirror cry driving me"), (80, "A ghost that won't let me be"),
-         (84, "I won't lose the opportunity"), (88, "And that's why I'll miss it")]
-SING = BAR * 3.3                      # cuanto dura cantado cada verso
-if os.environ.get("STARTS"):          # tiempos reales (s) de inicio de cada verso del coro, separados por coma
-    LINES = [(float(t) / BAR, tx) for t, (_, tx) in zip(os.environ["STARTS"].split(","), LINES)]
-if os.environ.get("SING"):
-    SING = float(os.environ["SING"])
-
-
-def syl(w):
-    return max(1, len(re.findall(r"[aeiouy]+", w.lower())))
 
 
 def words_timed():
+    d = json.load(open(os.path.join(HERE, "mirror_cry_timing.json")))
     out = []
-    for b, text in LINES:
-        ws = text.split()
-        tot = sum(syl(w) for w in ws)
-        t, a = 0.0, b * BAR
-        line = []
-        for w in ws:
-            d = SING * syl(w) / tot
-            line.append((w, a + t, a + t + d))
-            t += d
-        out.append(line)
+    for sec in d["sections"]:
+        for ln in sec["lines"]:
+            if START - 1 <= ln["start"] < END:
+                out.append([(w["text"], w["start"], w["end"]) for w in ln["words"]])
     return out
 
 
@@ -67,7 +50,8 @@ def frame(base, t, lines):
     d = ImageDraw.Draw(im)
     d.text((W / 2, 170), "MIRROR CRY", font=ImageFont.truetype(B, 72), fill=WHITE, anchor="mm")
     d.text((W / 2, 245), "@mirrorcry.music", font=ImageFont.truetype(B, 38), fill=(200, 205, 225), anchor="mm")
-    cur = next((l for l in lines if l[0][1] - 0.4 <= t < l[-1][2] + 0.9), None)
+    cur = next((l for l in reversed(lines) if l[0][1] - 0.4 <= t), None)
+    if cur and t >= cur[-1][2] + 0.9: cur = None
     if cur:
         # envuelve en 2-3 filas
         rows, row = [], []
@@ -100,7 +84,7 @@ def frame(base, t, lines):
 def main():
     audio = sys.argv[1]
     out = sys.argv[2] if len(sys.argv) > 2 else os.path.join(HERE, "mirror_cry_tiktok.mp4")
-    t0, dur = START_BAR * BAR, (END_BAR - START_BAR) * BAR
+    t0, dur = START, END - START
     base, lines = bg(), words_timed()
     p = subprocess.Popen(["ffmpeg", "-y", "-loglevel", "error", "-f", "rawvideo", "-pix_fmt", "rgb24",
                           "-s", f"{W}x{H}", "-r", str(FPS), "-i", "-", "-ss", f"{t0:.3f}", "-t", f"{dur:.3f}",
