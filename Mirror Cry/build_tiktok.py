@@ -18,8 +18,11 @@ B = "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"
 ACCENT, WHITE, DIM = (255, 92, 120), (255, 255, 255), (120, 124, 140)
 LINES = [(76, "It's a mirror cry driving me"), (80, "A ghost that won't let me be"),
          (84, "I won't lose the opportunity"), (88, "And that's why I'll miss it")]
-SING = 3.4 * BAR / 4 * 4 / 4         # fraccion del verso (4 compases) donde se canta
-SING = BAR * 3.3
+SING = BAR * 3.3                      # cuanto dura cantado cada verso
+if os.environ.get("STARTS"):          # tiempos reales (s) de inicio de cada verso del coro, separados por coma
+    LINES = [(float(t) / BAR, tx) for t, (_, tx) in zip(os.environ["STARTS"].split(","), LINES)]
+if os.environ.get("SING"):
+    SING = float(os.environ["SING"])
 
 
 def syl(w):
@@ -42,7 +45,7 @@ def words_timed():
 
 
 def bg():
-    im = Image.open(os.path.join(HERE, "portada.png")).convert("RGB")
+    im = Image.open(os.path.join(HERE, "portada_bandcamp.jpg")).convert("RGB")
     s = max(W / im.width, H / im.height) * 1.12
     im = im.resize((int(im.width * s) + 1, int(im.height * s) + 1))
     im = im.crop(((im.width - W) // 2, (im.height - H) // 2, (im.width + W) // 2, (im.height + H) // 2))

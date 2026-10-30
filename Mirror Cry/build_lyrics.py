@@ -36,7 +36,7 @@ def wrap_draw(d, text, font, y, fill):
 
 
 def bg():
-    im = Image.open(os.path.join(HERE, "portada.png")).convert("RGB")
+    im = Image.open(os.path.join(HERE, "portada_bandcamp.jpg")).convert("RGB")
     s = max(W / im.width, H / im.height)
     im = im.resize((int(im.width * s) + 1, int(im.height * s) + 1))
     im = im.crop(((im.width - W) // 2, (im.height - H) // 2, (im.width + W) // 2, (im.height + H) // 2))
