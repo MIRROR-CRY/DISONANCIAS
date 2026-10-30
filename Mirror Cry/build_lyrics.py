@@ -13,7 +13,7 @@ B = "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"
 R = "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf"
 
 ACCENT = (255, 92, 120)
-SHIFT = float(os.environ.get("SHIFT", 0.020))  # s: adelanta las palabras (compensa el retraso del tap)
+SHIFT = float(os.environ.get("SHIFT", 0.0))  # s: adelanta las palabras (compensa el retraso del tap)
 TOTAL = 184.04
 
 

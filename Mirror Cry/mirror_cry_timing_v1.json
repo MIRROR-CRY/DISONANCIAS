@@ -1,0 +1,1117 @@
+{
+ "song": "Mirror Cry",
+ "reactionOffsetMs": 150,
+ "sections": [
+  {
+   "section": "Verse 1",
+   "lines": [
+    {
+     "text": "Why should I stay AS-IS?",
+     "start": 12.287,
+     "end": 13.877,
+     "words": [
+      {
+       "text": "Why",
+       "start": 12.287,
+       "end": 12.502,
+       "_tagged": true
+      },
+      {
+       "text": "should",
+       "start": 12.502,
+       "end": 12.868,
+       "_tagged": true
+      },
+      {
+       "text": "I",
+       "start": 12.868,
+       "end": 13.045,
+       "_tagged": true
+      },
+      {
+       "text": "stay",
+       "start": 13.045,
+       "end": 13.477,
+       "_tagged": true
+      },
+      {
+       "text": "AS-IS?",
+       "start": 13.477,
+       "end": 13.977,
+       "_tagged": true
+      }
+     ]
+    },
+    {
+     "text": "If I can be TO-BE?",
+     "start": 15.222,
+     "end": 16.779999999999998,
+     "words": [
+      {
+       "text": "If",
+       "start": 15.222,
+       "end": 15.39,
+       "_tagged": true
+      },
+      {
+       "text": "I",
+       "start": 15.39,
+       "end": 15.588,
+       "_tagged": true
+      },
+      {
+       "text": "can",
+       "start": 15.588,
+       "end": 15.935,
+       "_tagged": true
+      },
+      {
+       "text": "be",
+       "start": 15.935,
+       "end": 16.38,
+       "_tagged": true
+      },
+      {
+       "text": "TO-BE?",
+       "start": 16.38,
+       "end": 16.88,
+       "_tagged": true
+      }
+     ]
+    },
+    {
+     "text": "From years ago, the Miss",
+     "start": 18.481,
+     "end": 20.348,
+     "words": [
+      {
+       "text": "From",
+       "start": 18.481,
+       "end": 18.683,
+       "_tagged": true
+      },
+      {
+       "text": "years",
+       "start": 18.683,
+       "end": 19.107,
+       "_tagged": true
+      },
+      {
+       "text": "ago,",
+       "start": 19.107,
+       "end": 19.586,
+       "_tagged": true
+      },
+      {
+       "text": "the",
+       "start": 19.586,
+       "end": 19.948,
+       "_tagged": true
+      },
+      {
+       "text": "Miss",
+       "start": 19.948,
+       "end": 20.448,
+       "_tagged": true
+      }
+     ]
+    },
+    {
+     "text": "Taught me the verb To Be",
+     "start": 21.487,
+     "end": 23.479,
+     "words": [
+      {
+       "text": "Taught",
+       "start": 21.487,
+       "end": 21.66,
+       "_tagged": true
+      },
+      {
+       "text": "me",
+       "start": 21.66,
+       "end": 22.076,
+       "_tagged": true
+      },
+      {
+       "text": "the",
+       "start": 22.076,
+       "end": 22.455,
+       "_tagged": true
+      },
+      {
+       "text": "verb",
+       "start": 22.455,
+       "end": 22.691,
+       "_tagged": true
+      },
+      {
+       "text": "To",
+       "start": 22.691,
+       "end": 23.079,
+       "_tagged": true
+      },
+      {
+       "text": "Be",
+       "start": 23.079,
+       "end": 24.472,
+       "_tagged": true
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "section": "Verse 2",
+   "lines": [
+    {
+     "text": "Trapped in an iron cage",
+     "start": 24.472,
+     "end": 26.346999999999998,
+     "words": [
+      {
+       "text": "Trapped",
+       "start": 24.472,
+       "end": 24.675,
+       "_tagged": true
+      },
+      {
+       "text": "in",
+       "start": 24.675,
+       "end": 24.86,
+       "_tagged": true
+      },
+      {
+       "text": "an",
+       "start": 24.86,
+       "end": 25.529,
+       "_tagged": true
+      },
+      {
+       "text": "iron",
+       "start": 25.529,
+       "end": 25.947,
+       "_tagged": true
+      },
+      {
+       "text": "cage",
+       "start": 25.947,
+       "end": 26.447,
+       "_tagged": true
+      }
+     ]
+    },
+    {
+     "text": "Sisyphus wasn't like this",
+     "start": 27.642,
+     "end": 29.587999999999997,
+     "words": [
+      {
+       "text": "Sisyphus",
+       "start": 27.642,
+       "end": 28.252,
+       "_tagged": true
+      },
+      {
+       "text": "wasn't",
+       "start": 28.252,
+       "end": 28.842,
+       "_tagged": true
+      },
+      {
+       "text": "like",
+       "start": 28.842,
+       "end": 29.188,
+       "_tagged": true
+      },
+      {
+       "text": "this",
+       "start": 29.188,
+       "end": 29.688,
+       "_tagged": true
+      }
+     ]
+    },
+    {
+     "text": "Knowing what to do",
+     "start": 30.717,
+     "end": 32.497,
+     "words": [
+      {
+       "text": "Knowing",
+       "start": 30.717,
+       "end": 31.193,
+       "_tagged": true
+      },
+      {
+       "text": "what",
+       "start": 31.193,
+       "end": 31.565,
+       "_tagged": true
+      },
+      {
+       "text": "to",
+       "start": 31.565,
+       "end": 32.097,
+       "_tagged": true
+      },
+      {
+       "text": "do",
+       "start": 32.097,
+       "end": 33.455,
+       "_tagged": true
+      }
+     ]
+    },
+    {
+     "text": "Won't happen any day",
+     "start": 33.455,
+     "end": 34.989,
+     "words": [
+      {
+       "text": "Won't",
+       "start": 33.455,
+       "end": 33.79,
+       "_tagged": true
+      },
+      {
+       "text": "happen",
+       "start": 33.79,
+       "end": 34.301,
+       "_tagged": true
+      },
+      {
+       "text": "any",
+       "start": 34.301,
+       "end": 34.589,
+       "_tagged": true
+      },
+      {
+       "text": "day",
+       "start": 34.589,
+       "end": 35.089,
+       "_tagged": true
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "section": "Chorus",
+   "lines": [
+    {
+     "text": "I thought I was in front of her",
+     "start": 36.873,
+     "end": 40.235,
+     "words": [
+      {
+       "text": "I",
+       "start": 36.873,
+       "end": 37.186,
+       "_tagged": true
+      },
+      {
+       "text": "thought",
+       "start": 37.186,
+       "end": 37.595,
+       "_tagged": true
+      },
+      {
+       "text": "I",
+       "start": 37.595,
+       "end": 38.305,
+       "_tagged": true
+      },
+      {
+       "text": "was",
+       "start": 38.305,
+       "end": 38.551,
+       "_tagged": true
+      },
+      {
+       "text": "in",
+       "start": 38.551,
+       "end": 38.767,
+       "_tagged": true
+      },
+      {
+       "text": "front",
+       "start": 38.767,
+       "end": 39.129,
+       "_tagged": true
+      },
+      {
+       "text": "of",
+       "start": 39.129,
+       "end": 39.835,
+       "_tagged": true
+      },
+      {
+       "text": "her",
+       "start": 39.835,
+       "end": 40.207,
+       "_tagged": true
+      }
+     ]
+    },
+    {
+     "text": "I thought it was the great chance",
+     "start": 40.207,
+     "end": 42.599,
+     "words": [
+      {
+       "text": "I",
+       "start": 40.207,
+       "end": 40.36,
+       "_tagged": true
+      },
+      {
+       "text": "thought",
+       "start": 40.36,
+       "end": 40.502,
+       "_tagged": true
+      },
+      {
+       "text": "it",
+       "start": 40.502,
+       "end": 41.208,
+       "_tagged": true
+      },
+      {
+       "text": "was",
+       "start": 41.208,
+       "end": 41.462,
+       "_tagged": true
+      },
+      {
+       "text": "the",
+       "start": 41.462,
+       "end": 41.778,
+       "_tagged": true
+      },
+      {
+       "text": "great",
+       "start": 41.778,
+       "end": 42.199,
+       "_tagged": true
+      },
+      {
+       "text": "chance",
+       "start": 42.199,
+       "end": 43.016,
+       "_tagged": true
+      }
+     ]
+    },
+    {
+     "text": "I look through the glass...",
+     "start": 43.016,
+     "end": 44.644999999999996,
+     "words": [
+      {
+       "text": "I",
+       "start": 43.016,
+       "end": 43.162,
+       "_tagged": true
+      },
+      {
+       "text": "look",
+       "start": 43.162,
+       "end": 43.728,
+       "_tagged": true
+      },
+      {
+       "text": "through",
+       "start": 43.728,
+       "end": 44.052,
+       "_tagged": true
+      },
+      {
+       "text": "the",
+       "start": 44.052,
+       "end": 44.245,
+       "_tagged": true
+      },
+      {
+       "text": "glass...",
+       "start": 44.245,
+       "end": 44.745,
+       "_tagged": true
+      }
+     ]
+    },
+    {
+     "text": "...but I'm in front of me again!",
+     "start": 46.055,
+     "end": 48.091,
+     "words": [
+      {
+       "text": "...but",
+       "start": 46.055,
+       "end": 46.211,
+       "_tagged": true
+      },
+      {
+       "text": "I'm",
+       "start": 46.211,
+       "end": 46.386,
+       "_tagged": true
+      },
+      {
+       "text": "in",
+       "start": 46.386,
+       "end": 46.615,
+       "_tagged": true
+      },
+      {
+       "text": "front",
+       "start": 46.615,
+       "end": 47.377,
+       "_tagged": true
+      },
+      {
+       "text": "of",
+       "start": 47.377,
+       "end": 47.544,
+       "_tagged": true
+      },
+      {
+       "text": "me",
+       "start": 47.544,
+       "end": 47.691,
+       "_tagged": true
+      },
+      {
+       "text": "again!",
+       "start": 47.691,
+       "end": 49.176,
+       "_tagged": true
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "section": "Post-Chorus",
+   "lines": [
+    {
+     "text": "I look through the glass...",
+     "start": 49.176,
+     "end": 50.793,
+     "words": [
+      {
+       "text": "I",
+       "start": 49.176,
+       "end": 49.333,
+       "_tagged": true
+      },
+      {
+       "text": "look",
+       "start": 49.333,
+       "end": 49.88,
+       "_tagged": true
+      },
+      {
+       "text": "through",
+       "start": 49.88,
+       "end": 50.17,
+       "_tagged": true
+      },
+      {
+       "text": "the",
+       "start": 50.17,
+       "end": 50.393,
+       "_tagged": true
+      },
+      {
+       "text": "glass...",
+       "start": 50.393,
+       "end": 50.893,
+       "_tagged": true
+      }
+     ]
+    },
+    {
+     "text": "...but I'm in front of me again!",
+     "start": 52.217,
+     "end": 54.412,
+     "words": [
+      {
+       "text": "...but",
+       "start": 52.217,
+       "end": 52.376,
+       "_tagged": true
+      },
+      {
+       "text": "I'm",
+       "start": 52.376,
+       "end": 52.531,
+       "_tagged": true
+      },
+      {
+       "text": "in",
+       "start": 52.531,
+       "end": 52.898,
+       "_tagged": true
+      },
+      {
+       "text": "front",
+       "start": 52.898,
+       "end": 53.712,
+       "_tagged": true
+      },
+      {
+       "text": "of",
+       "start": 53.712,
+       "end": 53.86,
+       "_tagged": true
+      },
+      {
+       "text": "me",
+       "start": 53.86,
+       "end": 54.012,
+       "_tagged": true
+      },
+      {
+       "text": "again!",
+       "start": 54.012,
+       "end": 54.512,
+       "_tagged": true
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "section": "Bridge",
+   "lines": [
+    {
+     "text": "It's a mirror cry driving me",
+     "start": 74.164,
+     "end": 76.037,
+     "words": [
+      {
+       "text": "It's",
+       "start": 74.164,
+       "end": 74.302,
+       "_tagged": true
+      },
+      {
+       "text": "a",
+       "start": 74.302,
+       "end": 74.649,
+       "_tagged": true
+      },
+      {
+       "text": "mirror",
+       "start": 74.649,
+       "end": 75.272,
+       "_tagged": true
+      },
+      {
+       "text": "cry",
+       "start": 75.272,
+       "end": 75.427,
+       "_tagged": true
+      },
+      {
+       "text": "driving",
+       "start": 75.427,
+       "end": 75.637,
+       "_tagged": true
+      },
+      {
+       "text": "me",
+       "start": 75.637,
+       "end": 76.882,
+       "_tagged": true
+      }
+     ]
+    },
+    {
+     "text": "A ghost that won't let me be",
+     "start": 76.882,
+     "end": 79.53200000000001,
+     "words": [
+      {
+       "text": "A",
+       "start": 76.882,
+       "end": 77.023,
+       "_tagged": true
+      },
+      {
+       "text": "ghost",
+       "start": 77.023,
+       "end": 77.175,
+       "_tagged": true
+      },
+      {
+       "text": "that",
+       "start": 77.175,
+       "end": 77.944,
+       "_tagged": true
+      },
+      {
+       "text": "won't",
+       "start": 77.944,
+       "end": 78.374,
+       "_tagged": true
+      },
+      {
+       "text": "let",
+       "start": 78.374,
+       "end": 78.778,
+       "_tagged": true
+      },
+      {
+       "text": "me",
+       "start": 78.778,
+       "end": 79.132,
+       "_tagged": true
+      },
+      {
+       "text": "be",
+       "start": 79.132,
+       "end": 79.961,
+       "_tagged": true
+      }
+     ]
+    },
+    {
+     "text": "I won't lose the opportunity",
+     "start": 79.961,
+     "end": 81.66600000000001,
+     "words": [
+      {
+       "text": "I",
+       "start": 79.961,
+       "end": 80.121,
+       "_tagged": true
+      },
+      {
+       "text": "won't",
+       "start": 80.121,
+       "end": 80.537,
+       "_tagged": true
+      },
+      {
+       "text": "lose",
+       "start": 80.537,
+       "end": 81.124,
+       "_tagged": true
+      },
+      {
+       "text": "the",
+       "start": 81.124,
+       "end": 81.266,
+       "_tagged": true
+      },
+      {
+       "text": "opportunity",
+       "start": 81.266,
+       "end": 81.766,
+       "_tagged": true
+      }
+     ]
+    },
+    {
+     "text": "And that's why I'll miss it!",
+     "start": 83.041,
+     "end": 85.659,
+     "words": [
+      {
+       "text": "And",
+       "start": 83.041,
+       "end": 83.2,
+       "_tagged": true
+      },
+      {
+       "text": "that's",
+       "start": 83.2,
+       "end": 83.513,
+       "_tagged": true
+      },
+      {
+       "text": "why",
+       "start": 83.513,
+       "end": 84.557,
+       "_tagged": true
+      },
+      {
+       "text": "I'll",
+       "start": 84.557,
+       "end": 84.861,
+       "_tagged": true
+      },
+      {
+       "text": "miss",
+       "start": 84.861,
+       "end": 85.259,
+       "_tagged": true
+      },
+      {
+       "text": "it!",
+       "start": 85.259,
+       "end": 85.759,
+       "_tagged": true
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "section": "Verse 3",
+   "lines": [
+    {
+     "text": "In front of the perfect girl",
+     "start": 98.355,
+     "end": 100.305,
+     "words": [
+      {
+       "text": "In",
+       "start": 98.355,
+       "end": 98.665,
+       "_tagged": true
+      },
+      {
+       "text": "front",
+       "start": 98.665,
+       "end": 98.955,
+       "_tagged": true
+      },
+      {
+       "text": "of",
+       "start": 98.955,
+       "end": 99.13,
+       "_tagged": true
+      },
+      {
+       "text": "the",
+       "start": 99.13,
+       "end": 99.499,
+       "_tagged": true
+      },
+      {
+       "text": "perfect",
+       "start": 99.499,
+       "end": 99.905,
+       "_tagged": true
+      },
+      {
+       "text": "girl",
+       "start": 99.905,
+       "end": 100.405,
+       "_tagged": true
+      }
+     ]
+    },
+    {
+     "text": "Faking a perfect day",
+     "start": 101.516,
+     "end": 103.08500000000001,
+     "words": [
+      {
+       "text": "Faking",
+       "start": 101.516,
+       "end": 102.048,
+       "_tagged": true
+      },
+      {
+       "text": "a",
+       "start": 102.048,
+       "end": 102.233,
+       "_tagged": true
+      },
+      {
+       "text": "perfect",
+       "start": 102.233,
+       "end": 102.685,
+       "_tagged": true
+      },
+      {
+       "text": "day",
+       "start": 102.685,
+       "end": 103.185,
+       "_tagged": true
+      }
+     ]
+    },
+    {
+     "text": "No way I won't say hi",
+     "start": 104.578,
+     "end": 106.227,
+     "words": [
+      {
+       "text": "No",
+       "start": 104.578,
+       "end": 104.733,
+       "_tagged": true
+      },
+      {
+       "text": "way",
+       "start": 104.733,
+       "end": 104.878,
+       "_tagged": true
+      },
+      {
+       "text": "I",
+       "start": 104.878,
+       "end": 105.023,
+       "_tagged": true
+      },
+      {
+       "text": "won't",
+       "start": 105.023,
+       "end": 105.445,
+       "_tagged": true
+      },
+      {
+       "text": "say",
+       "start": 105.445,
+       "end": 105.827,
+       "_tagged": true
+      },
+      {
+       "text": "hi",
+       "start": 105.827,
+       "end": 106.327,
+       "_tagged": true
+      }
+     ]
+    },
+    {
+     "text": "Watching me ruin it again!",
+     "start": 107.688,
+     "end": 109.77900000000001,
+     "words": [
+      {
+       "text": "Watching",
+       "start": 107.688,
+       "end": 107.859,
+       "_tagged": true
+      },
+      {
+       "text": "me",
+       "start": 107.859,
+       "end": 109.106,
+       "_tagged": true
+      },
+      {
+       "text": "ruin",
+       "start": 109.106,
+       "end": 109.271,
+       "_tagged": true
+      },
+      {
+       "text": "it",
+       "start": 109.271,
+       "end": 109.379,
+       "_tagged": true
+      },
+      {
+       "text": "again!",
+       "start": 109.379,
+       "end": 109.879,
+       "_tagged": true
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "section": "Chorus",
+   "lines": [
+    {
+     "text": "I thought I was in front of her",
+     "start": 141.559,
+     "end": 144.261,
+     "words": [
+      {
+       "text": "I",
+       "start": 141.559,
+       "end": 141.767,
+       "_tagged": true
+      },
+      {
+       "text": "thought",
+       "start": 141.767,
+       "end": 142.137,
+       "_tagged": true
+      },
+      {
+       "text": "I",
+       "start": 142.137,
+       "end": 142.704,
+       "_tagged": true
+      },
+      {
+       "text": "was",
+       "start": 142.704,
+       "end": 142.881,
+       "_tagged": true
+      },
+      {
+       "text": "in",
+       "start": 142.881,
+       "end": 143.046,
+       "_tagged": true
+      },
+      {
+       "text": "front",
+       "start": 143.046,
+       "end": 143.345,
+       "_tagged": true
+      },
+      {
+       "text": "of",
+       "start": 143.345,
+       "end": 143.861,
+       "_tagged": true
+      },
+      {
+       "text": "her",
+       "start": 143.861,
+       "end": 144.602,
+       "_tagged": true
+      }
+     ]
+    },
+    {
+     "text": "I thought it was the great chance",
+     "start": 144.602,
+     "end": 147.193,
+     "words": [
+      {
+       "text": "I",
+       "start": 144.602,
+       "end": 144.764,
+       "_tagged": true
+      },
+      {
+       "text": "thought",
+       "start": 144.764,
+       "end": 144.928,
+       "_tagged": true
+      },
+      {
+       "text": "it",
+       "start": 144.928,
+       "end": 145.427,
+       "_tagged": true
+      },
+      {
+       "text": "was",
+       "start": 145.427,
+       "end": 146.137,
+       "_tagged": true
+      },
+      {
+       "text": "the",
+       "start": 146.137,
+       "end": 146.426,
+       "_tagged": true
+      },
+      {
+       "text": "great",
+       "start": 146.426,
+       "end": 146.793,
+       "_tagged": true
+      },
+      {
+       "text": "chance",
+       "start": 146.793,
+       "end": 147.6,
+       "_tagged": true
+      }
+     ]
+    },
+    {
+     "text": "I look through the glass...",
+     "start": 147.6,
+     "end": 149.255,
+     "words": [
+      {
+       "text": "I",
+       "start": 147.6,
+       "end": 147.776,
+       "_tagged": true
+      },
+      {
+       "text": "look",
+       "start": 147.776,
+       "end": 148.301,
+       "_tagged": true
+      },
+      {
+       "text": "through",
+       "start": 148.301,
+       "end": 148.676,
+       "_tagged": true
+      },
+      {
+       "text": "the",
+       "start": 148.676,
+       "end": 148.855,
+       "_tagged": true
+      },
+      {
+       "text": "glass...",
+       "start": 148.855,
+       "end": 149.355,
+       "_tagged": true
+      }
+     ]
+    },
+    {
+     "text": "...but I'm in front of me again!",
+     "start": 150.664,
+     "end": 152.899,
+     "words": [
+      {
+       "text": "...but",
+       "start": 150.664,
+       "end": 150.812,
+       "_tagged": true
+      },
+      {
+       "text": "I'm",
+       "start": 150.812,
+       "end": 150.959,
+       "_tagged": true
+      },
+      {
+       "text": "in",
+       "start": 150.959,
+       "end": 151.242,
+       "_tagged": true
+      },
+      {
+       "text": "front",
+       "start": 151.242,
+       "end": 152.213,
+       "_tagged": true
+      },
+      {
+       "text": "of",
+       "start": 152.213,
+       "end": 152.366,
+       "_tagged": true
+      },
+      {
+       "text": "me",
+       "start": 152.366,
+       "end": 152.499,
+       "_tagged": true
+      },
+      {
+       "text": "again!",
+       "start": 152.499,
+       "end": 152.899,
+       "_tagged": true
+      }
+     ]
+    }
+   ]
+  }
+ ]
+}
