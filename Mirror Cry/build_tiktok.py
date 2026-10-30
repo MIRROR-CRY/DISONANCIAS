@@ -12,6 +12,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 BEAT = 60 / 156
 BAR = BEAT * 4
 W, H, FPS = 1080, 1920, 30
+SHIFT = float(os.environ.get("SHIFT", 0.020))  # s: adelanta las palabras (compensa el retraso del tap)
 START, END = float(os.environ.get("START", 35.6)), float(os.environ.get("END", 55.6))
 B = "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"
 ACCENT, WHITE, DIM = (255, 92, 120), (255, 255, 255), (120, 124, 140)
@@ -23,7 +24,7 @@ def words_timed():
     for sec in d["sections"]:
         for ln in sec["lines"]:
             if START - 1 <= ln["start"] < END:
-                out.append([(w["text"], w["start"], w["end"]) for w in ln["words"]])
+                out.append([(w["text"], w["start"] - SHIFT, w["end"] - SHIFT) for w in ln["words"]])
     return out
 
 

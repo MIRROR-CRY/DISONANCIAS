@@ -13,6 +13,7 @@ B = "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"
 R = "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf"
 
 ACCENT = (255, 92, 120)
+SHIFT = float(os.environ.get("SHIFT", 0.020))  # s: adelanta las palabras (compensa el retraso del tap)
 TOTAL = 184.04
 
 
@@ -60,7 +61,7 @@ def main():
             ws = [w["text"] for w in ln["words"]]
             for i, w in enumerate(ln["words"]):
                 end = ln["words"][i + 1]["start"] if i + 1 < len(ws) else w["end"] + 0.3
-                ev.append((w["start"], end, ws, i, chorus, False))
+                ev.append((w["start"] - SHIFT, end - SHIFT, ws, i, chorus, False))
     full, last = [(0, ev[0][0], None, 0, False, True)], 0
     for e in ev:
         if e[0] > last + 1e-6 and last:
